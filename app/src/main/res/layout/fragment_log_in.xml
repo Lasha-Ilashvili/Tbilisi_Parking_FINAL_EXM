@@ -6,7 +6,7 @@
     tools:context=".presentation.screen.log_in.LogInFragment">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:src="@drawable/test_logIn"
+        android:src="@drawable/test_log_in"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
