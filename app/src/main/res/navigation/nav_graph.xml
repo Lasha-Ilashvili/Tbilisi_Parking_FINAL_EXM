@@ -19,9 +19,9 @@
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
-        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.registration.RegistrationFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.sign_up.SignUpFragment"
         android:label="fragment_registration"
-        tools:layout="@layout/fragment_registration" />
+        tools:layout="@layout/fragment_sign_up" />
     <fragment
         android:id="@+id/logInFragment"
         android:name="com.example.tbilisi_parking_final_exm.presentation.screen.log_in.LogInFragment"
@@ -49,7 +49,7 @@
         tools:layout="@layout/fragment_fines" />
     <fragment
         android:id="@+id/aditionalFragment"
-        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.aditional.aditionalFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.additional.additionalFragment"
         android:label="fragment_aditional"
-        tools:layout="@layout/fragment_aditional" />
+        tools:layout="@layout/fragment_additional" />
 </navigation>
