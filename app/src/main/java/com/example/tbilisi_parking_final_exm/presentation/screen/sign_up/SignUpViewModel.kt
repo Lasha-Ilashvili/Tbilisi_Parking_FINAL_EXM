@@ -15,7 +15,6 @@ class SignUpViewModel @Inject constructor(
 ) : ViewModel() {
 
     init {
-        d("ITsINSIDE", "hgd")
         viewModelScope.launch {
             signUpRepository.signUp(
                 email = "eve.holt@reqres.in",
