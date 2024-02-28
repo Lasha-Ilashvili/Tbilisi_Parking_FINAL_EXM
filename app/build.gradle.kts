@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -19,10 +21,32 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+
+//         val localPropertiesFile = rootProject.file("local.properties")
+//         val localProperties = new Properties()
+//        localProperties.load(new FileInputStream(localPropertiesFile))
+
+//        val localPropertiesFile = rootProject.file("local.properties")
+//        val properties = Properties().apply {
+//            load(localPropertiesFile.inputStream())
+//        }
+//        buildConfigField("String", "BASE_URL", "\"${properties.getP}\"")
+
+
     }
 
     buildTypes {
+        val localPropertiesFile = rootProject.file("local.properties")
+        val properties = Properties().apply {
+            load(localPropertiesFile.inputStream())
+        }
+        debug {
+            buildConfigField("String", "BASE_URL", "\"${properties.getProperty("BASE_URL")}\"")
+        }
         release {
+            buildConfigField("String", "BASE_URL", "\"${properties.getProperty("BASE_URL")}\"")
+
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -39,6 +63,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -53,19 +78,21 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     // Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.6")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.6")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
 
     // Di
     implementation("com.google.dagger:hilt-android:2.50")
     kapt("com.google.dagger:hilt-android-compiler:2.50")
 
     // Room
-    val room_version = "2.6.1"
+    implementation("androidx.room:room-runtime:2.6.1")
+    ksp("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
 
-    implementation("androidx.room:room-runtime:$room_version")
-    ksp("androidx.room:room-compiler:$room_version")
-    implementation("androidx.room:room-ktx:$room_version")
+    //    logging interceptor
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
     // Api
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")

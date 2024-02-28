@@ -1,14 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".presentation.screen.home.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <androidx.appcompat.widget.AppCompatImageView
-        android:src="@drawable/test_home"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSignUp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginTop="250dp"
+        android:background="@drawable/sign_up_background"
+        android:text="Sign In"
+        android:textColor="@color/white"
+        android:textSize="17sp" />
 
-</FrameLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnRegistration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/create_account_background"
+        android:text="Create Account"
+        android:textColor="@color/light_blue"
+        android:textSize="17sp" />
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
