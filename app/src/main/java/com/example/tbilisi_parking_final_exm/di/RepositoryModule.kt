@@ -2,8 +2,11 @@ package com.example.tbilisi_parking_final_exm.di
 
 import com.example.tbilisi_parking_final_exm.data.common.HandleResponse
 import com.example.tbilisi_parking_final_exm.data.repository.log_in.LogInRepositoryImpl
-import com.example.tbilisi_parking_final_exm.data.service.LogInService
+import com.example.tbilisi_parking_final_exm.data.service.log_in.LogInService
 import com.example.tbilisi_parking_final_exm.domain.repository.log_in.LogInRepository
+import com.example.tbilisi_parking_final_exm.data.repository.sign_up.SignUpRepositoryImpl
+import com.example.tbilisi_parking_final_exm.data.service.sign_up.SignUpService
+import com.example.tbilisi_parking_final_exm.domain.repository.sign_up.SignUpRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,7 +23,16 @@ object RepositoryModule {
     fun provideLogInRepository(
         logInService: LogInService,
         handleResponse: HandleResponse
-    ) : LogInRepository {
+    ): LogInRepository {
         return LogInRepositoryImpl(handleResponse = handleResponse, logInService = logInService)
+    }
+
+    @Singleton
+    @Provides
+    fun provideSignUpRepository(
+        signUpService: SignUpService,
+        handleResponse: HandleResponse
+    ): SignUpRepository {
+        return SignUpRepositoryImpl(signUpService = signUpService, handleResponse = handleResponse)
     }
 }

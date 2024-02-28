@@ -3,7 +3,7 @@ package com.example.tbilisi_parking_final_exm.presentation.screen.log_in
 import androidx.fragment.app.viewModels
 import com.example.tbilisi_parking_final_exm.databinding.FragmentLogInBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
-import com.example.tbilisi_parking_final_exm.presentation.event.log_in.LogInEvents
+import com.example.tbilisi_parking_final_exm.presentation.event.log_in.LogInEvent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,7 +24,7 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
 
     private fun logInUser(){
         viewModel.onEvent(
-            LogInEvents.LogIn(
+            LogInEvent.LogIn(
                 email = binding.etEmail.text.toString(),
                 password = binding.etPassword.text.toString()
             )

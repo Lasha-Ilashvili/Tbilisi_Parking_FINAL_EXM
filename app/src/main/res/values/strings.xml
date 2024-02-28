@@ -2,4 +2,19 @@
     <string name="app_name">Tbilisi_Parking_FINAL_EXM</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="terms_agreement">I have read and agree to the terms of use of the system</string>
+    <string name="terms_agreement_link">of use of the system</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="next">Next</string>
+    <string name="enter_personal_information">enter personal information</string>
+    <string name="personal_number">Personal number</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="mobile_number">Mobile number</string>
+    <string name="create_account">create account</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="repeat_password">Repeat Password</string>
+    <string name="invalid_input">Invalid input</string>
+    <string name="terms_and_agreements_url">https://static.municipal.gov.ge/terms-and-agreements/en.html</string>
 </resources>

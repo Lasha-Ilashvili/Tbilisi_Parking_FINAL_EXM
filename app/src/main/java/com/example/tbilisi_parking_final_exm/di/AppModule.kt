@@ -1,8 +1,10 @@
 package com.example.tbilisi_parking_final_exm.di
 
+
 import com.example.tbilisi_parking_final_exm.BuildConfig
 import com.example.tbilisi_parking_final_exm.data.common.HandleResponse
-import com.example.tbilisi_parking_final_exm.data.service.LogInService
+import com.example.tbilisi_parking_final_exm.data.service.log_in.LogInService
+import com.example.tbilisi_parking_final_exm.data.service.sign_up.SignUpService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -10,7 +12,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Credentials
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -22,15 +23,15 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-//    private const val BASE_URL = "https://reqres.in/api/"
 
-    @Provides
     @Singleton
+    @Provides
     fun provideLoggingInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
     }
+
 
     @Provides
     @Singleton
@@ -83,9 +84,17 @@ object AppModule {
         return retrofit.create(LogInService::class.java)
     }
 
+
     @Singleton
     @Provides
     fun provideHandleResponse(): HandleResponse {
         return HandleResponse()
     }
+
+    @Singleton
+    @Provides
+    fun provideSignUpService(retrofit: Retrofit): SignUpService {
+        return retrofit.create(SignUpService::class.java)
+    }
+
 }

@@ -7,30 +7,29 @@ import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
     override fun bind() {
-
     }
 
     override fun bindViewActionListeners() {
         with(binding) {
-            btnRegistration.setOnClickListener{
+            btnRegistration.setOnClickListener {
                 navigateToRegistrationFragment()
             }
 
-            btnSignUp.setOnClickListener{
+            btnSignUp.setOnClickListener {
                 navigateToSignUpFragment()
             }
         }
     }
 
     override fun bindObserves() {
-    }
 
+    }
 
     private fun navigateToRegistrationFragment() {
-        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToRegistrationFragment())
+        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToTermsFragment())
     }
 
-    private fun navigateToSignUpFragment(){
+    private fun navigateToSignUpFragment() {
         findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLogInFragment())
     }
 }

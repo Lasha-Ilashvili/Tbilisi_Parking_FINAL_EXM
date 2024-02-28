@@ -2,32 +2,30 @@ package com.example.tbilisi_parking_final_exm.presentation.screen.log_in
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tbilisi_parking_final_exm.data.common.Resource
 import com.example.tbilisi_parking_final_exm.domain.usecase.log_in.LogInUseCase
-import com.example.tbilisi_parking_final_exm.domain.usecase.validator.EmailValidatorUseCase
-import com.example.tbilisi_parking_final_exm.domain.usecase.validator.PasswordValidatorUseCase
-import com.example.tbilisi_parking_final_exm.presentation.event.log_in.LogInEvents
+import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.EmailValidatorUseCase
+import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.LogInPasswordValidatorUseCase
+import com.example.tbilisi_parking_final_exm.presentation.event.log_in.LogInEvent
 import com.example.tbilisi_parking_final_exm.presentation.state.log_in.LogInState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LogInViewModel @Inject constructor(
     private val emailValidatorUseCase: EmailValidatorUseCase,
-    private val passwordValidatorUseCase: PasswordValidatorUseCase,
+    private val passwordValidatorUseCase: LogInPasswordValidatorUseCase,
     private val logInUseCase: LogInUseCase
 ) : ViewModel() {
 
     private val _logInState = MutableStateFlow(LogInState())
     val logInState: SharedFlow<LogInState> = _logInState.asStateFlow()
-    fun onEvent(event: LogInEvents) {
+    fun onEvent(event: LogInEvent) {
         when (event) {
-            is LogInEvents.LogIn -> validateForms(email = event.email, password = event.password)
+            is LogInEvent.LogIn -> validateForms(email = event.email, password = event.password)
         }
     }
 

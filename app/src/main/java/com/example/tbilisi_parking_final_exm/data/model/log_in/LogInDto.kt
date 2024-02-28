@@ -13,5 +13,4 @@ data class LogInDto(
     val tokenType: String,
     @Json(name = "expires_in")
     val expiresIn: Int
-
 )
