@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="customLayoutPadding">
+        <item name="android:paddingTop">@dimen/padding_extra_large</item>
+        <item name="android:paddingBottom">@dimen/padding_extra_large</item>
+        <item name="android:paddingStart">@dimen/padding_large</item>
+        <item name="android:paddingEnd">@dimen/padding_large</item>
+    </style>
+
+    <style name="customButtonArrow">
+        <item name="android:layout_marginStart">@dimen/margin_negative_standard</item>
+        <item name="android:padding">@dimen/padding_small</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+    </style>
+
+    <style name="customPageTitle">
+        <item name="android:layout_marginStart">@dimen/margin_standard</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+    </style>
+
+    <style name="customFieldsTitle">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:layout_marginTop">@dimen/margin_top_large</item>
+        <item name="android:textSize">@dimen/text_size_large</item>
+    </style>
+
+    <style name="checkBoxStyle">
+        <item name="android:layout_marginStart">@dimen/margin_negative_small</item>
+        <item name="buttonTint">@color/blue</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+    </style>
+
+    <style name="customButton">
+        <item name="android:textAllCaps">false</item>
+        <item name="cornerRadius">@dimen/padding_small</item>
+        <item name="android:padding">@dimen/padding_standard</item>
+    </style>
+
+</resources>

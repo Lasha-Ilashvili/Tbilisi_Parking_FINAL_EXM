@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.Tbilisi_Parking_FINAL_EXM" parent="Theme.Material3.Light.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+
+    <style name="Theme.Tbilisi_Parking_FINAL_EXM" parent="Base.Theme.Tbilisi_Parking_FINAL_EXM">
+        <item name="colorOnPrimary">@color/white</item>
     </style>
+
 </resources>

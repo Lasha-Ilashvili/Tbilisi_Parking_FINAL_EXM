@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Padding Dimensions -->
+    <dimen name="padding_large">16dp</dimen>
+    <dimen name="padding_small">6dp</dimen>
+    <dimen name="padding_standard">14dp</dimen>
+    <dimen name="padding_extra_large">24dp</dimen>
+
+    <!-- Margin Dimensions -->
+    <dimen name="margin_standard">8dp</dimen>
+    <dimen name="margin_top_large">24dp</dimen>
+    <dimen name="margin_negative_small">-6dp</dimen>
+    <dimen name="margin_negative_standard">-8dp</dimen>
+
+    <!-- Text Dimensions-->
+    <dimen name="text_size_medium">16sp</dimen>
+    <dimen name="text_size_large">20sp</dimen>
+</resources>

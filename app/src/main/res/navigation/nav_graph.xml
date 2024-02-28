@@ -3,25 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/registrationFragment">
+    app:startDestination="@id/termsFragment">
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.tbilisi_parking_final_exm.presentation.screen.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_homeFragment_to_registrationFragment"
-            app:destination="@id/registrationFragment" />
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_logInFragment"
             app:destination="@id/logInFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_termsFragment"
+            app:destination="@id/termsFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/registrationFragment"
-        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.sign_up.SignUpFragment"
-        android:label="fragment_registration"
-        tools:layout="@layout/fragment_sign_up" />
     <fragment
         android:id="@+id/logInFragment"
         android:name="com.example.tbilisi_parking_final_exm.presentation.screen.log_in.LogInFragment"
@@ -52,4 +47,45 @@
         android:name="com.example.tbilisi_parking_final_exm.presentation.screen.additional.additionalFragment"
         android:label="fragment_aditional"
         tools:layout="@layout/fragment_additional" />
+    <fragment
+        android:id="@+id/termsFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.sign_up.terms.TermsFragment"
+        android:label="fragment_terms"
+        tools:layout="@layout/fragment_terms">
+        <action
+            android:id="@+id/action_termsFragment_to_personalInformationFragment"
+            app:destination="@id/personalInformationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/personalInformationFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.sign_up.personal_information.PersonalInformationFragment"
+        android:label="fragment_personal_information"
+        tools:layout="@layout/fragment_personal_information">
+        <action
+            android:id="@+id/action_personalInformationFragment_to_createAccountFragment"
+            app:destination="@id/createAccountFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createAccountFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.sign_up.create_account.CreateAccountFragment"
+        android:label="fragment_create_account"
+        tools:layout="@layout/fragment_create_account">
+        <action
+            android:id="@+id/action_createAccountFragment_to_logInFragment"
+            app:destination="@id/logInFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="personalNumber"
+            app:argType="string" />
+        <argument
+            android:name="firstName"
+            app:argType="string" />
+        <argument
+            android:name="lastName"
+            app:argType="string" />
+        <argument
+            android:name="mobileNumber"
+            app:argType="string" />
+    </fragment>
 </navigation>
