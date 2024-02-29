@@ -2,6 +2,7 @@ package com.example.tbilisi_parking_final_exm.presentation.screen.log_in
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.tbilisi_parking_final_exm.data.common.Resource
 import com.example.tbilisi_parking_final_exm.domain.usecase.log_in.LogInUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.EmailValidatorUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.FieldsAreNotBlankUseCase
@@ -49,6 +50,23 @@ class LogInViewModel @Inject constructor(
         viewModelScope.launch {
             logInUseCase(email = email, password = password).collect {
                 println("this is resource in logIn viewModel -> $it")
+                when( it) {
+                    is Resource.Success -> _logInState.update { currentState ->
+                        currentState.copy(
+
+                        )
+                    }
+
+                    is Resource.Error -> _logInState.update { currentState ->
+                        currentState.copy()
+                    }
+
+                    is Resource.Loading -> _logInState.update { currentState ->
+                        currentState.copy(
+                            isLoading = it.loading
+                        )
+                    }
+                }
 //                when (it) {
 //                    is Resource.Success -> _logInState.update {currentState ->
 //                        currentState.copy(

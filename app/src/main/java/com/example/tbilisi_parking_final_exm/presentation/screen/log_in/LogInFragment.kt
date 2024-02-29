@@ -1,5 +1,6 @@
 package com.example.tbilisi_parking_final_exm.presentation.screen.log_in
 
+import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -20,7 +21,6 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
     override fun bind() {
 
 
-
     }
 
     override fun bindViewActionListeners() {
@@ -35,15 +35,15 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
 
     override fun bindObserves() {
         viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.logInState.collect{
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.logInState.collect {
                     handleState(it)
                 }
             }
         }
     }
 
-    private fun logInUser(){
+    private fun logInUser() {
         viewModel.onEvent(
             LogInEvent.LogIn(
                 email = binding.etEmail.editText?.text.toString(),
@@ -63,5 +63,20 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
 
     private fun handleState(state: LogInState) = with(state) {
         binding.btnLogIn.isEnabled = isButtonEnabled
+
+        with(binding) {
+            if (isLoading) {
+                progressBar.root.visibility = View.VISIBLE
+                etEmail.visibility = View.GONE
+                etPassword.visibility = View.GONE
+                btnLogIn.visibility = View.GONE
+
+            } else {
+                progressBar.root.visibility = View.GONE
+                etEmail.visibility = View.VISIBLE
+                etPassword.visibility = View.VISIBLE
+                btnLogIn.visibility = View.VISIBLE
+            }
+        }
     }
 }

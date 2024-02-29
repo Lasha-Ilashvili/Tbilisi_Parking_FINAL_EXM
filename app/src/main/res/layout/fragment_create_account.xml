@@ -4,16 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <include
+        android:id="@+id/progressBar"
+        layout="@layout/loader"
+        android:visibility="gone"/>
     <androidx.constraintlayout.widget.ConstraintLayout
         style="@style/customLayoutPadding"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".presentation.screen.sign_up.personal_information.PersonalInformationFragment">
 
-        <include
-            android:id="@+id/progressBar"
-            layout="@layout/loader" />
+
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btnBack"
