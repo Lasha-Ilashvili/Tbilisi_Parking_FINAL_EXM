@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,58 +7,77 @@
     android:padding="16dp"
     tools:context=".presentation.screen.log_in.LogInFragment">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/imgBackArrow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/left_arrow"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvAuthorization"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:text="AUTHORIZATION"
-        android:textSize="17sp"
-        app:layout_constraintBottom_toBottomOf="@id/imgBackArrow"
-        app:layout_constraintStart_toEndOf="@id/imgBackArrow"
-        app:layout_constraintTop_toTopOf="@id/imgBackArrow" />
-
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/etEmail"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/customLayoutPadding"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:hint="Email"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgBackArrow" />
+        android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/etPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:layout_marginTop="10dp"
-        android:hint="Password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etEmail" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnLogIn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/deactivated"
-        android:textSize="17sp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/log_in_background"
-        android:text="Log In"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etPassword" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgBackArrow"
+            style="@style/customButtonArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back_arrow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvAuthorization"
+            style="@style/customPageTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AUTHORIZATION"
+            app:layout_constraintBottom_toBottomOf="@id/imgBackArrow"
+            app:layout_constraintStart_toEndOf="@id/imgBackArrow"
+            app:layout_constraintTop_toTopOf="@id/imgBackArrow" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvAuthorization">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEmailInput"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Email"
+                android:inputType="textEmailAddress" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etEmail">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPasswordInput"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Password"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogIn"
+            style="@style/customButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Log In"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etPassword" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

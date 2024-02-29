@@ -4,35 +4,39 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbilisi_parking_final_exm.domain.usecase.log_in.LogInUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.EmailValidatorUseCase
+import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.FieldsAreNotBlankUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.LogInPasswordValidatorUseCase
 import com.example.tbilisi_parking_final_exm.presentation.event.log_in.LogInEvent
 import com.example.tbilisi_parking_final_exm.presentation.state.log_in.LogInState
+import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LogInViewModel @Inject constructor(
-    private val emailValidatorUseCase: EmailValidatorUseCase,
-    private val passwordValidatorUseCase: LogInPasswordValidatorUseCase,
-    private val logInUseCase: LogInUseCase
+    private val emailValidator: EmailValidatorUseCase,
+    private val passwordValidator: LogInPasswordValidatorUseCase,
+    private val logInUseCase: LogInUseCase,
+    private val fieldsAreNotBlank: FieldsAreNotBlankUseCase
 ) : ViewModel() {
 
     private val _logInState = MutableStateFlow(LogInState())
     val logInState: SharedFlow<LogInState> = _logInState.asStateFlow()
-    fun onEvent(event: LogInEvent) {
-        when (event) {
-            is LogInEvent.LogIn -> validateForms(email = event.email, password = event.password)
+    fun onEvent(event: LogInEvent) = with(event) {
+        when (this) {
+            is LogInEvent.LogIn -> validateForms(email = email, password = password)
+            is LogInEvent.SetButtonState -> setButtonState(fields = fields)
         }
     }
 
     private fun validateForms(email: String, password: String) {
-        val isEmailValid = emailValidatorUseCase(email = email)
-        val isPasswordValid = passwordValidatorUseCase(password = password)
-
+        val isEmailValid = emailValidator(email = email)
+        val isPasswordValid = passwordValidator(password = password)
 
         if (isEmailValid && isPasswordValid) {
             logIn(email = email, password = password)
@@ -43,7 +47,7 @@ class LogInViewModel @Inject constructor(
 
     private fun logIn(email: String, password: String) {
         viewModelScope.launch {
-            logInUseCase(email = email, password = password).collect{
+            logInUseCase(email = email, password = password).collect {
                 println("this is resource in logIn viewModel -> $it")
 //                when (it) {
 //                    is Resource.Success -> _logInState.update {currentState ->
@@ -65,6 +69,14 @@ class LogInViewModel @Inject constructor(
 //                    }
 //                }
             }
+        }
+    }
+
+    private fun setButtonState(fields: List<TextInputLayout>) {
+        _logInState.update { currentState ->
+            currentState.copy(
+                isButtonEnabled = fieldsAreNotBlank(fields)
+            )
         }
     }
 }
