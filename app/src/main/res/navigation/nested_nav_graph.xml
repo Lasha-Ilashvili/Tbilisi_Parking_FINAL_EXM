@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nested_nav_graph"
+    app:startDestination="@id/parkingFragment">
+
+    <fragment
+        android:id="@+id/parkingFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.parking.ParkingFragment"
+        android:label="fragment_parking"
+        tools:layout="@layout/fragment_parking" />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.map.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" />
+    <fragment
+        android:id="@+id/cardsFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.cards.CardsFragment"
+        android:label="fragment_cards"
+        tools:layout="@layout/fragment_cards" />
+    <fragment
+        android:id="@+id/finesFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.fines.FinesFragment"
+        android:label="fragment_fines"
+        tools:layout="@layout/fragment_fines" />
+    <fragment
+        android:id="@+id/additionalFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.additional.AdditionalFragment"
+        android:label="fragment_additional"
+        tools:layout="@layout/fragment_additional" />
+</navigation>

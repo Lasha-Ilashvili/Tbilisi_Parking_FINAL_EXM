@@ -30,8 +30,10 @@ class LogInViewModel @Inject constructor(
     private val _logInState = MutableStateFlow(LogInState())
     val logInState: SharedFlow<LogInState> = _logInState.asStateFlow()
 
+
     private val _login = MutableSharedFlow<LoginUiEvent>()
     val uiEvent get() = _login
+
     fun onEvent(event: LogInEvent) = with(event) {
         when (this) {
             is LogInEvent.LogIn -> validateForms(email = email, password = password)
@@ -73,8 +75,10 @@ class LogInViewModel @Inject constructor(
         viewModelScope.launch {
             logInUseCase(email = email, password = password).collect {
                 println("this is resource in logIn viewModel -> $it")
+
                 when( it) {
                     is Resource.Success -> _login.emit(LoginUiEvent.NavigateToParkingFragment)
+
 
                     is Resource.Error -> _logInState.update { currentState ->
                         currentState.copy()
@@ -86,25 +90,6 @@ class LogInViewModel @Inject constructor(
                         )
                     }
                 }
-//                when (it) {
-//                    is Resource.Success -> _logInState.update {currentState ->
-//                        currentState.copy(
-//                            token = it.data
-//                        )
-//                    }
-//
-//                    is Resource.Loading ->  _logInState.update {currentState ->
-//                        currentState.copy(
-//                            isLoading = it.loading
-//                        )
-//                    }
-//
-//                    is Resource.Error -> _logInState.update { currentState ->
-//                        currentState.copy(
-//                            errorMessage = it.errorMessage
-//                        )
-//                    }
-//                }
             }
         }
     }
@@ -116,6 +101,7 @@ class LogInViewModel @Inject constructor(
             )
         }
     }
+
 
     sealed interface LoginUiEvent {
         data object NavigateToParkingFragment : LoginUiEvent

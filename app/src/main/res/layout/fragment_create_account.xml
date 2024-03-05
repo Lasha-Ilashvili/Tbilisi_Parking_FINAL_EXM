@@ -13,8 +13,7 @@
 
         <include
             android:id="@+id/progressBar"
-            layout="@layout/loader"
-            android:visibility="gone" />
+            layout="@layout/test_loading_layout" />
 
 
         <androidx.appcompat.widget.AppCompatImageButton
@@ -47,9 +46,9 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etEmail"
-            android:layout_marginTop="@dimen/margin_top_large"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_large"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTitle">
@@ -82,9 +81,9 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etRepeatPassword"
-            android:layout_marginTop="@dimen/margin_top_large"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_large"
             app:endIconMode="password_toggle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

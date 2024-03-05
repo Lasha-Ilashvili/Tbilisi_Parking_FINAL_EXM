@@ -10,7 +10,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+
 import com.example.tbilisi_parking_final_exm.R
+
 import com.example.tbilisi_parking_final_exm.databinding.FragmentLogInBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.log_in.LogInEvent
@@ -56,6 +58,7 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
+
                 setFragmentResultListener("requestKey") { _, bundle ->
                     val email = bundle.getString("email")
                     val password = bundle.getString("password")
@@ -77,10 +80,11 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
             }
         }
 
+
     }
 
     private fun handleUiState(event: LogInViewModel.LoginUiEvent) {
-        findNavController().navigate(LogInFragmentDirections.actionLogInFragmentToNestedNavGraph())
+        findNavController().navigate(LogInFragmentDirections.actionLogInFragmentToBottomNavFragment())
     }
 
 
@@ -125,4 +129,6 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
             }
         }
     }
+
+
 }

@@ -5,9 +5,14 @@
     android:layout_height="match_parent"
     tools:context=".presentation.screen.cards.CardsFragment">
 
- <androidx.appcompat.widget.AppCompatTextView
-     android:layout_width="match_parent"
-     android:text="cards fragment"
-     android:layout_height="match_parent"/>
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/cards"
+        android:textSize="40sp" />
+
 
 </FrameLayout>

@@ -31,6 +31,10 @@ class TermsFragment :
     }
 
     override fun bindViewActionListeners() = with(binding) {
+        btnBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         checkBox.setOnCheckedChangeListener { _, isChecked ->
             viewModel.onEvent(TermsEvent.SetButtonState(isChecked))
         }
