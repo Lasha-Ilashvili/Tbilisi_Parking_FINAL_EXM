@@ -67,10 +67,10 @@ class PersonalInformationViewModel @Inject constructor(
             listOf(isPersonalNumberValid, isFirstNameValid, isLastNameValid, isMobileNumberValid)
                 .all { it }
 
-        validateField(isPersonalNumberValid, personalNumber)
-        validateField(isFirstNameValid, firstName)
-        validateField(isLastNameValid, lastName)
-        validateField(isMobileNumberValid, mobileNumber)
+        updateErrorTextInputLayout(isPersonalNumberValid, personalNumber)
+        updateErrorTextInputLayout(isFirstNameValid, firstName)
+        updateErrorTextInputLayout(isLastNameValid, lastName)
+        updateErrorTextInputLayout(isMobileNumberValid, mobileNumber)
 
         if (!areFieldsValid) {
             return
@@ -84,11 +84,16 @@ class PersonalInformationViewModel @Inject constructor(
         )
     }
 
-    private fun validateField(isFieldValid: Boolean, textInputLayout: TextInputLayout) {
-        updateErrorTextInputLayout(
-            errorTextInputLayout = textInputLayout,
-            isErrorEnabled = !isFieldValid
-        )
+    private fun updateErrorTextInputLayout(
+        isFieldValid: Boolean,
+        errorTextInputLayout: TextInputLayout
+    ) {
+        _personalInformationState.update { currentState ->
+            currentState.copy(
+                errorTextInputLayout = errorTextInputLayout,
+                isErrorEnabled = !isFieldValid
+            )
+        }
     }
 
     private fun proceedToCreateAccount(
@@ -105,18 +110,6 @@ class PersonalInformationViewModel @Inject constructor(
                     lastName = lastName,
                     mobileNumber = mobileNumber
                 )
-            )
-        }
-    }
-
-    private fun updateErrorTextInputLayout(
-        errorTextInputLayout: TextInputLayout,
-        isErrorEnabled: Boolean
-    ) {
-        _personalInformationState.update { currentState ->
-            currentState.copy(
-                errorTextInputLayout = errorTextInputLayout,
-                isErrorEnabled = isErrorEnabled
             )
         }
     }

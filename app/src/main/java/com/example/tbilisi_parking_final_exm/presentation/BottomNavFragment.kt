@@ -20,8 +20,6 @@ class BottomNavFragment :
 
     private fun setBottomNavBar() {
         with(binding.bottomNav) {
-            selectedItemId = R.id.parkingFragment
-
             val nestedNavHostFragment = childFragmentManager.findFragmentById(
                 R.id.nested_nav_host_fragment
             ) as NavHostFragment
