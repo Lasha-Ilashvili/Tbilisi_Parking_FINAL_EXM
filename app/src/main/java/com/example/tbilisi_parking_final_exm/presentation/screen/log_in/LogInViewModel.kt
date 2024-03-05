@@ -11,6 +11,7 @@ import com.example.tbilisi_parking_final_exm.presentation.event.log_in.LogInEven
 import com.example.tbilisi_parking_final_exm.presentation.state.log_in.LogInState
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -28,6 +29,10 @@ class LogInViewModel @Inject constructor(
 
     private val _logInState = MutableStateFlow(LogInState())
     val logInState: SharedFlow<LogInState> = _logInState.asStateFlow()
+
+    private val _uiEvent = MutableSharedFlow<LogInUiEvent>()
+    val uiEvent get() = _uiEvent
+
     fun onEvent(event: LogInEvent) = with(event) {
         when (this) {
             is LogInEvent.LogIn -> validateForms(email = email, password = password)
@@ -50,12 +55,8 @@ class LogInViewModel @Inject constructor(
         viewModelScope.launch {
             logInUseCase(email = email, password = password).collect {
                 println("this is resource in logIn viewModel -> $it")
-                when( it) {
-                    is Resource.Success -> _logInState.update { currentState ->
-                        currentState.copy(
-
-                        )
-                    }
+                when (it) {
+                    is Resource.Success -> _uiEvent.emit(LogInUiEvent.NavigateToNestedNavGraph)
 
                     is Resource.Error -> _logInState.update { currentState ->
                         currentState.copy()
@@ -96,5 +97,9 @@ class LogInViewModel @Inject constructor(
                 isButtonEnabled = fieldsAreNotBlank(fields)
             )
         }
+    }
+
+    sealed interface LogInUiEvent {
+        data object NavigateToNestedNavGraph : LogInUiEvent
     }
 }

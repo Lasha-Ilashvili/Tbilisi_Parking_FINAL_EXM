@@ -1,7 +1,8 @@
 package com.example.tbilisi_parking_final_exm.presentation.screen.sign_up.create_account
 
 import android.os.Bundle
-import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -75,13 +76,13 @@ class CreateAccountFragment :
     private fun signUp() = with(binding) {
         viewModel.onEvent(
             CreateAccountEvent.SignUp(
-                    firstName = args.firstName,
-                    lastName = args.lastName,
-                    email = etEmail,
-                    mobileNumber = args.mobileNumber,
-                    password = etPassword,
-                    matchingPassword = etRepeatPassword,
-                    personalNumber = args.personalNumber
+                firstName = args.firstName,
+                lastName = args.lastName,
+                email = etEmail,
+                mobileNumber = args.mobileNumber,
+                password = etPassword,
+                matchingPassword = etRepeatPassword,
+                personalNumber = args.personalNumber
             )
         )
     }
@@ -89,8 +90,22 @@ class CreateAccountFragment :
     private fun handleState(createAccountState: CreateAccountState) =
         with(createAccountState) {
 
-            binding.progressBar.root.visibility =
-                if (isLoading) View.VISIBLE else View.GONE
+            binding.apply {
+                if (isLoading) {
+                    progressBar.root.visibility = VISIBLE
+                    etEmail.visibility = GONE
+                    etPassword.visibility = GONE
+                    etRepeatPassword.visibility = GONE
+                    btnNext.visibility = GONE
+
+                } else {
+                    progressBar.root.visibility = GONE
+                    etEmail.visibility = VISIBLE
+                    etPassword.visibility = VISIBLE
+                    etRepeatPassword.visibility = VISIBLE
+                    btnNext.visibility = VISIBLE
+                }
+            }
 
             errorMessage?.let {
                 binding.root.showToast(errorMessage)
