@@ -11,6 +11,7 @@ import com.example.tbilisi_parking_final_exm.presentation.event.log_in.LogInEven
 import com.example.tbilisi_parking_final_exm.presentation.state.log_in.LogInState
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -28,6 +29,9 @@ class LogInViewModel @Inject constructor(
 
     private val _logInState = MutableStateFlow(LogInState())
     val logInState: SharedFlow<LogInState> = _logInState.asStateFlow()
+
+    private val _login = MutableSharedFlow<LoginUiEvent>()
+    val uiEvent get() = _login
     fun onEvent(event: LogInEvent) = with(event) {
         when (this) {
             is LogInEvent.LogIn -> validateForms(email = email, password = password)
@@ -35,14 +39,33 @@ class LogInViewModel @Inject constructor(
         }
     }
 
-    private fun validateForms(email: String, password: String) {
-        val isEmailValid = emailValidator(email = email)
-        val isPasswordValid = passwordValidator(password = password)
+    private fun validateForms(email: TextInputLayout, password: TextInputLayout) {
+        val emailInput = email.editText?.text.toString()
+        val passwordInput = password.editText?.text.toString()
+
+
+
+        val isEmailValid = emailValidator(email = emailInput)
+        val isPasswordValid = passwordValidator(password = passwordInput)
+
+        updateErrorTextInputLayout(email, isEmailValid)
+        updateErrorTextInputLayout(password, isPasswordValid)
+
 
         if (isEmailValid && isPasswordValid) {
-            logIn(email = email, password = password)
-        } else {
-            println("incorrect inputs")
+            logIn(email = emailInput, password = passwordInput)
+        }
+    }
+
+    private fun updateErrorTextInputLayout(
+        errorTextInputLayout: TextInputLayout,
+        isFieldValid: Boolean
+    ) {
+        _logInState.update { currentState ->
+            currentState.copy(
+                errorTextInputLayout = errorTextInputLayout,
+                isErrorEnabled = !isFieldValid
+            )
         }
     }
 
@@ -51,11 +74,7 @@ class LogInViewModel @Inject constructor(
             logInUseCase(email = email, password = password).collect {
                 println("this is resource in logIn viewModel -> $it")
                 when( it) {
-                    is Resource.Success -> _logInState.update { currentState ->
-                        currentState.copy(
-
-                        )
-                    }
+                    is Resource.Success -> _login.emit(LoginUiEvent.NavigateToParkingFragment)
 
                     is Resource.Error -> _logInState.update { currentState ->
                         currentState.copy()
@@ -97,4 +116,9 @@ class LogInViewModel @Inject constructor(
             )
         }
     }
+
+    sealed interface LoginUiEvent {
+        data object NavigateToParkingFragment : LoginUiEvent
+    }
+
 }

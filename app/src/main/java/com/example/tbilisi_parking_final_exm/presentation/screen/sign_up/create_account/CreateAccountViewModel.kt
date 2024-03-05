@@ -102,6 +102,18 @@ class CreateAccountViewModel @Inject constructor(
         )
     }
 
+    private fun updateErrorTextInputLayout(
+        errorTextInputLayout: TextInputLayout,
+        isErrorEnabled: Boolean
+    ) {
+        _createAccountState.update { currentState ->
+            currentState.copy(
+                errorTextInputLayout = errorTextInputLayout,
+                isErrorEnabled = isErrorEnabled
+            )
+        }
+    }
+
     private fun signUp(user: User) {
         viewModelScope.launch {
             signUpUseCase(user).collect {
@@ -130,17 +142,7 @@ class CreateAccountViewModel @Inject constructor(
         }
     }
 
-    private fun updateErrorTextInputLayout(
-        errorTextInputLayout: TextInputLayout,
-        isErrorEnabled: Boolean
-    ) {
-        _createAccountState.update { currentState ->
-            currentState.copy(
-                errorTextInputLayout = errorTextInputLayout,
-                isErrorEnabled = isErrorEnabled
-            )
-        }
-    }
+
 
     private fun updateErrorMessage(message: String? = null) {
         _createAccountState.update { currentState ->
