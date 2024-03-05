@@ -1,5 +1,7 @@
 package com.example.tbilisi_parking_final_exm.presentation.screen.sign_up.personal_information
 
+import android.content.Context
+import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -31,6 +33,12 @@ class PersonalInformationFragment :
             addTextListeners(listOf(etPersonalNumber, etFirstName, etLastName, etMobileNumber))
 
             btnNext.setOnClickListener {
+                val inputMethodManager =
+                    requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+                inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
+
+
                 proceedToCreateAccount()
             }
         }

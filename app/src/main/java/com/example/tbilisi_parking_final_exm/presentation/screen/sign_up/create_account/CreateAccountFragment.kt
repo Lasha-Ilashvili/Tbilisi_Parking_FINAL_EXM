@@ -1,8 +1,10 @@
 package com.example.tbilisi_parking_final_exm.presentation.screen.sign_up.create_account
 
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -38,6 +40,11 @@ class CreateAccountFragment :
             addTextListeners(listOf(etEmail, etPassword, etRepeatPassword))
 
             btnNext.setOnClickListener {
+                val inputMethodManager =
+                    requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+
+                inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
+
                 signUp()
             }
         }
