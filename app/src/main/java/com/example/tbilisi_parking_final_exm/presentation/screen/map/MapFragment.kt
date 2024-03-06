@@ -9,6 +9,8 @@ class MapFragment : BaseFragment<FragmentMapBinding>(FragmentMapBinding::inflate
     }
 
     override fun bindViewActionListeners() {
+        binding.root.setOnClickListener {
+        }
     }
 
     override fun bindObserves() {

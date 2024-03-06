@@ -1,6 +1,7 @@
 package com.example.tbilisi_parking_final_exm.presentation
 
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.tbilisi_parking_final_exm.R
 import com.example.tbilisi_parking_final_exm.databinding.FragmentBottomNavBinding
@@ -10,11 +11,16 @@ import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 class BottomNavFragment :
     BaseFragment<FragmentBottomNavBinding>(FragmentBottomNavBinding::inflate) {
 
+
     override fun bind() {
         setBottomNavBar()
     }
 
-    override fun bindViewActionListeners() {}
+    override fun bindViewActionListeners() {
+        binding.navigateToHome.setOnClickListener{
+            findNavController().navigate(BottomNavFragmentDirections.actionBottomNavFragmentToHomeFragment())
+        }
+    }
 
     override fun bindObserves() {}
 
@@ -29,4 +35,5 @@ class BottomNavFragment :
             )
         }
     }
+
 }

@@ -33,5 +33,14 @@
     <dialog
         android:id="@+id/userPanelBottomSheet"
         android:name="com.example.tbilisi_parking_final_exm.presentation.screen.user_panel_bottom_sheet.UserPanelBottomSheet"
-        android:label="UserPanelBottomSheet" />
+        android:label="UserPanelBottomSheet" >
+        <action
+            android:id="@+id/action_userPanelBottomSheet_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.user_panel.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>
