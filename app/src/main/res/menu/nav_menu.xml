@@ -18,4 +18,8 @@
         android:id="@+id/finesFragment"
         android:title="@string/fines" />
 
+    <item
+        android:id="@+id/userPanelBottomSheet"
+        android:title="User Panel" />
+
 </menu>
