@@ -13,6 +13,12 @@ class BottomSheetListAdapter :
         BottomSheetItemDiffUtil()
     ) {
 
+    private var onItemClickListener: ((id: Int) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: (id: Int) -> Unit)  {
+        onItemClickListener = listener
+    }
+
     inner class BottomSheetItemViewHolder(private val binding: ItemUserPanelBottomSheetBinding) :
         RecyclerView.ViewHolder(binding.root) {
             private lateinit var item: UserPanelBottomSheetState
@@ -21,6 +27,9 @@ class BottomSheetListAdapter :
                 item = currentList[adapterPosition]
                 icon.setImageResource(item.icon)
                 tvTitle.text = item.title
+                root.setOnClickListener {
+                    onItemClickListener?.invoke(item.id)
+                }
             }
 
         }

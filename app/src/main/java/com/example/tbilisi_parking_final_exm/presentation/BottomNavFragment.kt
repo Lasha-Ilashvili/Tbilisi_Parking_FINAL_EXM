@@ -1,5 +1,6 @@
 package com.example.tbilisi_parking_final_exm.presentation
 
+import android.view.View
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -33,7 +34,18 @@ class BottomNavFragment :
             setupWithNavController(
                 nestedNavHostFragment.navController
             )
+
+            nestedNavHostFragment.navController.addOnDestinationChangedListener{_, destination, _ ->
+                val destinationsToHideBottomNav = setOf(R.id.profileFragment, R.id.settingsFragment, R.id.walletFragment)
+
+                if(destination.id in destinationsToHideBottomNav) {
+                    this.visibility = View.GONE
+                } else {
+                    this.visibility = View.VISIBLE
+                }
+            }
         }
     }
 
 }
+

@@ -37,10 +37,26 @@
         <action
             android:id="@+id/action_userPanelBottomSheet_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_userPanelBottomSheet_to_walletFragment"
+            app:destination="@id/walletFragment" />
+        <action
+            android:id="@+id/action_userPanelBottomSheet_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </dialog>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.tbilisi_parking_final_exm.presentation.screen.user_panel.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/walletFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.user_panel.wallet.WalletFragment"
+        android:label="fragment_wallet"
+        tools:layout="@layout/fragment_wallet" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.user_panel.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

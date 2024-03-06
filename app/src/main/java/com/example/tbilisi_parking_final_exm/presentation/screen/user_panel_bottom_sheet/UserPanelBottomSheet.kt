@@ -1,5 +1,6 @@
 package com.example.tbilisi_parking_final_exm.presentation.screen.user_panel_bottom_sheet
 
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tbilisi_parking_final_exm.databinding.FragmentUserPanelBottomSheetBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseBottomSheet
@@ -16,9 +17,7 @@ class UserPanelBottomSheet : BaseBottomSheet<FragmentUserPanelBottomSheetBinding
     }
 
     override fun bindViewActionListeners() {
-//        binding.tvTesting.setOnClickListener {
-//            findNavController().navigate(UserPanelBottomSheetDirections.actionUserPanelBottomSheetToProfileFragment())
-//        }
+
     }
 
     override fun bindObserves() {
@@ -33,5 +32,19 @@ class UserPanelBottomSheet : BaseBottomSheet<FragmentUserPanelBottomSheetBinding
         }
 
         bottomSheetListAdapter.submitList(UserPanelBottomSheetState.bottomSheetList)
+
+        recyclerItemClickListener()
+    }
+
+    private fun recyclerItemClickListener() {
+        bottomSheetListAdapter.setOnItemClickListener {
+            println(it)
+            when(it) {
+                0 -> findNavController().navigate(UserPanelBottomSheetDirections.actionUserPanelBottomSheetToProfileFragment())
+                1 -> findNavController().navigate(UserPanelBottomSheetDirections.actionUserPanelBottomSheetToWalletFragment())
+                2 -> findNavController().navigate(UserPanelBottomSheetDirections.actionUserPanelBottomSheetToSettingsFragment())
+            }
+
+        }
     }
 }
