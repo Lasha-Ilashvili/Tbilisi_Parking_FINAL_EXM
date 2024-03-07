@@ -2,11 +2,14 @@ package com.example.tbilisi_parking_final_exm.presentation.screen.map
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.graphics.drawable.Drawable
 import android.location.Address
 import android.location.Geocoder
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.lifecycleScope
 import com.example.tbilisi_parking_final_exm.R
 import com.example.tbilisi_parking_final_exm.databinding.FragmentMapBinding
@@ -17,6 +20,8 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
@@ -38,10 +43,6 @@ class MapFragment : BaseFragment<FragmentMapBinding>(FragmentMapBinding::inflate
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationPermissionLauncher: ActivityResultLauncher<Array<String>>
     private var userLocationMarker: Marker? = null
-
-    private val locations: List<Locations> by lazy {
-        readJsonToListOfLotInfo()
-    }
 
     @JsonClass(generateAdapter = true)
     data class Locations(
@@ -94,10 +95,28 @@ class MapFragment : BaseFragment<FragmentMapBinding>(FragmentMapBinding::inflate
                         MarkerOptions()
                             .title(location.lotNumber)
                             .position(it)
+                            .icon(
+                                AppCompatResources.getDrawable(
+                                    requireContext(),
+                                    R.drawable.ic_parking
+                                ).toBitmapDescriptor()
+                            )
                     )
                 }
             }
         }
+    }
+
+    private fun Drawable?.toBitmapDescriptor(): BitmapDescriptor {
+        if (this == null) {
+            return BitmapDescriptorFactory.defaultMarker()
+        }
+
+        return BitmapDescriptorFactory.fromBitmap(toBitmap())
+    }
+
+    private val locations: List<Locations> by lazy {
+        readJsonToListOfLotInfo()
     }
 
     private suspend fun String.toLatLng(): LatLng? = withContext(Dispatchers.IO) {
