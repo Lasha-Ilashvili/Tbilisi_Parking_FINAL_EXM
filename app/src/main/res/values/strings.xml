@@ -19,5 +19,6 @@
     <string name="cards">Cards</string>
     <string name="fines">Fines</string>
     <string name="parking">Parking</string>
+    <string name="permissions_denied">Permissions denied - unable to use current location</string>
 
 </resources>
