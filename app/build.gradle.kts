@@ -81,6 +81,7 @@ dependencies {
     // Moshi
     implementation("com.squareup.moshi:moshi:1.15.1")
     implementation("com.squareup.moshi:moshi-kotlin:1.15.1")
+    ksp("com.squareup.moshi:moshi-kotlin-codegen:1.15.1")
 
     // logging interceptor
     implementation(platform("com.squareup.okhttp3:okhttp-bom:4.12.0"))
@@ -94,10 +95,10 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
     // lottie animation
-    implementation ("com.airbnb.android:lottie:3.4.0")
+    implementation("com.airbnb.android:lottie:3.4.0")
 
     // Maps SDK
-    implementation ("com.google.android.gms:play-services-maps:18.2.0")
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
     implementation("com.google.android.gms:play-services-location:21.2.0")
 }
 
