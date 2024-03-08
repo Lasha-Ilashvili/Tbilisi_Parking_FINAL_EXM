@@ -6,6 +6,7 @@ import com.example.tbilisi_parking_final_exm.domain.usecase.map.LatLngUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.map.MarkerLocationsUseCase
 import com.example.tbilisi_parking_final_exm.presentation.event.map.MapEvent
 import com.example.tbilisi_parking_final_exm.presentation.mapper.map.toPresentation
+import com.example.tbilisi_parking_final_exm.presentation.model.map.MarkerLocation
 import com.example.tbilisi_parking_final_exm.presentation.state.map.MapState
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -34,15 +35,25 @@ class MapViewModel @Inject constructor(
 
     private fun setMarkers(jsonString: String) {
         viewModelScope.launch {
-            markerLocationsUseCase(jsonString = jsonString).forEach { getMarkerLocation ->
-                latLngUseCase(address = getMarkerLocation.address)?.let {
-                    _mapState.update { currentState ->
-                        currentState.copy(markerLocation = getMarkerLocation.toPresentation(it))
-                    }
-                }
-
+            _mapState.update { currentState ->
+                currentState.copy(markerLocation = markerLocationsUseCase(jsonString).map {
+                    it.toPresentation()
+                })
             }
         }
+    }
+
+
+    private suspend fun getMarkersList(jsonString: String): List<MarkerLocation> {
+        val markerLocations = mutableListOf<MarkerLocation>()
+
+//        markerLocationsUseCase(jsonString = jsonString).map { getMarkerLocation ->
+//            latLngUseCase(address = getMarkerLocation.address)?.let { latLng ->
+//                markerLocations.add(getMarkerLocation.toPresentation(latLng))
+//            }
+//        }
+
+        return markerLocations.toList()
     }
 
     private fun setUserLocation(userLatLng: LatLng) {

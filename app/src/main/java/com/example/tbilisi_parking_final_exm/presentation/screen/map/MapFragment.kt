@@ -2,13 +2,10 @@ package com.example.tbilisi_parking_final_exm.presentation.screen.map
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.graphics.drawable.Drawable
 import android.location.Location
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -19,17 +16,18 @@ import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.map.MapEvent
 import com.example.tbilisi_parking_final_exm.presentation.extension.showToast
 import com.example.tbilisi_parking_final_exm.presentation.model.map.MarkerLocation
+import com.example.tbilisi_parking_final_exm.presentation.screen.map.adapter.MarkerLocationsRenderer
 import com.example.tbilisi_parking_final_exm.presentation.state.map.MapState
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptor
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.maps.android.clustering.ClusterManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.io.InputStream
@@ -86,7 +84,16 @@ class MapFragment : BaseFragment<FragmentMapBinding>(FragmentMapBinding::inflate
 
     private fun handleState(mapState: MapState) = with(mapState) {
         markerLocation?.let {
-            addMarkers(it)
+
+            map.setOnMapLoadedCallback {
+                val bounds = LatLngBounds.builder()
+                it.forEach { location ->
+                    bounds.include(location.latLng)
+                }
+                map.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 200))
+            }
+
+            addClusteredMarkers(it)
         }
 
         userLatLng?.let {
@@ -98,18 +105,37 @@ class MapFragment : BaseFragment<FragmentMapBinding>(FragmentMapBinding::inflate
         }
     }
 
-    private fun addMarkers(location: MarkerLocation) {
-        map.addMarker(
-            MarkerOptions()
-                .title(location.lotNumber)
-                .position(location.latLng)
-                .icon(
-                    AppCompatResources.getDrawable(
-                        requireContext(),
-                        R.drawable.ic_parking
-                    ).toBitmapDescriptor()
-                )
-        )
+    private fun addClusteredMarkers(markerLocations: List<MarkerLocation>) {
+        val clusterManager = ClusterManager<MarkerLocation>(requireContext(), map)
+
+        clusterManager.renderer =
+            MarkerLocationsRenderer(
+                requireContext(),
+                map,
+                clusterManager
+            )
+
+        clusterManager.clearItems()
+        clusterManager.addItems(markerLocations)
+        clusterManager.cluster()
+
+        map.setOnCameraIdleListener {
+            clusterManager.onCameraIdle()
+        }
+
+//        val clusterManager = ClusterManager<MarkerLocation>(requireContext(), map)
+//
+//        clusterManager.renderer = DefaultClusterRenderer(requireContext(), map, clusterManager)
+//
+//        clusterManager.clearItems()
+//
+//        clusterManager.addItems(markerLocations)
+//
+//        clusterManager.cluster()
+//
+//        map.setOnCameraIdleListener {
+//            clusterManager.onCameraIdle()
+//        }
     }
 
     private fun setupLocationPermissionLauncher() {
@@ -160,13 +186,5 @@ class MapFragment : BaseFragment<FragmentMapBinding>(FragmentMapBinding::inflate
     private fun jsonToString(addresses: Int): String {
         val jsonFile: InputStream = requireContext().resources.openRawResource(addresses)
         return jsonFile.bufferedReader().use { it.readText() }
-    }
-
-    private fun Drawable?.toBitmapDescriptor(): BitmapDescriptor {
-        if (this == null) {
-            return BitmapDescriptorFactory.defaultMarker()
-        }
-
-        return BitmapDescriptorFactory.fromBitmap(toBitmap())
     }
 }

@@ -6,6 +6,6 @@ import com.google.android.gms.maps.model.LatLng
 
 data class MapState(
 //    val isLoading: Boolean = false,
-    val markerLocation: MarkerLocation? = null,
+    val markerLocation: List<MarkerLocation>? = null,
     val userLatLng: LatLng? = null
 )

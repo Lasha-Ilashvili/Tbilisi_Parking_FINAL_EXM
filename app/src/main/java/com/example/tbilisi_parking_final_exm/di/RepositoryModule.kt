@@ -55,8 +55,13 @@ object RepositoryModule {
     @Provides
     fun provideMarkerLocationsRepository(
         moshi: Moshi,
+        latLngService: LatLngService,
         handleResponse: HandleResponse
     ): MarkerLocationsRepository {
-        return MarkerLocationsRepositoryImpl(moshi = moshi, handleResponse = handleResponse)
+        return MarkerLocationsRepositoryImpl(
+            moshi = moshi,
+            latLngService = latLngService,
+            handleResponse = handleResponse
+        )
     }
 }
