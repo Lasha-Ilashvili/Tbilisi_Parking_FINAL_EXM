@@ -3,18 +3,23 @@ package com.example.tbilisi_parking_final_exm.presentation.screen.map
 import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
-import android.location.Address
-import android.location.Geocoder
+import android.location.Location
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.example.tbilisi_parking_final_exm.R
 import com.example.tbilisi_parking_final_exm.databinding.FragmentMapBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
+import com.example.tbilisi_parking_final_exm.presentation.event.map.MapEvent
 import com.example.tbilisi_parking_final_exm.presentation.extension.showToast
+import com.example.tbilisi_parking_final_exm.presentation.model.map.MarkerLocation
+import com.example.tbilisi_parking_final_exm.presentation.state.map.MapState
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -25,40 +30,20 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.JsonClass
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.Types
-import kotlinx.coroutines.Dispatchers
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.io.IOException
 import java.io.InputStream
 
 
+@AndroidEntryPoint
 class MapFragment : BaseFragment<FragmentMapBinding>(FragmentMapBinding::inflate) {
+
+    private val viewModel: MapViewModel by viewModels()
 
     private lateinit var map: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationPermissionLauncher: ActivityResultLauncher<Array<String>>
     private var userLocationMarker: Marker? = null
-
-    @JsonClass(generateAdapter = true)
-    data class Locations(
-        @Json(name = "lot_number") val lotNumber: String,
-        @Json(name = "location") val latLng: String
-    )
-
-    private fun readJsonToListOfLotInfo(): List<Locations> {
-        val jsonFile: InputStream = requireContext().resources.openRawResource(R.raw.addresses)
-        val jsonString = jsonFile.bufferedReader().use { it.readText() }
-
-        val moshi = Moshi.Builder().build()
-        val type = Types.newParameterizedType(List::class.java, Locations::class.java)
-        val adapter: JsonAdapter<List<Locations>> = moshi.adapter(type)
-        return adapter.fromJson(jsonString)!!
-    }
 
     override fun bind() {
         setupMap()
@@ -72,13 +57,26 @@ class MapFragment : BaseFragment<FragmentMapBinding>(FragmentMapBinding::inflate
         }
     }
 
+    override fun bindObserves() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.mapState.collect {
+                    handleState(it)
+                }
+            }
+        }
+    }
+
+    /* Implementation details */
+
     private fun setupMap() {
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+
         mapFragment.getMapAsync { googleMap ->
             map = googleMap
 
-            addMarkers(googleMap)
+            viewModel.onEvent(MapEvent.SetMarkers(jsonToString(R.raw.addresses)))
 
             map.setOnMapClickListener {
                 userLocationMarker?.remove()
@@ -86,65 +84,43 @@ class MapFragment : BaseFragment<FragmentMapBinding>(FragmentMapBinding::inflate
         }
     }
 
-    private fun addMarkers(googleMap: GoogleMap) {
-        viewLifecycleOwner.lifecycleScope.launch {
-            locations.forEach { location ->
-                val latLng = location.latLng.toLatLng()
-                latLng?.let {
-                    googleMap.addMarker(
-                        MarkerOptions()
-                            .title(location.lotNumber)
-                            .position(it)
-                            .icon(
-                                AppCompatResources.getDrawable(
-                                    requireContext(),
-                                    R.drawable.ic_parking
-                                ).toBitmapDescriptor()
-                            )
-                    )
-                }
-            }
+    private fun handleState(mapState: MapState) = with(mapState) {
+        markerLocation?.let {
+            addMarkers(it)
+        }
+
+        userLatLng?.let {
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(it, 19f))
+
+            userLocationMarker?.remove()
+
+            userLocationMarker = map.addMarker(MarkerOptions().position(it))
         }
     }
 
-    private fun Drawable?.toBitmapDescriptor(): BitmapDescriptor {
-        if (this == null) {
-            return BitmapDescriptorFactory.defaultMarker()
-        }
-
-        return BitmapDescriptorFactory.fromBitmap(toBitmap())
-    }
-
-    private val locations: List<Locations> by lazy {
-        readJsonToListOfLotInfo()
-    }
-
-    private suspend fun String.toLatLng(): LatLng? = withContext(Dispatchers.IO) {
-        try {
-            val geocoder = Geocoder(requireContext())
-            val addresses: MutableList<Address> =
-                geocoder.getFromLocationName(this@toLatLng, 1) ?: mutableListOf()
-            if (addresses.isNotEmpty()) {
-                val address = addresses[0]
-                LatLng(address.latitude, address.longitude)
-            } else {
-                null
-            }
-        } catch (e: IOException) {
-            null
-        }
+    private fun addMarkers(location: MarkerLocation) {
+        map.addMarker(
+            MarkerOptions()
+                .title(location.lotNumber)
+                .position(location.latLng)
+                .icon(
+                    AppCompatResources.getDrawable(
+                        requireContext(),
+                        R.drawable.ic_parking
+                    ).toBitmapDescriptor()
+                )
+        )
     }
 
     private fun setupLocationPermissionLauncher() {
         locationPermissionLauncher =
-            registerForActivityResult(
-                ActivityResultContracts.RequestMultiplePermissions()
-            ) { permissions ->
-                if (permissions.containsValue(true)) {
+            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+
+                if (permissions.containsValue(true))
                     showCurrentLocation()
-                } else {
+                else
                     binding.root.showToast(getString(R.string.permissions_denied))
-                }
+
             }
     }
 
@@ -163,113 +139,34 @@ class MapFragment : BaseFragment<FragmentMapBinding>(FragmentMapBinding::inflate
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-                location?.let {
-                    val userLatLng = LatLng(location.latitude, location.longitude)
-                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 19f))
-
-                    userLocationMarker?.remove()
-
-                    userLocationMarker = map.addMarker(MarkerOptions().position(userLatLng))
-                }
+                setUserLocation(location)
             }
         } else {
             binding.root.showToast(getString(R.string.permissions_denied))
         }
     }
 
-    override fun bindObserves() {
+    private fun setUserLocation(location: Location) {
+        viewModel.onEvent(
+            MapEvent.SetUserLocation(
+                LatLng(
+                    location.latitude,
+                    location.longitude
+                )
+            )
+        )
     }
 
+    private fun jsonToString(addresses: Int): String {
+        val jsonFile: InputStream = requireContext().resources.openRawResource(addresses)
+        return jsonFile.bufferedReader().use { it.readText() }
+    }
 
-    //    private lateinit var mMap: GoogleMap
-//
-//    override fun bind() {
-//        // Initialize the map fragment
-//
-//        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-//        mapFragment.getMapAsync(this)
-//    }
-//
-//    override fun bindViewActionListeners() {
-//
-//    }
-//
-//    override fun bindObserves() {
-//
-//    }
-//
-//    override fun onMapReady(googleMap: GoogleMap) {
-//        mMap = googleMap
-//        loadAddressesAndMarkers()
-//    }
-//
-//    private fun loadAddressesAndMarkers() {
-//        viewLifecycleOwner.lifecycleScope.launch {
-//            val addresses = readAndParseAddresses()
-//            placeMarkers(addresses)
-//        }
-//    }
-//
-//    private fun readAndParseAddresses(): List<String> {
-//        val jsonString = readJsonFile(R.raw.addresses)
-//        val jsonArray = JSONArray(jsonString)
-//        val addresses = mutableListOf<String>()
-//        for (i in 0 until jsonArray.length()) {
-//            addresses.add(jsonArray.getJSONObject(i).getString("data"))
-//        }
-//        return addresses
-//    }
-//
-//    private fun readJsonFile(resourceId: Int): String {
-//        val inputStream = resources.openRawResource(resourceId)
-//        val reader = BufferedReader(InputStreamReader(inputStream))
-//        return reader.readText()
-//    }
-//
-//    private fun placeMarkers(addresses: List<String>) {
-//        for (address in addresses) {
-//            // Use a geocoding service to get the LatLng for the address
-//            // For simplicity, this example assumes you have a function `getLatLngFromAddress`
-//            val latLng = getLatLngFromAddress(address)!!
-//            mMap.addMarker(MarkerOptions().position(latLng).title(address))
-//            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
-//        }
-//    }
-//
-//
-//    private fun getLatLngFromAddress(address: String): LatLng? {
-//        val coder = Geocoder(requireContext())
-//
-//        var res: LatLng? = null
-//
-//        try {
-//            coder.getFromLocationName(address, 1)?.let {
-//                val location = it[0]
-//                res = LatLng(location.latitude, location.longitude)
-//            }
-//        } catch (e: Exception) {
-//            return res
-//        }
-//        return res
-//    }
+    private fun Drawable?.toBitmapDescriptor(): BitmapDescriptor {
+        if (this == null) {
+            return BitmapDescriptorFactory.defaultMarker()
+        }
 
-    //    override fun bind() {
-//        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-//
-//        mapFragment.getMapAsync { googleMap ->
-//            addMarkers(googleMap)
-//        }
-//    }
-//
-//    private fun addMarkers(googleMap: GoogleMap) {
-//
-//    }
-//
-//    override fun bindViewActionListeners() {
-//
-//    }
-//
-//    override fun bindObserves() {
-//
-//    }
+        return BitmapDescriptorFactory.fromBitmap(toBitmap())
+    }
 }

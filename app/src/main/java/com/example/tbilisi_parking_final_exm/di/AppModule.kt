@@ -4,6 +4,7 @@ package com.example.tbilisi_parking_final_exm.di
 import com.example.tbilisi_parking_final_exm.BuildConfig
 import com.example.tbilisi_parking_final_exm.data.common.HandleResponse
 import com.example.tbilisi_parking_final_exm.data.service.log_in.LogInService
+import com.example.tbilisi_parking_final_exm.data.service.map.LatLngService
 import com.example.tbilisi_parking_final_exm.data.service.sign_up.SignUpService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -58,7 +59,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideMoshi(): MoshiConverterFactory {
+    fun provideMoshiFactory(): MoshiConverterFactory {
         return MoshiConverterFactory.create(
             Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
         )
@@ -71,7 +72,8 @@ object AppModule {
         moshiConverterFactory: MoshiConverterFactory
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
+//            .baseUrl(BuildConfig.BASE_URL)
+            .baseUrl("https://maps.googleapis.com/maps/api/geocode/")
             .client(okHttpClient)
             .addConverterFactory(moshiConverterFactory)
             .build()
@@ -97,4 +99,15 @@ object AppModule {
         return retrofit.create(SignUpService::class.java)
     }
 
+    @Singleton
+    @Provides
+    fun provideLatLngService(retrofit: Retrofit): LatLngService {
+        return retrofit.create(LatLngService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideMoshi(): Moshi {
+        return Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+    }
 }
