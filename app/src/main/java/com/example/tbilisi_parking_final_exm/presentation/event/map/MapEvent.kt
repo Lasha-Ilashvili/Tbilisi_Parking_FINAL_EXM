@@ -5,5 +5,7 @@ import com.google.android.gms.maps.model.LatLng
 
 sealed class MapEvent {
     data class SetUserLocation(val userLatLng: LatLng) : MapEvent()
+    data class UpdateUserLocation(val shouldShowUserLocation: Boolean) : MapEvent()
+    data object ResetErrorMessage : MapEvent()
     data class SetMarkers(val jsonString: String) : MapEvent()
 }

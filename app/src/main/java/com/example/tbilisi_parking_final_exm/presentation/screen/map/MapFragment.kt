@@ -14,6 +14,7 @@ import com.example.tbilisi_parking_final_exm.R
 import com.example.tbilisi_parking_final_exm.databinding.FragmentMapBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.map.MapEvent
+import com.example.tbilisi_parking_final_exm.presentation.extension.jsonToString
 import com.example.tbilisi_parking_final_exm.presentation.extension.showToast
 import com.example.tbilisi_parking_final_exm.presentation.model.map.MarkerLocation
 import com.example.tbilisi_parking_final_exm.presentation.screen.map.adapter.MarkerLocationsRenderer
@@ -24,13 +25,11 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.maps.android.clustering.ClusterManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.io.InputStream
 
 
 @AndroidEntryPoint
@@ -38,7 +37,8 @@ class MapFragment : BaseFragment<FragmentMapBinding>(FragmentMapBinding::inflate
 
     private val viewModel: MapViewModel by viewModels()
 
-    private lateinit var map: GoogleMap
+    private var map: GoogleMap? = null
+    private var clusterManager: ClusterManager<MarkerLocation>? = null
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationPermissionLauncher: ActivityResultLauncher<Array<String>>
     private var userLocationMarker: Marker? = null
@@ -51,6 +51,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(FragmentMapBinding::inflate
 
     override fun bindViewActionListeners() {
         binding.btnCurrentLocation.setOnClickListener {
+            viewModel.onEvent(MapEvent.UpdateUserLocation(shouldShowUserLocation = true))
             checkAndRequestPermissions()
         }
     }
@@ -72,81 +73,68 @@ class MapFragment : BaseFragment<FragmentMapBinding>(FragmentMapBinding::inflate
             childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
 
         mapFragment.getMapAsync { googleMap ->
-            map = googleMap
+            map = googleMap.apply {
+                checkAndRequestPermissions()
 
-            viewModel.onEvent(MapEvent.SetMarkers(jsonToString(R.raw.addresses)))
+                viewModel.onEvent(MapEvent.SetMarkers(R.raw.addresses.jsonToString(requireContext())))
 
-            map.setOnMapClickListener {
-                userLocationMarker?.remove()
+                setOnMapClickListener { _ ->
+                    userLocationMarker?.remove()
+                    viewModel.onEvent(MapEvent.UpdateUserLocation(shouldShowUserLocation = false))
+                }
+            }
+        }
+    }
+
+    private fun addClusteredMarkers(markerLocations: List<MarkerLocation>) {
+        map?.let { googleMap ->
+
+            if (clusterManager == null) {
+                initializeClusterManager(googleMap)
+            }
+
+            clusterManager?.apply {
+                addItems(markerLocations)
+                cluster()
+            }
+        }
+    }
+
+    private fun initializeClusterManager(googleMap: GoogleMap) {
+        clusterManager = ClusterManager<MarkerLocation>(requireContext(), googleMap).apply {
+            renderer = MarkerLocationsRenderer(requireContext(), googleMap, this)
+            googleMap.setOnCameraIdleListener {
+                onCameraIdle()
             }
         }
     }
 
     private fun handleState(mapState: MapState) = with(mapState) {
-        markerLocation?.let {
 
-            map.setOnMapLoadedCallback {
-                val bounds = LatLngBounds.builder()
-                it.forEach { location ->
-                    bounds.include(location.latLng)
-                }
-                map.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 200))
-            }
-
-            addClusteredMarkers(it)
+        errorMessage?.let {
+            binding.root.showToast(errorMessage)
+            viewModel.onEvent(MapEvent.ResetErrorMessage)
         }
 
-        userLatLng?.let {
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(it, 19f))
+        markerLocation?.let { markerLocations ->
+            addClusteredMarkers(markerLocations)
+        }
 
+        userLatLng?.let { userLatLng ->
             userLocationMarker?.remove()
 
-            userLocationMarker = map.addMarker(MarkerOptions().position(it))
+            map?.animateCamera(CameraUpdateFactory.newLatLngZoom(userLatLng, 19f))
+
+            userLocationMarker = map?.addMarker(MarkerOptions().position(userLatLng))
         }
-    }
-
-    private fun addClusteredMarkers(markerLocations: List<MarkerLocation>) {
-        val clusterManager = ClusterManager<MarkerLocation>(requireContext(), map)
-
-        clusterManager.renderer =
-            MarkerLocationsRenderer(
-                requireContext(),
-                map,
-                clusterManager
-            )
-
-        clusterManager.clearItems()
-        clusterManager.addItems(markerLocations)
-        clusterManager.cluster()
-
-        map.setOnCameraIdleListener {
-            clusterManager.onCameraIdle()
-        }
-
-//        val clusterManager = ClusterManager<MarkerLocation>(requireContext(), map)
-//
-//        clusterManager.renderer = DefaultClusterRenderer(requireContext(), map, clusterManager)
-//
-//        clusterManager.clearItems()
-//
-//        clusterManager.addItems(markerLocations)
-//
-//        clusterManager.cluster()
-//
-//        map.setOnCameraIdleListener {
-//            clusterManager.onCameraIdle()
-//        }
     }
 
     private fun setupLocationPermissionLauncher() {
         locationPermissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
 
-                if (permissions.containsValue(true))
+                if (permissions.containsValue(true) && viewModel.mapState.value.shouldShowUserLocation)
                     showCurrentLocation()
-                else
-                    binding.root.showToast(getString(R.string.permissions_denied))
-
             }
     }
 
@@ -181,10 +169,5 @@ class MapFragment : BaseFragment<FragmentMapBinding>(FragmentMapBinding::inflate
                 )
             )
         )
-    }
-
-    private fun jsonToString(addresses: Int): String {
-        val jsonFile: InputStream = requireContext().resources.openRawResource(addresses)
-        return jsonFile.bufferedReader().use { it.readText() }
     }
 }

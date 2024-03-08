@@ -6,6 +6,6 @@ import javax.inject.Inject
 class MarkerLocationsUseCase @Inject constructor(
     private val markerLocationsRepository: MarkerLocationsRepository
 ) {
-    suspend operator fun invoke(jsonString: String) =
+    operator fun invoke(jsonString: String) =
         markerLocationsRepository.getMarkerLocations(jsonString = jsonString)
 }

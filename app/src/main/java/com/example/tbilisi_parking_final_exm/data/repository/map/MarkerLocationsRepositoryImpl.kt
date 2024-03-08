@@ -1,64 +1,51 @@
 package com.example.tbilisi_parking_final_exm.data.repository.map
 
-import com.example.tbilisi_parking_final_exm.data.common.HandleResponse
+import com.example.tbilisi_parking_final_exm.data.common.Resource
+import com.example.tbilisi_parking_final_exm.data.data_source.map.LatLngDataSource
+import com.example.tbilisi_parking_final_exm.data.extension.toLatLng
 import com.example.tbilisi_parking_final_exm.data.mapper.map.toDomain
 import com.example.tbilisi_parking_final_exm.data.model.map.MarkerLocationDto
-import com.example.tbilisi_parking_final_exm.data.service.map.LatLngService
 import com.example.tbilisi_parking_final_exm.domain.model.map.GetMarkerLocation
 import com.example.tbilisi_parking_final_exm.domain.repository.map.MarkerLocationsRepository
-import com.google.android.gms.maps.model.LatLng
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
-import org.json.JSONObject
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class MarkerLocationsRepositoryImpl @Inject constructor(
     private val moshi: Moshi,
-    private val latLngService: LatLngService,
-    private val handleResponse: HandleResponse
+    private val latLngDataSource: LatLngDataSource
 ) : MarkerLocationsRepository {
 
+    override fun getMarkerLocations(jsonString: String): Flow<Resource<List<GetMarkerLocation>>> {
+        return flow {
 
-    override suspend fun getMarkerLocations(jsonString: String): List<GetMarkerLocation> {
-        val adapter: JsonAdapter<List<MarkerLocationDto>> = moshi.adapter<List<MarkerLocationDto>?>(
-            Types.newParameterizedType(List::class.java, MarkerLocationDto::class.java)
-        )
+            emit(Resource.Loading(loading = true))
 
-        val markers: MutableList<GetMarkerLocation> = mutableListOf()
+            val adapter: JsonAdapter<List<MarkerLocationDto>> = moshi.adapter(
+                Types.newParameterizedType(List::class.java, MarkerLocationDto::class.java)
+            )
 
-        adapter.fromJson(jsonString)!!.forEach { dto ->
-            locationNameToLatLng(dto.address)?.let {
-                markers.add(dto.toDomain(it))
-            }
-        }
+            val markers: MutableList<GetMarkerLocation> = mutableListOf()
 
-        return markers
-    }
+            adapter.fromJson(jsonString)!!.forEach { dto ->
+                val latLngResponse = latLngDataSource(dto.address)
 
-    private suspend fun locationNameToLatLng(address: String): LatLng? {
-
-        try {
-            val response = latLngService.getLatLng(address)
-
-            if (response.isSuccessful) {
-                response.body()?.string()?.let { jsonString ->
-                    if (jsonString.isNotEmpty()) {
-                        val locationObject = JSONObject(jsonString)
-                            .getJSONArray("results").getJSONObject(0)
-                            .getJSONObject("geometry").getJSONObject("location")
-
-                        return LatLng(
-                            locationObject.getDouble("lat"),
-                            locationObject.getDouble("lng")
-                        )
+                try {
+                    if (latLngResponse is Resource.Success) {
+                        markers.add(dto.toDomain(latLngResponse.data.toLatLng()))
                     }
+                } catch (e: Throwable) {
+                    emit(Resource.Loading(loading = false))
+                    emit(Resource.Error(errorMessage = e.message ?: ""))
                 }
             }
-        } catch (e: Throwable) {
-            return null
-        }
 
-        return null
+            emit(Resource.Loading(loading = false))
+
+            emit(Resource.Success(data = markers.toList()))
+        }
     }
 }
