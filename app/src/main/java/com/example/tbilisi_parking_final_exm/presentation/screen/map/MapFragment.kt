@@ -1,10 +1,13 @@
 package com.example.tbilisi_parking_final_exm.presentation.screen.map
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
+import android.provider.Settings
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -153,10 +156,32 @@ class MapFragment : BaseFragment<FragmentMapBinding>(FragmentMapBinding::inflate
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-                setUserLocation(location)
+                location?.let {
+                    setUserLocation(it)
+                } ?: showEnableLocationDialog()
             }
         } else {
             binding.root.showToast(getString(R.string.permissions_denied))
+        }
+    }
+
+    private fun showEnableLocationDialog() {
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+        setUpDialog(dialogBuilder)
+        dialogBuilder.create().show()
+    }
+
+    private fun setUpDialog(dialogBuilder: AlertDialog.Builder) = with(dialogBuilder) {
+        setTitle(getString(R.string.location_services_disabled))
+        setMessage(getString(R.string.asking_for_location))
+
+        setPositiveButton(getString(R.string.enable)) { _, _ ->
+            val locationSettingsIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+            startActivity(locationSettingsIntent)
+        }
+
+        setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
+            dialog.dismiss()
         }
     }
 

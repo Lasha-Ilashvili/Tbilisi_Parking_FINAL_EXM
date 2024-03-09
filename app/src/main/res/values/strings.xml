@@ -20,5 +20,9 @@
     <string name="fines">Fines</string>
     <string name="parking">Parking</string>
     <string name="permissions_denied">Permissions denied - unable to use current location</string>
+    <string name="location_services_disabled">Location Services Disabled</string>
+    <string name="asking_for_location">Please enable location services to use this feature</string>
+    <string name="enable">Enable</string>
+    <string name="cancel">Cancel</string>
 
 </resources>
