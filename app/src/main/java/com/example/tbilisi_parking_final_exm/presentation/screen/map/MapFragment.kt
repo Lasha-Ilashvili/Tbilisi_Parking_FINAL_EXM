@@ -1,10 +1,14 @@
 package com.example.tbilisi_parking_final_exm.presentation.screen.map
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.location.Location
 import android.provider.Settings
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
@@ -28,6 +32,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.maps.android.clustering.ClusterManager
@@ -79,6 +84,8 @@ class MapFragment : BaseFragment<FragmentMapBinding>(FragmentMapBinding::inflate
             map = googleMap.apply {
                 checkAndRequestPermissions()
 
+                setTheme(this)
+
                 viewModel.onEvent(MapEvent.SetMarkers(R.raw.addresses.jsonToString(requireContext())))
 
                 setOnMapClickListener { _ ->
@@ -86,6 +93,17 @@ class MapFragment : BaseFragment<FragmentMapBinding>(FragmentMapBinding::inflate
                     viewModel.onEvent(MapEvent.UpdateUserLocation(shouldShowUserLocation = false))
                 }
             }
+        }
+    }
+
+    private fun setTheme(googleMap: GoogleMap) {
+        if (isDarkMode(requireContext())) {
+            googleMap.setMapStyle(
+                MapStyleOptions.loadRawResourceStyle(
+                    requireContext(),
+                    R.raw.map_style_dark
+                )
+            )
         }
     }
 
@@ -113,6 +131,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(FragmentMapBinding::inflate
     }
 
     private fun handleState(mapState: MapState) = with(mapState) {
+        binding.loadingProgressBar.visibility = if (isLoading) VISIBLE else GONE
 
         errorMessage?.let {
             binding.root.showToast(errorMessage)
@@ -194,5 +213,9 @@ class MapFragment : BaseFragment<FragmentMapBinding>(FragmentMapBinding::inflate
                 )
             )
         )
+    }
+
+    private fun isDarkMode(context: Context): Boolean {
+        return (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
     }
 }
