@@ -1,11 +1,15 @@
 package com.example.tbilisi_parking_final_exm.di
 
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import com.example.tbilisi_parking_final_exm.data.common.HandleResponse
+import com.example.tbilisi_parking_final_exm.data.repository.datastore.DataStoreRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.log_in.LogInRepositoryImpl
-import com.example.tbilisi_parking_final_exm.data.service.log_in.LogInService
-import com.example.tbilisi_parking_final_exm.domain.repository.log_in.LogInRepository
 import com.example.tbilisi_parking_final_exm.data.repository.sign_up.SignUpRepositoryImpl
+import com.example.tbilisi_parking_final_exm.data.service.log_in.LogInService
 import com.example.tbilisi_parking_final_exm.data.service.sign_up.SignUpService
+import com.example.tbilisi_parking_final_exm.domain.repository.datastore.DataStoreRepository
+import com.example.tbilisi_parking_final_exm.domain.repository.log_in.LogInRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.sign_up.SignUpRepository
 import dagger.Module
 import dagger.Provides
@@ -35,4 +39,12 @@ object RepositoryModule {
     ): SignUpRepository {
         return SignUpRepositoryImpl(signUpService = signUpService, handleResponse = handleResponse)
     }
+
+    @Provides
+    @Singleton
+    fun provideDataStoreRepository(dataStore: DataStore<Preferences> ): DataStoreRepository {
+        return DataStoreRepositoryImpl(datastore =dataStore)
+    }
+
+
 }

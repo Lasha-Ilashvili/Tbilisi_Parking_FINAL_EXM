@@ -7,6 +7,7 @@ plugins {
     id("com.google.devtools.ksp")
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
+    id("org.jetbrains.kotlin.plugin.serialization")
 }
 
 android {
@@ -98,6 +99,12 @@ dependencies {
 
     // lottie animation
     implementation ("com.airbnb.android:lottie:3.4.0")
+
+    // datastore
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+
+    implementation("androidx.security:security-crypto:1.1.0-alpha06")
 }
 
 kapt {

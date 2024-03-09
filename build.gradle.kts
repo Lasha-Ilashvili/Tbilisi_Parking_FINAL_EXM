@@ -4,6 +4,8 @@ plugins {
     id("org.jetbrains.kotlin.android") version "1.9.22" apply false
     id("com.google.devtools.ksp") version "1.9.22-1.0.17" apply false
     id("com.google.dagger.hilt.android") version "2.50" apply false
+    kotlin("plugin.serialization") version "1.9.21"
+
 }
 buildscript {
     repositories {
@@ -11,5 +13,8 @@ buildscript {
     }
     dependencies {
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.7.7")
+        classpath ("org.jetbrains.kotlin:kotlin-serialization:1.9.22")
     }
 }
+
+
