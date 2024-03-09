@@ -16,6 +16,7 @@ import com.example.tbilisi_parking_final_exm.R
 import com.example.tbilisi_parking_final_exm.databinding.FragmentLogInBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.log_in.LogInEvent
+import com.example.tbilisi_parking_final_exm.presentation.extension.showToast
 import com.example.tbilisi_parking_final_exm.presentation.state.log_in.LogInState
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -112,6 +113,11 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
         errorTextInputLayout?.let {
             it.error = getString(R.string.invalid_input)
             it.isErrorEnabled = isErrorEnabled
+        }
+
+        errorMessage?.let {
+            binding.root.showToast(it)
+            viewModel.onEvent(LogInEvent.ResetErrorMessage)
         }
 
         with(binding) {

@@ -6,4 +6,7 @@ sealed class LogInEvent {
     data class LogIn(val email: TextInputLayout, val password: TextInputLayout): LogInEvent()
 
     data  class SetButtonState(val fields: List<TextInputLayout>) :LogInEvent()
+
+    data object ResetErrorMessage :LogInEvent()
+
 }

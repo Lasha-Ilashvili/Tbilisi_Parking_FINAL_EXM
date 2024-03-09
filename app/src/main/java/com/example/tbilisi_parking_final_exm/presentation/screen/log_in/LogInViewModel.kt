@@ -3,6 +3,8 @@ package com.example.tbilisi_parking_final_exm.presentation.screen.log_in
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbilisi_parking_final_exm.data.common.Resource
+import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.SaveAccessTokenUseCase
+import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.SaveRefreshTokenUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.log_in.LogInUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.EmailValidatorUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.FieldsAreNotBlankUseCase
@@ -24,7 +26,9 @@ class LogInViewModel @Inject constructor(
     private val emailValidator: EmailValidatorUseCase,
     private val passwordValidator: LogInPasswordValidatorUseCase,
     private val logInUseCase: LogInUseCase,
-    private val fieldsAreNotBlank: FieldsAreNotBlankUseCase
+    private val fieldsAreNotBlank: FieldsAreNotBlankUseCase,
+    private val saveAccessToken: SaveAccessTokenUseCase,
+    private val saveRefreshToken: SaveRefreshTokenUseCase
 ) : ViewModel() {
 
     private val _logInState = MutableStateFlow(LogInState())
@@ -38,13 +42,13 @@ class LogInViewModel @Inject constructor(
         when (this) {
             is LogInEvent.LogIn -> validateForms(email = email, password = password)
             is LogInEvent.SetButtonState -> setButtonState(fields = fields)
+            is LogInEvent.ResetErrorMessage -> updateErrorMessage(message = null)
         }
     }
 
     private fun validateForms(email: TextInputLayout, password: TextInputLayout) {
         val emailInput = email.editText?.text.toString()
         val passwordInput = password.editText?.text.toString()
-
 
 
         val isEmailValid = emailValidator(email = emailInput)
@@ -76,13 +80,15 @@ class LogInViewModel @Inject constructor(
             logInUseCase(email = email, password = password).collect {
                 println("this is resource in logIn viewModel -> $it")
 
-                when( it) {
-                    is Resource.Success -> _login.emit(LoginUiEvent.NavigateToParkingFragment)
-
-
-                    is Resource.Error -> _logInState.update { currentState ->
-                        currentState.copy()
+                when (it) {
+                    is Resource.Success -> {
+                        saveAccessToken(it.data.accessToken)
+                        saveRefreshToken(it.data.refreshToken)
+                        _login.emit(LoginUiEvent.NavigateToParkingFragment)
                     }
+
+
+                    is Resource.Error -> updateErrorMessage(it.errorMessage)
 
                     is Resource.Loading -> _logInState.update { currentState ->
                         currentState.copy(
@@ -98,6 +104,14 @@ class LogInViewModel @Inject constructor(
         _logInState.update { currentState ->
             currentState.copy(
                 isButtonEnabled = fieldsAreNotBlank(fields)
+            )
+        }
+    }
+
+    private fun updateErrorMessage(message: String?) {
+        _logInState.update { currentState ->
+            currentState.copy(
+                errorMessage = message
             )
         }
     }

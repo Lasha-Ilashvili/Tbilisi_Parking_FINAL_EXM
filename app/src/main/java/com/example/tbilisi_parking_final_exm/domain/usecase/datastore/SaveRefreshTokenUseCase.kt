@@ -4,7 +4,7 @@ import com.example.tbilisi_parking_final_exm.domain.repository.datastore.DataSto
 import com.example.tbilisi_parking_final_exm.domain.user_data_key.PreferenceKeys
 import javax.inject.Inject
 
-class SaveSecondStringUseCase @Inject constructor(
+class SaveRefreshTokenUseCase @Inject constructor(
     private val dataStoreRepository: DataStoreRepository
 ) {
     suspend operator fun invoke(secondString: String) {
