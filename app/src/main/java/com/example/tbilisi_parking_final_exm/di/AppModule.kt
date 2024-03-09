@@ -17,6 +17,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 
@@ -72,13 +73,31 @@ object AppModule {
         moshiConverterFactory: MoshiConverterFactory
     ): Retrofit {
         return Retrofit.Builder()
-//            .baseUrl(BuildConfig.BASE_URL)
+            .baseUrl(BuildConfig.BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(moshiConverterFactory)
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    @Named("RetrofitForMap")
+    fun provideRetrofitClientForMap(
+        okHttpClient: OkHttpClient,
+        moshiConverterFactory: MoshiConverterFactory
+    ): Retrofit {
+        return Retrofit.Builder()
             .baseUrl("https://maps.googleapis.com/maps/api/geocode/")
             .client(okHttpClient)
             .addConverterFactory(moshiConverterFactory)
             .build()
     }
 
+    @Singleton
+    @Provides
+    fun provideLatLngService(@Named("RetrofitForMap") retrofit: Retrofit): LatLngService {
+        return retrofit.create(LatLngService::class.java)
+    }
 
     @Singleton
     @Provides
@@ -97,12 +116,6 @@ object AppModule {
     @Provides
     fun provideSignUpService(retrofit: Retrofit): SignUpService {
         return retrofit.create(SignUpService::class.java)
-    }
-
-    @Singleton
-    @Provides
-    fun provideLatLngService(retrofit: Retrofit): LatLngService {
-        return retrofit.create(LatLngService::class.java)
     }
 
     @Singleton
