@@ -16,7 +16,7 @@
 
         <include
             android:id="@+id/progressBar"
-            layout="@layout/test_loading_layout" />
+            layout="@layout/loading_layout" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgBackArrow"

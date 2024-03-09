@@ -22,7 +22,7 @@ class MarkerLocationsRenderer(
     private val parkingIcon: BitmapDescriptor by lazy {
         AppCompatResources.getDrawable(
             context,
-            R.drawable.ic_parking
+            R.drawable.ic_parking_car
         ).toBitmapDescriptor()
     }
 

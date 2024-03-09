@@ -15,4 +15,7 @@
     <!-- Text Dimensions-->
     <dimen name="text_size_medium">16sp</dimen>
     <dimen name="text_size_large">20sp</dimen>
+
+    <dimen name="bottom_nav_text_size">12sp</dimen>
+    <dimen name="bottom_nav_item_padding">8dp</dimen>
 </resources>
