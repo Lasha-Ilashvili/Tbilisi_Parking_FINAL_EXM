@@ -7,11 +7,14 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStoreFile
+import com.example.tbilisi_parking_final_exm.domain.user_data_key.PreferenceKeys
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Singleton
 
 @Module
@@ -30,12 +33,12 @@ object DataStoreModule {
             produceFile = { context.preferencesDataStoreFile("settings") })
     }
 
-//    @Provides
-//    @Singleton
-//    fun provideAccessToken(dataStore: DataStore<Preferences>): Flow<String?> {
-//        return dataStore.data
-//            .map { preferences ->
-//                preferences[PreferenceKeys.accessToken,]
-//            }
-//    }
+    @Provides
+    @Singleton
+    fun provideAccessToken(dataStore: DataStore<Preferences>): Flow<String?> {
+        return dataStore.data
+            .map { preferences ->
+                preferences[PreferenceKeys.accessToken,]
+            }
+    }
 }

@@ -8,6 +8,6 @@ class GetAccessTokenUseCase @Inject constructor(
     private val dataStoreRepository: DataStoreRepository
 ) {
 
-    suspend operator fun invoke() = dataStoreRepository.readString(key = PreferenceKeys.accessToken)
+     operator fun invoke() = dataStoreRepository.readString(key = PreferenceKeys.accessToken)
 
 }

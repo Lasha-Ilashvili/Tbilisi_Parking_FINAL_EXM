@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/bottomNavFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -78,7 +78,7 @@
 
     <fragment
         android:id="@+id/bottomNavFragment"
-        android:name="com.example.tbilisi_parking_final_exm.presentation.BottomNavFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.bottomNavFragment.BottomNavFragment"
         android:label="fragment_bottom_nav"
         tools:layout="@layout/fragment_bottom_nav" >
         <action
