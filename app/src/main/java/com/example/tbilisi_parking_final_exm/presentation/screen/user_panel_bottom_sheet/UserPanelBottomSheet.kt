@@ -1,16 +1,14 @@
 package com.example.tbilisi_parking_final_exm.presentation.screen.user_panel_bottom_sheet
 
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tbilisi_parking_final_exm.databinding.FragmentUserPanelBottomSheetBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseBottomSheet
 import com.example.tbilisi_parking_final_exm.presentation.state.user_panel_bottom_sheet.UserPanelBottomSheetState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class UserPanelBottomSheet : BaseBottomSheet<FragmentUserPanelBottomSheetBinding>(FragmentUserPanelBottomSheetBinding::inflate){
-
-    private lateinit var bottomSheetListAdapter: BottomSheetListAdapter
+class UserPanelBottomSheet :
+    BaseBottomSheet<FragmentUserPanelBottomSheetBinding>(FragmentUserPanelBottomSheetBinding::inflate) {
 
     override fun bind() {
         setBottomSheetListAdapter()
@@ -24,27 +22,33 @@ class UserPanelBottomSheet : BaseBottomSheet<FragmentUserPanelBottomSheetBinding
     }
 
     private fun setBottomSheetListAdapter() {
-        bottomSheetListAdapter = BottomSheetListAdapter()
-
-        with(binding.userPanelBottomSheetRecycler) {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = bottomSheetListAdapter
+        binding.userPanelBottomSheetRecycler.adapter = BottomSheetListAdapter().apply {
+            submitList(UserPanelBottomSheetState.bottomSheetList)
+            recyclerItemClickListener(this)
         }
-
-        bottomSheetListAdapter.submitList(UserPanelBottomSheetState.bottomSheetList)
-
-        recyclerItemClickListener()
     }
 
-    private fun recyclerItemClickListener() {
+    private fun recyclerItemClickListener(bottomSheetListAdapter: BottomSheetListAdapter) {
         bottomSheetListAdapter.setOnItemClickListener {
-            println(it)
-            when(it) {
-                0 -> findNavController().navigate(UserPanelBottomSheetDirections.actionUserPanelBottomSheetToProfileFragment())
-                1 -> findNavController().navigate(UserPanelBottomSheetDirections.actionUserPanelBottomSheetToWalletFragment())
-                2 -> findNavController().navigate(UserPanelBottomSheetDirections.actionUserPanelBottomSheetToSettingsFragment())
-            }
+            when (it) {
+                UserPanelBottomSheetState.PROFILE.id -> {
+                    findNavController().navigate(
+                        UserPanelBottomSheetDirections.actionUserPanelBottomSheetToProfileFragment()
+                    )
+                }
 
+                UserPanelBottomSheetState.WALLET.id -> {
+                    findNavController().navigate(
+                        UserPanelBottomSheetDirections.actionUserPanelBottomSheetToWalletFragment()
+                    )
+                }
+
+                UserPanelBottomSheetState.SETTINGS.id -> {
+                    findNavController().navigate(
+                        UserPanelBottomSheetDirections.actionUserPanelBottomSheetToSettingsFragment()
+                    )
+                }
+            }
         }
     }
 }

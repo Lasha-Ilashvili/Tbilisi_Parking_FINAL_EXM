@@ -40,7 +40,7 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
 
             addTextListeners(listOf(etEmail, etPassword))
 
-            imgBackArrow.setOnClickListener {
+            btnBackArrow.setOnClickListener {
                 findNavController().navigate(LogInFragmentDirections.actionLogInFragmentToHomeFragment())
             }
         }

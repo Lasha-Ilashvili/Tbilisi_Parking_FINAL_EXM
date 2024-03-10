@@ -25,11 +25,6 @@
         android:name="com.example.tbilisi_parking_final_exm.presentation.screen.fines.FinesFragment"
         android:label="fragment_fines"
         tools:layout="@layout/fragment_fines" />
-    <fragment
-        android:id="@+id/additionalFragment"
-        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.additional.AdditionalFragment"
-        android:label="fragment_additional"
-        tools:layout="@layout/fragment_additional" />
     <dialog
         android:id="@+id/userPanelBottomSheet"
         android:name="com.example.tbilisi_parking_final_exm.presentation.screen.user_panel_bottom_sheet.UserPanelBottomSheet"

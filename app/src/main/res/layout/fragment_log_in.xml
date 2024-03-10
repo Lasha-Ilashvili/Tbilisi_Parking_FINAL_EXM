@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     tools:context=".presentation.screen.log_in.LogInFragment">
 
 
@@ -18,10 +17,9 @@
             android:id="@+id/progressBar"
             layout="@layout/loading_layout" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imgBackArrow"
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_back_arrow"
             style="@style/customButtonArrow"
-            android:background="?android:selectableItemBackgroundBorderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_back_arrow"
@@ -34,15 +32,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/authorization"
-            app:layout_constraintBottom_toBottomOf="@id/imgBackArrow"
-            app:layout_constraintStart_toEndOf="@id/imgBackArrow"
-            app:layout_constraintTop_toTopOf="@id/imgBackArrow" />
+            app:layout_constraintBottom_toBottomOf="@id/btn_back_arrow"
+            app:layout_constraintStart_toEndOf="@id/btn_back_arrow"
+            app:layout_constraintTop_toTopOf="@id/btn_back_arrow" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_top_large"
+            android:layout_marginTop="@dimen/margin_large"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvAuthorization">
@@ -60,8 +58,7 @@
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/margin_large"
             app:endIconMode="password_toggle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -78,7 +75,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogIn"
-            style="@style/customButton"
+            style="@style/customButtonMaterial"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"

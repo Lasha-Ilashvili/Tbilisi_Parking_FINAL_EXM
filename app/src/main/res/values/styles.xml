@@ -8,23 +8,32 @@
         <item name="android:paddingEnd">@dimen/padding_large</item>
     </style>
 
-    <style name="customButtonArrow">
-        <item name="tint">?android:attr/textColorPrimary</item>
-        <item name="android:layout_marginStart">@dimen/margin_negative_standard</item>
+    <style name="customButton">
+        <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
         <item name="android:padding">@dimen/padding_small</item>
         <item name="android:minWidth">0dp</item>
+        <item name="android:layout_marginStart">@dimen/margin_negative_standard</item>
         <item name="android:minHeight">0dp</item>
     </style>
 
+    <style name="customButtonArrow" parent="customButton">
+        <item name="tint">?android:attr/textColorPrimary</item>
+    </style>
+
     <style name="customPageTitle">
-        <item name="android:layout_marginStart">@dimen/margin_standard</item>
+        <item name="android:layout_marginStart">@dimen/margin_small</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textSize">@dimen/text_size_medium</item>
     </style>
 
+    <style name="customBottomNavPageTitle" parent="customPageTitle">
+        <item name="android:layout_marginTop">@dimen/margin_medium_plus</item>
+        <item name="android:layout_marginBottom">@dimen/margin_medium_plus</item>
+    </style>
+
     <style name="customFieldsTitle">
         <item name="android:textAllCaps">true</item>
-        <item name="android:layout_marginTop">@dimen/margin_top_large</item>
+        <item name="android:layout_marginTop">@dimen/margin_large</item>
         <item name="android:textSize">@dimen/text_size_large</item>
     </style>
 
@@ -35,7 +44,7 @@
         <item name="android:minHeight">0dp</item>
     </style>
 
-    <style name="customButton">
+    <style name="customButtonMaterial">
         <item name="android:textAllCaps">false</item>
         <item name="cornerRadius">@dimen/padding_small</item>
         <item name="android:padding">@dimen/padding_standard</item>

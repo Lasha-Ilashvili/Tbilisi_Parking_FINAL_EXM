@@ -21,7 +21,6 @@
             style="@style/customButtonArrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="?android:selectableItemBackgroundBorderless"
             android:src="@drawable/ic_back_arrow"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -48,7 +47,7 @@
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_top_large"
+            android:layout_marginTop="@dimen/margin_large"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTitle">
@@ -65,7 +64,7 @@
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_top_large"
+            android:layout_marginTop="@dimen/margin_large"
             app:endIconMode="password_toggle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -83,7 +82,7 @@
             android:id="@+id/etRepeatPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_top_large"
+            android:layout_marginTop="@dimen/margin_large"
             app:endIconMode="password_toggle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -99,7 +98,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnNext"
-            style="@style/customButton"
+            style="@style/customButtonMaterial"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
