@@ -40,4 +40,23 @@
         <item name="cornerRadius">@dimen/padding_small</item>
         <item name="android:padding">@dimen/padding_standard</item>
     </style>
+    
+
 </resources>
+
+<!--<shape xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--android:shape="rectangle">-->
+
+<!--&lt;!&ndash; Define the stroke color and width &ndash;&gt;-->
+<!--<stroke-->
+<!--    android:color="#000000" &lt;!&ndash; Stroke color &ndash;&gt;-->
+<!--android:width="2dp"/> &lt;!&ndash; Stroke width &ndash;&gt;-->
+
+<!--&lt;!&ndash; Define the pattern for the dotted stroke &ndash;&gt;-->
+<!--<stroke-->
+<!--    android:dashWidth="5dp" &lt;!&ndash; Width of each dash &ndash;&gt;-->
+<!--android:dashGap="5dp" /> &lt;!&ndash; Width of the gap between dashes &ndash;&gt;-->
+
+<!--&lt;!&ndash; Other attributes like corner radius, padding, etc. can be defined here if needed &ndash;&gt;-->
+
+<!--</shape>-->

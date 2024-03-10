@@ -9,7 +9,11 @@
         android:id="@+id/parkingFragment"
         android:name="com.example.tbilisi_parking_final_exm.presentation.screen.parking.ParkingFragment"
         android:label="fragment_parking"
-        tools:layout="@layout/fragment_parking" />
+        tools:layout="@layout/fragment_parking" >
+        <action
+            android:id="@+id/action_parkingFragment_to_addVehicleFragment"
+            app:destination="@id/addVehicleFragment" />
+    </fragment>
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.example.tbilisi_parking_final_exm.presentation.screen.map.MapFragment"
@@ -59,4 +63,9 @@
         android:name="com.example.tbilisi_parking_final_exm.presentation.screen.user_panel.settings.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/addVehicleFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.parking.addVehicle.AddVehicleFragment"
+        android:label="fragment_add_vehicle"
+        tools:layout="@layout/fragment_add_vehicle" />
 </navigation>
