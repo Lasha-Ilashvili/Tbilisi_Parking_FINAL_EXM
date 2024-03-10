@@ -19,7 +19,18 @@
     <string name="cards">Cards</string>
     <string name="fines">Fines</string>
     <string name="parking">Parking</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="permissions_denied">Permissions denied - unable to use current location</string>
+    <string name="location_services_disabled">Location Services Disabled</string>
+    <string name="asking_for_location">Please enable location services to use this feature</string>
+    <string name="enable">Enable</string>
+    <string name="cancel">Cancel</string>
+    <string name="sign_in">Sign In</string>
+    <string name="authorization">AUTHORIZATION</string>
+    <string name="log_in">Log In</string>
+    <string name="my_profile">My Profile</string>
+    <string name="full_name">Full Name</string>
+    <string name="user_panel">User Panel</string>
+
 
 </resources>

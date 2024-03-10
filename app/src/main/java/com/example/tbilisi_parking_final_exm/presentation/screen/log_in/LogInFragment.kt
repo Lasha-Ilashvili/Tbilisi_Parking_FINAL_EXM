@@ -78,8 +78,6 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
                 }
             }
         }
-
-
     }
 
     private fun handleUiState(event: LogInViewModel.LoginUiEvent) {

@@ -15,6 +15,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"/>
 
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nested_nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -31,10 +32,10 @@
         android:id="@+id/bottomNav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:translationY="0.7dp"
-        android:paddingTop="15dp"
         android:paddingBottom="10dp"
-        app:itemActiveIndicatorStyle="@android:color/transparent"
+        app:itemActiveIndicatorStyle="?android:attr/actionBarItemBackground"
+        app:itemIconTint="@drawable/bottom_nav_item_tint_selector"
+        app:itemTextColor="@drawable/bottom_nav_item_tint_selector"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

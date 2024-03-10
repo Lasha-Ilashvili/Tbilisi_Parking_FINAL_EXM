@@ -3,23 +3,27 @@
 
     <item
         android:id="@+id/parkingFragment"
+        android:icon="@drawable/ic_parking"
         android:title="@string/parking" />
 
     <item
         android:id="@+id/mapFragment"
-        android:enabled="true"
+        android:icon="@drawable/ic_map"
         android:title="@string/map" />
 
     <item
         android:id="@+id/cardsFragment"
+        android:icon="@drawable/ic_credit_card"
         android:title="@string/cards" />
 
     <item
         android:id="@+id/finesFragment"
+        android:icon="@drawable/ic_fines"
         android:title="@string/fines" />
 
     <item
+        android:icon="@drawable/ic_hamburger_menu"
         android:id="@+id/userPanelBottomSheet"
-        android:title="User Panel" />
+        android:title="@string/user_panel" />
 
 </menu>

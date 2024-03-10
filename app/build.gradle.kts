@@ -1,4 +1,4 @@
-import java.util.Properties
+import org.gradle.api.internal.DocumentationRegistry.BASE_URL
 
 plugins {
     id("com.android.application")
@@ -7,7 +7,7 @@ plugins {
     id("com.google.devtools.ksp")
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
-    id("org.jetbrains.kotlin.plugin.serialization")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -25,15 +25,11 @@ android {
     }
 
     buildTypes {
-        val localPropertiesFile = rootProject.file("local.properties")
-        val properties = Properties().apply {
-            load(localPropertiesFile.inputStream())
-        }
         debug {
-            buildConfigField("String", "BASE_URL", "\"${properties.getProperty("BASE_URL")}\"")
+            buildConfigField("String", "BASE_URL", "\"$BASE_URL\"")
         }
         release {
-            buildConfigField("String", "BASE_URL", "\"${properties.getProperty("BASE_URL")}\"")
+            buildConfigField("String", "BASE_URL", "\"$BASE_URL\"")
 
             isMinifyEnabled = false
             proguardFiles(
@@ -70,8 +66,8 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
 
     // Di
-    implementation("com.google.dagger:hilt-android:2.50")
-    kapt("com.google.dagger:hilt-android-compiler:2.50")
+    implementation("com.google.dagger:hilt-android:2.51")
+    kapt("com.google.dagger:hilt-android-compiler:2.51")
 
     // Room
     implementation("androidx.room:room-runtime:2.6.1")
@@ -83,8 +79,9 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
 
     // Moshi
-    implementation("com.squareup.moshi:moshi:1.15.0")
-    implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
+    implementation("com.squareup.moshi:moshi:1.15.1")
+    implementation("com.squareup.moshi:moshi-kotlin:1.15.1")
+    ksp("com.squareup.moshi:moshi-kotlin-codegen:1.15.1")
 
     // logging interceptor
     implementation(platform("com.squareup.okhttp3:okhttp-bom:4.12.0"))
@@ -102,11 +99,12 @@ dependencies {
 
     // datastore
     implementation("androidx.datastore:datastore-preferences:1.0.0")
-    implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
 
-    implementation("androidx.security:security-crypto:1.1.0-alpha06")
+    // Maps SDK
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
+    implementation("com.google.android.gms:play-services-location:21.2.0")
+    implementation("com.google.maps.android:android-maps-utils:2.0.1")
 }
-
 kapt {
     correctErrorTypes = false
 }

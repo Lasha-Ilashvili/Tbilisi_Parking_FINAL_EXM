@@ -21,5 +21,19 @@ class HandleResponse() {
         }
         emit(Resource.Loading(loading = false))
     }
+
+    suspend fun <T : Any> safeApiCallWithoutFlow(call: suspend () -> Response<T>): Resource<T> =
+        try {
+            val response = call()
+            val body = response.body()
+
+            if (response.isSuccessful && body != null) {
+                Resource.Success(data = body)
+            } else {
+                Resource.Error(errorMessage = response.errorBody().toString())
+            }
+        } catch (e: Throwable) {
+            Resource.Error(errorMessage = e.message ?: "")
+        }
 }
 

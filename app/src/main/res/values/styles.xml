@@ -9,6 +9,7 @@
     </style>
 
     <style name="customButtonArrow">
+        <item name="tint">?android:attr/textColorPrimary</item>
         <item name="android:layout_marginStart">@dimen/margin_negative_standard</item>
         <item name="android:padding">@dimen/padding_small</item>
         <item name="android:minWidth">0dp</item>
@@ -39,7 +40,4 @@
         <item name="cornerRadius">@dimen/padding_small</item>
         <item name="android:padding">@dimen/padding_standard</item>
     </style>
-
-
-
 </resources>
