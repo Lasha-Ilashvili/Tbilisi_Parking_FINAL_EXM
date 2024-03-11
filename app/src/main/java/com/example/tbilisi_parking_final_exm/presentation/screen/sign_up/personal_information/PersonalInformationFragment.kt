@@ -1,7 +1,5 @@
 package com.example.tbilisi_parking_final_exm.presentation.screen.sign_up.personal_information
 
-import android.content.Context
-import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -12,6 +10,7 @@ import com.example.tbilisi_parking_final_exm.R
 import com.example.tbilisi_parking_final_exm.databinding.FragmentPersonalInformationBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.sign_up.personal_information.PersonalInformationEvent
+import com.example.tbilisi_parking_final_exm.presentation.extension.hideKeyboard
 import com.example.tbilisi_parking_final_exm.presentation.state.sign_up.personal_information.PersonalInformationState
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,11 +32,7 @@ class PersonalInformationFragment :
             addTextListeners(listOf(etPersonalNumber, etFirstName, etLastName, etMobileNumber))
 
             btnNext.setOnClickListener {
-                val inputMethodManager =
-                    requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-
-                inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
-
+                it.hideKeyboard()
 
                 proceedToCreateAccount()
             }

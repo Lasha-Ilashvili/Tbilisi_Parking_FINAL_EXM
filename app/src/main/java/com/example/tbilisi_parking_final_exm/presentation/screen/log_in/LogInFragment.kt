@@ -1,8 +1,6 @@
 package com.example.tbilisi_parking_final_exm.presentation.screen.log_in
 
-import android.content.Context.INPUT_METHOD_SERVICE
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
@@ -14,6 +12,7 @@ import com.example.tbilisi_parking_final_exm.R
 import com.example.tbilisi_parking_final_exm.databinding.FragmentLogInBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.log_in.LogInEvent
+import com.example.tbilisi_parking_final_exm.presentation.extension.hideKeyboard
 import com.example.tbilisi_parking_final_exm.presentation.extension.showToast
 import com.example.tbilisi_parking_final_exm.presentation.state.log_in.LogInState
 import com.google.android.material.textfield.TextInputLayout
@@ -31,8 +30,7 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
     override fun bindViewActionListeners() {
         with(binding) {
             btnLogIn.setOnClickListener {
-                val inputMethodManager = requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
+                it.hideKeyboard()
 
                 logInUser()
 
