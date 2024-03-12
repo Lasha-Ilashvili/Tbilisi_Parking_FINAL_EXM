@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_rectangle"
+    android:elevation="10dp"
+    android:padding="@dimen/padding_standard">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvCardDetails"
+        style="@style/customFieldsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/card_details"
+        android:textSize="@dimen/text_size_medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_small"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/number_of_cards"
+        android:textAppearance="?attr/textAppearanceSubtitle2"
+        app:layout_constraintStart_toStartOf="@+id/etCardNumber"
+        app:layout_constraintTop_toTopOf="@+id/etCardNumber" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etCardNumber"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_marginTop="@dimen/margin_medium_plus"
+        app:hintEnabled="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCardDetails">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etCardNumberInput"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/card_number_hint"
+            android:inputType="number"
+            android:maxLength="19"
+            android:imeOptions="actionNext"
+            android:paddingBottom="0dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_small"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/date"
+        android:textAppearance="?attr/textAppearanceSubtitle2"
+        app:layout_constraintStart_toStartOf="@+id/etCardDate"
+        app:layout_constraintTop_toTopOf="@+id/etCardDate" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etCardDate"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="@dimen/margin_medium_plus"
+        android:layout_marginEnd="@dimen/margin_small"
+        app:hintEnabled="false"
+        app:layout_constraintEnd_toStartOf="@+id/etCVV"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etCardNumber">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etCardDateInput"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/date_hint"
+            android:inputType="number"
+            android:imeOptions="actionNext"
+            android:maxLength="5"
+            android:paddingBottom="0dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_small"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/cvv"
+        android:textAppearance="?attr/textAppearanceSubtitle2"
+        app:layout_constraintStart_toStartOf="@+id/etCVV"
+        app:layout_constraintTop_toTopOf="@+id/etCVV" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etCVV"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_medium_plus"
+        app:hintEnabled="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/etCardDate"
+        app:layout_constraintTop_toBottomOf="@+id/etCardNumber">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etCVVInput"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/cvv_hint"
+            android:imeOptions="actionDone"
+            android:inputType="numberPassword"
+            android:maxLength="3"
+            android:paddingBottom="0dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

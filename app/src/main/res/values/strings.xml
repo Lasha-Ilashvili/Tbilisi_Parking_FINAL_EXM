@@ -31,6 +31,15 @@
     <string name="my_profile">My Profile</string>
     <string name="full_name">Full Name</string>
     <string name="user_panel">User Panel</string>
+    <string name="add_balance">Add Balance</string>
+    <string name="enter_amount">Enter Amount</string>
+    <string name="card_details">card details</string>
+    <string name="number_of_cards">number of cards</string>
+    <string name="cvv">CVV</string>
+    <string name="date">Date</string>
+    <string name="date_hint">00/00</string>
+    <string name="card_number_hint">0000 0000 0000 0000</string>
+    <string name="cvv_hint">- - -</string>
 
 
 </resources>
