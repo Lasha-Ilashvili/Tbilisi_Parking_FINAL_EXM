@@ -35,7 +35,7 @@
         android:id="@+id/etNameOfVehicle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_top_large"
+        android:layout_marginTop="@dimen/margin_large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTitle">
@@ -53,7 +53,7 @@
         android:id="@+id/etPlateNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_top_large"
+        android:layout_marginTop="@dimen/margin_large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etNameOfVehicle">
@@ -79,7 +79,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAddVehicle"
-        style="@style/customButton"
+        style="@style/customButtonMaterial"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"

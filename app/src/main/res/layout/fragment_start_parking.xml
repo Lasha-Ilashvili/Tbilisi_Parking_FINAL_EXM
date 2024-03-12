@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/customLayoutPadding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".presentation.screen.sign_up.personal_information.PersonalInformationFragment">
+
+        <include
+            android:id="@+id/costLayout"
+            layout="@layout/start_parking_cost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/btnNext" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btnBack"
+            style="@style/customButtonArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back_arrow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/customPageTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/start_parking"
+            app:layout_constraintBottom_toBottomOf="@+id/btnBack"
+            app:layout_constraintStart_toEndOf="@+id/btnBack"
+            app:layout_constraintTop_toTopOf="@id/btnBack" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
+            android:text="Balance: 0.00GEL"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnBack" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPlateNumberText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
+            android:text="@string/plate_number"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvBalance" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPlateNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
+            android:textSize="@dimen/text_size_mega_large"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tvPlateNumberText"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnZoneA"
+            style="@style/customOutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginEnd="8dp"
+            android:text="@string/zone"
+            android:textColor="@color/dark_blue"
+            app:icon="@drawable/ic_letter_a"
+            app:iconTint="@color/dark_blue"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvPlateNumber"
+            app:strokeColor="@color/dark_blue" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnZoneB"
+            style="@style/customOutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/zone"
+            android:textColor="@color/yellow"
+            app:icon="@drawable/ic_letter_b"
+            app:iconTint="@color/yellow"
+            app:layout_constraintEnd_toStartOf="@+id/btnZoneC"
+            app:layout_constraintStart_toEndOf="@+id/btnZoneA"
+            app:layout_constraintTop_toTopOf="@+id/btnZoneA"
+            app:strokeColor="@color/yellow" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnZoneC"
+            style="@style/customOutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/zone"
+            android:textColor="@color/green"
+            app:icon="@drawable/ic_letter_c"
+            app:iconTint="@color/green"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnZoneA"
+            app:strokeColor="@color/green" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etLotNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
+            app:hintEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnZoneA">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etLotNumberInput"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/lot_number"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnNext"
+            style="@style/customButtonMaterial"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium_plus"
+            android:text="@string/next"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etLotNumber" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
