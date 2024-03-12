@@ -55,7 +55,6 @@ class ParkingViewModel @Inject constructor(
 
     private suspend fun getVehicles(userId: Int) {
         getAllVehicle(userId = userId).collect {
-            println("this is parking viewModel -> $it")
             when (it) {
                 is Resource.Loading -> _parkingState.update { currentState ->
                     currentState.copy(

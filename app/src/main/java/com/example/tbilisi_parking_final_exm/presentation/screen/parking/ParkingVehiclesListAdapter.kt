@@ -13,9 +13,14 @@ class ParkingVehiclesListAdapter :
 
 
     private var onItemClickListener: ((id: Int, name:String, plateNumber:String) -> Unit)? = null
+    private var onItemDotsClickListener: ((id: Int, name:String, plateNumber:String) -> Unit)? = null
 
     fun setOnItemClickListener(listener: (id: Int, name:String, plateNumber:String) -> Unit)  {
         onItemClickListener = listener
+    }
+
+    fun setOnItemDotsClickListener(listener: (id: Int, name: String, plateNumber: String) -> Unit){
+        onItemDotsClickListener = listener
     }
     inner class VehicleViewHolder(private val binding: ItemParkingVehicleLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -28,6 +33,10 @@ class ParkingVehiclesListAdapter :
                 root.setOnClickListener {
                     onItemClickListener?.invoke(item.id, item.name, item.plateNumber)
                 }
+                imgDots.setOnClickListener{
+                    onItemDotsClickListener?.invoke(item.id, item.name, item.plateNumber)
+                }
+
             }
         }
     }

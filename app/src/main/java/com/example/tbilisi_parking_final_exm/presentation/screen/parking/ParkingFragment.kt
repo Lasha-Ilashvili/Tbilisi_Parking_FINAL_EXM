@@ -41,11 +41,18 @@ class ParkingFragment : BaseFragment<FragmentParkingBinding>(FragmentParkingBind
         }
 
         vehicleClickListener()
+        vehicleDotsClickListener()
     }
 
     private fun vehicleClickListener(){
         parkingVehiclesListAdapter.setOnItemClickListener { id, name, plateNumber ->
-            println("this is parking fragment $id $name $plateNumber")
+//            println("vehicleItem clicked $id $name $plateNumber")
+        }
+    }
+
+    private fun vehicleDotsClickListener(){
+        parkingVehiclesListAdapter.setOnItemDotsClickListener { id, name, plateNumber ->
+//            println("dots has clicked $id $name $plateNumber")
         }
     }
     private fun setUpRecycler() {
