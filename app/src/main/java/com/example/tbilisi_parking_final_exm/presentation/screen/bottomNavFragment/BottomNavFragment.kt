@@ -62,7 +62,7 @@ class BottomNavFragment :
 
             nestedNavHostFragment.navController.addOnDestinationChangedListener { _, destination, _ ->
                 val destinationsToHideBottomNav =
-                    setOf(R.id.profileFragment, R.id.settingsFragment, R.id.walletFragment)
+                    setOf(R.id.profileFragment, R.id.settingsFragment, R.id.walletFragment, R.id.startParkingFragment, R.id.addVehicleFragment)
 
                 if (destination.id in destinationsToHideBottomNav) {
                     this.visibility = View.GONE
