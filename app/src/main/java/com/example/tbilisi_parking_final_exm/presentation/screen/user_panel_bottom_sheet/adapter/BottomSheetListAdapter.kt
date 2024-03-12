@@ -1,4 +1,4 @@
-package com.example.tbilisi_parking_final_exm.presentation.screen.user_panel_bottom_sheet
+package com.example.tbilisi_parking_final_exm.presentation.screen.user_panel_bottom_sheet.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

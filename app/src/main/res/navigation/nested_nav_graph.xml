@@ -3,13 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nested_nav_graph"
-    app:startDestination="@id/walletFragment">
+    app:startDestination="@id/parkingFragment">
 
     <fragment
         android:id="@+id/parkingFragment"
-        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.parking.ParkingFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.parking.main.ParkingFragment"
         android:label="fragment_parking"
-        tools:layout="@layout/fragment_parking" />
+        tools:layout="@layout/fragment_parking" >
+        <action
+            android:id="@+id/action_parkingFragment_to_addVehicleFragment"
+            app:destination="@id/addVehicleFragment" />
+        <action
+            android:id="@+id/action_parkingFragment_to_startParkingFragment"
+            app:destination="@id/startParkingFragment" />
+    </fragment>
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.example.tbilisi_parking_final_exm.presentation.screen.map.MapFragment"
@@ -54,4 +61,19 @@
         android:name="com.example.tbilisi_parking_final_exm.presentation.screen.user_panel.settings.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/addVehicleFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.parking.add_vehicle.AddVehicleFragment"
+        android:label="fragment_add_vehicle"
+        tools:layout="@layout/fragment_add_vehicle" />
+    <fragment
+        android:id="@+id/startParkingFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.parking.start_parking.StartParkingFragment"
+        android:label="StartParkingFragment"
+        tools:layout="@layout/fragment_start_parking"
+        >
+        <argument
+            android:name="plateNumber"
+            app:argType="string" />
+    </fragment>
 </navigation>

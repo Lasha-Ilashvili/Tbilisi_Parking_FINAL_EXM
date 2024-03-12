@@ -3,6 +3,7 @@ package com.example.tbilisi_parking_final_exm.presentation.screen.user_panel_bot
 import androidx.navigation.fragment.findNavController
 import com.example.tbilisi_parking_final_exm.databinding.FragmentUserPanelBottomSheetBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseBottomSheet
+import com.example.tbilisi_parking_final_exm.presentation.screen.user_panel_bottom_sheet.adapter.BottomSheetListAdapter
 import com.example.tbilisi_parking_final_exm.presentation.state.user_panel_bottom_sheet.UserPanelBottomSheetState
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,6 +31,7 @@ class UserPanelBottomSheet :
 
     private fun recyclerItemClickListener(bottomSheetListAdapter: BottomSheetListAdapter) {
         bottomSheetListAdapter.setOnItemClickListener {
+
             when (it) {
                 UserPanelBottomSheetState.PROFILE.id -> {
                     findNavController().navigate(

@@ -33,7 +33,6 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
                 it.hideKeyboard()
 
                 logInUser()
-
             }
 
             addTextListeners(listOf(etEmail, etPassword))

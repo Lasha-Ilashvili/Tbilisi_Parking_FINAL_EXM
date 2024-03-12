@@ -17,7 +17,8 @@ class LogInRepositoryImpl @Inject constructor(
 ): LogInRepository {
     override suspend fun logIn(user: GetUser): Flow<Resource<GetToken>> {
         return handleResponse.safeApiCall {
-            logInService.logIn(grantType = "custom_password", scope = "openid,profile", username = user.email, password = user.password)
+            logInService.logIn(grantType = "custom_password", scope = "openid,profile", username = user.email, password = user.password).apply {
+            }
         }.asResource {
             it.toDomain()
         }

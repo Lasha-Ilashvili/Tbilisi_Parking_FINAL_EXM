@@ -78,15 +78,12 @@ class LogInViewModel @Inject constructor(
     private fun logIn(email: String, password: String) {
         viewModelScope.launch {
             logInUseCase(email = email, password = password).collect {
-                println("this is resource in logIn viewModel -> $it")
-
                 when (it) {
                     is Resource.Success -> {
                         saveAccessToken(it.data.accessToken)
                         saveRefreshToken(it.data.refreshToken)
                         _login.emit(LoginUiEvent.NavigateToParkingFragment)
                     }
-
 
                     is Resource.Error -> updateErrorMessage(it.errorMessage)
 

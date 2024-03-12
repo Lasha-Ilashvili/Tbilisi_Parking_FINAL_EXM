@@ -23,7 +23,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     }
 
     override fun bindViewActionListeners() {
-        binding.btnBackArrow.setOnClickListener {
+
+        binding.btnBackArrow.setOnClickListener{
             findNavController().popBackStack()
         }
     }
@@ -55,6 +56,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         with(binding) {
             if (isLoading) {
                 progressBar.root.visibility = View.VISIBLE
+
             } else {
                 progressBar.root.visibility = View.GONE
 
