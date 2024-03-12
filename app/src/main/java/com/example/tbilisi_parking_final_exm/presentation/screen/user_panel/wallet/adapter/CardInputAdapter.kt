@@ -23,10 +23,12 @@ class CardInputAdapter(
             formattedString.append(cleanedString[index])
         }
 
-        editText.removeTextChangedListener(this)
-        editText.setText(formattedString.toString())
-        editText.setSelection(formattedString.length)
-        editText.addTextChangedListener(this)
+        editText.also {
+            it.removeTextChangedListener(this)
+            it.setText(formattedString.toString())
+            it.setSelection(formattedString.length)
+            it.addTextChangedListener(this)
+        }
     }
 
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
