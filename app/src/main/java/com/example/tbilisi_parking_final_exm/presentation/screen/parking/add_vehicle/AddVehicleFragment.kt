@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.example.tbilisi_parking_final_exm.R
 import com.example.tbilisi_parking_final_exm.databinding.FragmentAddVehicleBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
@@ -31,7 +32,7 @@ class AddVehicleFragment :
         with(binding) {
 
 
-            binding.btnAddVehicle.setOnClickListener {
+             btnAddVehicle.setOnClickListener {
                 val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
 
@@ -39,6 +40,10 @@ class AddVehicleFragment :
             }
 
             addTextListeners(listOf(etNameOfVehicle, etPlateNumber))
+
+            imgBackArrow.setOnClickListener{
+                findNavController().popBackStack()
+            }
         }
     }
 

@@ -5,6 +5,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.example.tbilisi_parking_final_exm.databinding.FragmentProfileBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.profile.ProfileEvent
@@ -22,7 +23,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     }
 
     override fun bindViewActionListeners() {
-
+        binding.imgBackArrow.setOnClickListener{
+            findNavController().popBackStack()
+        }
     }
 
     override fun bindObserves() {
