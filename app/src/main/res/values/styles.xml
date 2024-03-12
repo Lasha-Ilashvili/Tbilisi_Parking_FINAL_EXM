@@ -40,7 +40,6 @@
         <item name="cornerRadius">@dimen/padding_small</item>
         <item name="android:padding">@dimen/padding_standard</item>
     </style>
-    
 
 </resources>
 

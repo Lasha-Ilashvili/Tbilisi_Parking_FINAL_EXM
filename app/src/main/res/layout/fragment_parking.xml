@@ -22,15 +22,25 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
+        android:background="@drawable/add_vehicle_style"
         android:gravity="center"
         android:text="@string/add_vehicle"
         android:textColor="@color/green"
-         android:background="@drawable/add_vehicle_style"
         android:textSize="@dimen/text_size_large"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="30dp"
+        android:id="@+id/recyclerVehicle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAddVehicle" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

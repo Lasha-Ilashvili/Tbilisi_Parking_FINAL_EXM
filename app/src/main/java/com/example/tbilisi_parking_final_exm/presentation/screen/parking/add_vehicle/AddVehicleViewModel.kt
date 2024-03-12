@@ -14,6 +14,7 @@ import com.example.tbilisi_parking_final_exm.presentation.model.vehicle.add_vehi
 import com.example.tbilisi_parking_final_exm.presentation.state.parking.add_vehicle.AddVehicleState
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -31,6 +32,9 @@ class AddVehicleViewModel @Inject constructor(
 
     private val _addVehicleState = MutableStateFlow(AddVehicleState())
     val addVehicleState: SharedFlow<AddVehicleState> = _addVehicleState.asStateFlow()
+
+    private val _uiEvent = MutableSharedFlow<AddVehicleUiEvent>()
+    val uiEvent: SharedFlow<AddVehicleUiEvent> get() = _uiEvent
 
     fun onEvent(event: AddVehicleEvent) = with(event) {
         when (this) {
@@ -85,7 +89,17 @@ class AddVehicleViewModel @Inject constructor(
     private suspend fun addVehicle(name: String, plateNumber: String, userId: Int) {
         val vehicle = AddVehicle(userId = userId, name = name, plateNumber = plateNumber)
         addVehicleUseCase(vehicle.toDomain()).collect{
-            println("car added -> $it")
+            when (it) {
+                is Resource.Loading -> _addVehicleState.update { currentState ->
+                    currentState.copy(
+                        isLoading = it.loading
+                    )
+                }
+
+                is Resource.Error -> updateErrorMessage(it.errorMessage)
+
+                is Resource.Success -> _uiEvent.emit(AddVehicleUiEvent.NavigateToParking)
+            }
         }
     }
 
@@ -115,6 +129,10 @@ class AddVehicleViewModel @Inject constructor(
                 errorMessage = message
             )
         }
+    }
+
+    sealed interface AddVehicleUiEvent{
+        data object NavigateToParking : AddVehicleUiEvent
     }
 
 }

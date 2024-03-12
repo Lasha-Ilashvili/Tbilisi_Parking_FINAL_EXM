@@ -7,4 +7,6 @@
     <color name="light_blue">#068AFF</color>
     <color name="gray">#63485057</color>
     <color name="blue">#2883FE</color>
+    <color name="gray_transparent">#3385898D</color>
+
 </resources>

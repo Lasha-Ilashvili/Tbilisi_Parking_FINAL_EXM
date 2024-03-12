@@ -6,6 +6,7 @@ import com.example.tbilisi_parking_final_exm.data.common.Resource
 import com.example.tbilisi_parking_final_exm.domain.usecase.get_vehicles.GetAllVehicleUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.profile.GetProfileUseCase
 import com.example.tbilisi_parking_final_exm.presentation.event.parking.ParkingEvent
+import com.example.tbilisi_parking_final_exm.presentation.mapper.vehicle.toPresenter
 import com.example.tbilisi_parking_final_exm.presentation.state.parking.ParkingState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -54,6 +55,23 @@ class ParkingViewModel @Inject constructor(
     private suspend fun getVehicles(userId: Int) {
         getAllVehicle(userId = userId).collect{
             println("this is parking viewModel -> $it")
+            when(it){
+                is Resource.Loading -> _parkingState.update { currentState ->
+                    currentState.copy(
+                        isLoading = it.loading
+                    )
+                }
+
+                is Resource.Error -> updateErrorMessage(it.errorMessage)
+
+                is Resource.Success -> _parkingState.update { currentState ->
+                    currentState.copy(
+                        vehicles = it.data.map {
+                            it.toPresenter()
+                        }
+                    )
+                }
+            }
         }
     }
 

@@ -55,6 +55,14 @@ class AddVehicleFragment :
                 }
             }
         }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.uiEvent.collect{
+                    handleNavigationEvent(it)
+                }
+            }
+        }
     }
 
     private fun handleState(state: AddVehicleState) = with(state) {
@@ -82,5 +90,9 @@ class AddVehicleFragment :
                 viewModel.onEvent(AddVehicleEvent.SetButtonState(fields))
             }
         }
+    }
+
+    private fun handleNavigationEvent(event: AddVehicleViewModel.AddVehicleUiEvent) {
+        findNavController().popBackStack()
     }
 }
