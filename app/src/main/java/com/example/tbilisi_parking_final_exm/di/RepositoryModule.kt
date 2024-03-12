@@ -3,20 +3,23 @@ package com.example.tbilisi_parking_final_exm.di
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import com.example.tbilisi_parking_final_exm.data.common.HandleResponse
+import com.example.tbilisi_parking_final_exm.data.data_source.map.LatLngDataSource
+import com.example.tbilisi_parking_final_exm.data.repository.add_vehicle.AddVehicleRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.datastore.DataStoreRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.log_in.LogInRepositoryImpl
+import com.example.tbilisi_parking_final_exm.data.repository.map.MarkerLocationsRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.profile.ProfileRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.sign_up.SignUpRepositoryImpl
+import com.example.tbilisi_parking_final_exm.data.service.add_vehicle.AddVehicleService
 import com.example.tbilisi_parking_final_exm.data.service.log_in.LogInService
+import com.example.tbilisi_parking_final_exm.data.service.map.LatLngService
 import com.example.tbilisi_parking_final_exm.data.service.profile.ProfileService
 import com.example.tbilisi_parking_final_exm.data.service.sign_up.SignUpService
+import com.example.tbilisi_parking_final_exm.domain.repository.add_vehicle.AddVehicleRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.datastore.DataStoreRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.log_in.LogInRepository
-import com.example.tbilisi_parking_final_exm.domain.repository.profile.ProfileRepository
-import com.example.tbilisi_parking_final_exm.data.data_source.map.LatLngDataSource
-import com.example.tbilisi_parking_final_exm.data.repository.map.MarkerLocationsRepositoryImpl
-import com.example.tbilisi_parking_final_exm.data.service.map.LatLngService
 import com.example.tbilisi_parking_final_exm.domain.repository.map.MarkerLocationsRepository
+import com.example.tbilisi_parking_final_exm.domain.repository.profile.ProfileRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.sign_up.SignUpRepository
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -88,6 +91,18 @@ object RepositoryModule {
         return MarkerLocationsRepositoryImpl(
             moshi = moshi,
             latLngDataSource = latLngDataSource
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideAddVehicleRepository(
+        handleResponse: HandleResponse,
+        addVehicleService: AddVehicleService
+    ): AddVehicleRepository {
+        return AddVehicleRepositoryImpl(
+            handleResponse = handleResponse,
+            addVehicleService = addVehicleService
         )
     }
 

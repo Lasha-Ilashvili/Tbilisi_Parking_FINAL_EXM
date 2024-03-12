@@ -38,7 +38,6 @@ class UserPanelBottomSheet : BaseBottomSheet<FragmentUserPanelBottomSheetBinding
 
     private fun recyclerItemClickListener() {
         bottomSheetListAdapter.setOnItemClickListener {
-            println(it)
             when(it) {
                 0 -> findNavController().navigate(UserPanelBottomSheetDirections.actionUserPanelBottomSheetToProfileFragment())
                 1 -> findNavController().navigate(UserPanelBottomSheetDirections.actionUserPanelBottomSheetToWalletFragment())

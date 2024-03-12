@@ -20,9 +20,6 @@ class ProfileViewModel @Inject constructor(
     private val getProfile: GetProfileUseCase
 ): ViewModel() {
 
-//    private val _logInState = MutableStateFlow(LogInState())
-//    val logInState: SharedFlow<LogInState> = _logInState.asStateFlow()
-
     private val _profileState = MutableStateFlow(ProfileState())
     val profileState: SharedFlow<ProfileState> = _profileState.asStateFlow()
 
@@ -36,7 +33,6 @@ class ProfileViewModel @Inject constructor(
     private fun fetchUserProfile() {
         viewModelScope.launch {
             getProfile.invoke().collect{
-                println(it)
                 when(it) {
                     is Resource.Loading -> _profileState.update { currentState ->
                         currentState.copy(

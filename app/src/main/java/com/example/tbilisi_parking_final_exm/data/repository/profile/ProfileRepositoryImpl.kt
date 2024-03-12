@@ -16,7 +16,8 @@ class ProfileRepositoryImpl @Inject constructor(
 ) : ProfileRepository {
     override suspend fun getProfile(): Flow<Resource<GetProfile>> {
         return handleResponse.safeApiCall {
-            profileService.getUserProfile()
+            profileService.getUserProfile().apply {
+            }
         }.asResource {
             it.toDomain()
         }

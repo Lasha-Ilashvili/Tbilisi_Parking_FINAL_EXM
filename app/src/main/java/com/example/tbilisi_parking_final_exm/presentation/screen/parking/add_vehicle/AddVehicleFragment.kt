@@ -1,4 +1,4 @@
-package com.example.tbilisi_parking_final_exm.presentation.screen.parking.addVehicle
+package com.example.tbilisi_parking_final_exm.presentation.screen.parking.add_vehicle
 
 import android.content.Context
 import android.view.inputmethod.InputMethodManager

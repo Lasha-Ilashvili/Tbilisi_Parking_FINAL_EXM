@@ -65,7 +65,7 @@
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/addVehicleFragment"
-        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.parking.addVehicle.AddVehicleFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.parking.add_vehicle.AddVehicleFragment"
         android:label="fragment_add_vehicle"
         tools:layout="@layout/fragment_add_vehicle" />
 </navigation>

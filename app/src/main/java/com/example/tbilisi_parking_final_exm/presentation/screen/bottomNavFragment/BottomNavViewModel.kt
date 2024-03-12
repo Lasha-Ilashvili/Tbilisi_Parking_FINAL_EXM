@@ -25,7 +25,6 @@ class BottomNavViewModel @Inject constructor(
 
     private fun clearDatastore() {
         viewModelScope.launch {
-            println("testing clearData")
             clearDataStore()
             _uiEvent.emit(
                 BottomNavUiEvent.NavigateToHomeFragment
