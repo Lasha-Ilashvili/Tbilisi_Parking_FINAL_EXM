@@ -42,9 +42,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/card_number_hint"
+            android:imeOptions="actionNext"
             android:inputType="number"
             android:maxLength="19"
-            android:imeOptions="actionNext"
             android:paddingBottom="0dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -75,8 +75,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/date_hint"
-            android:inputType="number"
             android:imeOptions="actionNext"
+            android:inputType="number"
             android:maxLength="5"
             android:paddingBottom="0dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -113,5 +113,17 @@
             android:maxLength="3"
             android:paddingBottom="0dp" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnProceedToPayment"
+        style="@style/customButtonMaterial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium_plus"
+        android:text="@string/proceed_to_payment"
+        android:textAllCaps="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etCVV" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
