@@ -9,7 +9,7 @@
     tools:context=".presentation.screen.parking.ParkingFragment">
 
     <include
-        android:id="@+id/progressBar"
+        android:id="@+id/parkingProgressBar"
         layout="@layout/loading_layout" />
 
     <androidx.appcompat.widget.AppCompatTextView

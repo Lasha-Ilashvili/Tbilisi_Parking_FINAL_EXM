@@ -39,8 +39,15 @@ class ParkingFragment : BaseFragment<FragmentParkingBinding>(FragmentParkingBind
                 }
             }
         }
+
+        vehicleClickListener()
     }
 
+    private fun vehicleClickListener(){
+        parkingVehiclesListAdapter.setOnItemClickListener { id, name, plateNumber ->
+            println("this is parking fragment $id $name $plateNumber")
+        }
+    }
     private fun setUpRecycler() {
         with(binding) {
             parkingVehiclesListAdapter = ParkingVehiclesListAdapter()
@@ -60,15 +67,14 @@ class ParkingFragment : BaseFragment<FragmentParkingBinding>(FragmentParkingBind
             viewModel.onEvent(ParkingEvent.ResetErrorMessage)
         }
 
-
         with(binding) {
             if (isLoading) {
-                progressBar.root.visibility = View.VISIBLE
+                parkingProgressBar.root.visibility = View.VISIBLE
                 tvAddVehicle.visibility = View.GONE
                 recyclerVehicle.visibility = View.GONE
 
             } else {
-                progressBar.root.visibility = View.GONE
+                parkingProgressBar.root.visibility = View.GONE
                 tvAddVehicle.visibility = View.VISIBLE
                 recyclerVehicle.visibility = View.VISIBLE
             }

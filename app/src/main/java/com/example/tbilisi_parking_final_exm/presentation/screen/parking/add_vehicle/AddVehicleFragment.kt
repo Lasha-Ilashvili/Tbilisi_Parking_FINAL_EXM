@@ -83,13 +83,13 @@ class AddVehicleFragment :
 
         with(binding) {
             if (isLoading) {
-                progressBar.root.visibility = View.VISIBLE
+                addVehicleProgressBar.root.visibility = View.VISIBLE
                 etNameOfVehicle.visibility = View.GONE
                 etPlateNumber.visibility = View.GONE
                 tvExample.visibility = View.GONE
                 btnAddVehicle.visibility = View.GONE
             } else {
-                progressBar.root.visibility = View.GONE
+                addVehicleProgressBar.root.visibility = View.GONE
                 etNameOfVehicle.visibility = View.VISIBLE
                 etPlateNumber.visibility = View.VISIBLE
                 tvExample.visibility = View.VISIBLE

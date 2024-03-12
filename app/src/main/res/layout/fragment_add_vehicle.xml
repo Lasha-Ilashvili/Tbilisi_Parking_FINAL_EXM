@@ -8,7 +8,7 @@
     tools:context=".presentation.screen.parking.add_vehicle.AddVehicleFragment">
 
     <include
-        android:id="@+id/progressBar"
+        android:id="@+id/addVehicleProgressBar"
         layout="@layout/loading_layout" />
 
     <androidx.appcompat.widget.AppCompatImageView

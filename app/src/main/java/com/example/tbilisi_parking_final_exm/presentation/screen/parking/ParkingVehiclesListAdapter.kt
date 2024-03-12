@@ -11,6 +11,12 @@ import com.example.tbilisi_parking_final_exm.presentation.model.vehicle.vehicle.
 class ParkingVehiclesListAdapter :
     ListAdapter<Vehicle, ParkingVehiclesListAdapter.VehicleViewHolder>(VehiclesDiffUtil()) {
 
+
+    private var onItemClickListener: ((id: Int, name:String, plateNumber:String) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: (id: Int, name:String, plateNumber:String) -> Unit)  {
+        onItemClickListener = listener
+    }
     inner class VehicleViewHolder(private val binding: ItemParkingVehicleLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
             private lateinit var item: Vehicle
@@ -19,6 +25,9 @@ class ParkingVehiclesListAdapter :
             with(binding){
                 tvVehicleName.text = item.name
                 tvVehiclePlateNumber.text = item.plateNumber
+                root.setOnClickListener {
+                    onItemClickListener?.invoke(item.id, item.name, item.plateNumber)
+                }
             }
         }
     }
