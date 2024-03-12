@@ -1,6 +1,7 @@
 package com.example.tbilisi_parking_final_exm.presentation.screen.parking.add_vehicle
 
 import android.content.Context
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
@@ -12,6 +13,7 @@ import com.example.tbilisi_parking_final_exm.R
 import com.example.tbilisi_parking_final_exm.databinding.FragmentAddVehicleBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.parking.add_vehicle.AddVehicleEvent
+import com.example.tbilisi_parking_final_exm.presentation.extension.showToast
 import com.example.tbilisi_parking_final_exm.presentation.state.parking.add_vehicle.AddVehicleState
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,8 +34,9 @@ class AddVehicleFragment :
         with(binding) {
 
 
-             btnAddVehicle.setOnClickListener {
-                val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            btnAddVehicle.setOnClickListener {
+                val inputMethodManager =
+                    requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
 
                 addVehicle()
@@ -41,7 +44,7 @@ class AddVehicleFragment :
 
             addTextListeners(listOf(etNameOfVehicle, etPlateNumber))
 
-            imgBackArrow.setOnClickListener{
+            imgBackArrow.setOnClickListener {
                 findNavController().popBackStack()
             }
         }
@@ -50,7 +53,7 @@ class AddVehicleFragment :
     override fun bindObserves() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.addVehicleState.collect{
+                viewModel.addVehicleState.collect {
                     handleState(it)
                 }
             }
@@ -58,7 +61,7 @@ class AddVehicleFragment :
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiEvent.collect{
+                viewModel.uiEvent.collect {
                     handleNavigationEvent(it)
                 }
             }
@@ -72,6 +75,28 @@ class AddVehicleFragment :
             it.error = getString(R.string.invalid_input)
             it.isErrorEnabled = isErrorEnabled
         }
+
+        errorMessage?.let {
+            binding.root.showToast(it)
+            viewModel.onEvent(AddVehicleEvent.ResetErrorMessage)
+        }
+
+        with(binding) {
+            if (isLoading) {
+                progressBar.root.visibility = View.VISIBLE
+                etNameOfVehicle.visibility = View.GONE
+                etPlateNumber.visibility = View.GONE
+                tvExample.visibility = View.GONE
+                btnAddVehicle.visibility = View.GONE
+            } else {
+                progressBar.root.visibility = View.GONE
+                etNameOfVehicle.visibility = View.VISIBLE
+                etPlateNumber.visibility = View.VISIBLE
+                tvExample.visibility = View.VISIBLE
+                btnAddVehicle.visibility = View.VISIBLE
+            }
+        }
+
 
     }
 

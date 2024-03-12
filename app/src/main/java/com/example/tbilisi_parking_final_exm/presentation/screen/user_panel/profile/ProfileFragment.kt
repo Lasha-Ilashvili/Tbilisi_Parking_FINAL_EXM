@@ -55,6 +55,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         with(binding){
             if(isLoading) {
                 progressBar.root.visibility = View.VISIBLE
+
             } else {
                 progressBar.root.visibility = View.GONE
 

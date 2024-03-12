@@ -20,7 +20,7 @@ import javax.inject.Inject
 class ParkingViewModel @Inject constructor(
     private val getAllVehicle: GetAllVehicleUseCase,
     private val getProfile: GetProfileUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val _parkingState = MutableStateFlow(ParkingState())
     val parkingState: SharedFlow<ParkingState> = _parkingState.asStateFlow()
@@ -28,6 +28,7 @@ class ParkingViewModel @Inject constructor(
     fun onEvent(event: ParkingEvent) {
         when (event) {
             is ParkingEvent.FetchAllVehicle -> fetchAllVehicle()
+            is ParkingEvent.ResetErrorMessage -> updateErrorMessage(message = null)
         }
     }
 
@@ -53,9 +54,9 @@ class ParkingViewModel @Inject constructor(
     }
 
     private suspend fun getVehicles(userId: Int) {
-        getAllVehicle(userId = userId).collect{
+        getAllVehicle(userId = userId).collect {
             println("this is parking viewModel -> $it")
-            when(it){
+            when (it) {
                 is Resource.Loading -> _parkingState.update { currentState ->
                     currentState.copy(
                         isLoading = it.loading

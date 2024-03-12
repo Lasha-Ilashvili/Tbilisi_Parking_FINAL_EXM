@@ -7,6 +7,10 @@
     android:padding="16dp"
     tools:context=".presentation.screen.parking.add_vehicle.AddVehicleFragment">
 
+    <include
+        android:id="@+id/progressBar"
+        layout="@layout/loading_layout" />
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgBackArrow"
         style="@style/customButtonArrow"
