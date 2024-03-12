@@ -4,15 +4,12 @@ import com.google.android.material.textfield.TextInputLayout
 
 
 sealed class WalletEvent {
-    data class SetCardLayoutState(val field: TextInputLayout) : WalletEvent()
-    data class SetButtonState(val fields: List<TextInputLayout>) : WalletEvent()
-    data class SignUp(
-        val firstName: String,
-        val lastName: String,
-        val email: TextInputLayout,
-        val mobileNumber: String,
-        val password: TextInputLayout,
-        val matchingPassword: TextInputLayout,
-        val personalNumber: String
+    data class SetPayNowButtonState(val field: TextInputLayout) : WalletEvent()
+    data class SetProceedToPaymentButtonState(val fields: List<TextInputLayout>) : WalletEvent()
+    data class SetCardLayoutState(val isCardLayoutEnabled: Boolean = true) : WalletEvent()
+    data class ProceedToPayment(
+        val cardNumber: TextInputLayout,
+        val date: TextInputLayout,
+        val cvv: TextInputLayout
     ) : WalletEvent()
 }

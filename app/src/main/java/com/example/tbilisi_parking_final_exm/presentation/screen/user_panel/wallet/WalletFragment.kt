@@ -13,6 +13,7 @@ import com.example.tbilisi_parking_final_exm.databinding.FragmentWalletBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.user_panel.wallet.WalletEvent
 import com.example.tbilisi_parking_final_exm.presentation.extension.applyFormatting
+import com.example.tbilisi_parking_final_exm.presentation.extension.hideKeyboard
 import com.example.tbilisi_parking_final_exm.presentation.state.user_panel.wallet.WalletState
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -34,13 +35,20 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(FragmentWalletBinding
                 formatInput(etCardNumberInput, etCardDateInput)
 
                 addTextListeners(listOf(etAmount, etCardNumber, etCardDate, etCVV))
+
+
+                btnProceedToPayment.setOnClickListener {
+                    it.hideKeyboard()
+
+                    proceedToPayment()
+                }
             }
 
-//            btnAddCard.setOnClickListener {
-//                it.hideKeyboard()
-//                binding.cardDetailsLayout.root.visibility = VISIBLE
-//                signUp()
-//            }
+            btnPayNow.setOnClickListener {
+                it.hideKeyboard()
+
+                viewModel.onEvent(WalletEvent.SetCardLayoutState())
+            }
         }
     }
 
@@ -68,37 +76,41 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(FragmentWalletBinding
         fields.forEach { textInputLayout ->
             textInputLayout.editText?.doAfterTextChanged {
                 if (textInputLayout == binding.etAmount)
-                    viewModel.onEvent(WalletEvent.SetCardLayoutState(binding.etAmount))
+                    viewModel.onEvent(WalletEvent.SetPayNowButtonState(binding.etAmount))
                 else
-                    viewModel.onEvent(WalletEvent.SetButtonState(fields))
+                    viewModel.onEvent(WalletEvent.SetProceedToPaymentButtonState(fields))
             }
         }
     }
 
-    private fun proceedToPayment() = with(binding) {
-//        viewModel.onEvent(
-//            CreateAccountEvent.SignUp(
-//                firstName = args.firstName,
-//                lastName = args.lastName,
-//                email = etEmail,
-//                mobileNumber = args.mobileNumber,
-//                password = etPassword,
-//                matchingPassword = etRepeatPassword,
-//                personalNumber = args.personalNumber
-//            )
-//        )
+    private fun proceedToPayment() = with(binding.cardDetailsLayout) {
+        println(etCardNumber.editText?.text.toString())
+
+        viewModel.onEvent(
+            WalletEvent.ProceedToPayment(
+                cardNumber = etCardNumber,
+                date = etCardDate,
+                cvv = etCVV
+            )
+        )
     }
 
-    private fun handleState(walletState: WalletState) =
-        with(walletState) {
+    private fun handleState(walletState: WalletState) = with(walletState) {
+        binding.btnPayNow.isEnabled = isPayNowButtonEnabled
 
-            binding.cardDetailsLayout.root.visibility = if (isCardLayoutEnabled) VISIBLE else GONE
+        binding.cardDetailsLayout.btnProceedToPayment.isEnabled = isProceedToPaymentButtonEnabled
 
-            binding.cardDetailsLayout.btnProceedToPayment.isEnabled = isButtonEnabled
+        binding.cardDetailsLayout.root.visibility = if (isCardLayoutEnabled) VISIBLE else GONE
 
-            errorTextInputLayout?.let {
-                it.error = getString(R.string.invalid_input)
-                it.isErrorEnabled = isErrorEnabled
-            }
+        if (!isPayNowButtonEnabled) {
+            viewModel.onEvent(WalletEvent.SetCardLayoutState(false))
         }
+
+        errorTextInputLayout?.let {
+            if (isErrorEnabled)
+                it.editText?.error = getString(R.string.invalid_input)
+            else
+                it.editText?.error = null
+        }
+    }
 }

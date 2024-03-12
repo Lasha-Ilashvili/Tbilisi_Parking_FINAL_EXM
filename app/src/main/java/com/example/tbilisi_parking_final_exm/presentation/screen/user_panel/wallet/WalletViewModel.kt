@@ -1,11 +1,12 @@
 package com.example.tbilisi_parking_final_exm.presentation.screen.user_panel.wallet
 
 import androidx.lifecycle.ViewModel
-import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.EmailValidatorUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.FieldsAreNotBlankUseCase
-import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.SignUpPasswordValidatorUseCase
+import com.example.tbilisi_parking_final_exm.domain.usecase.validator.wallet.CardNumberValidatorUseCase
+import com.example.tbilisi_parking_final_exm.domain.usecase.validator.wallet.CvvValidatorUseCase
+import com.example.tbilisi_parking_final_exm.domain.usecase.validator.wallet.DateValidatorUseCase
 import com.example.tbilisi_parking_final_exm.presentation.event.user_panel.wallet.WalletEvent
-import com.example.tbilisi_parking_final_exm.presentation.model.sign_up.User
+import com.example.tbilisi_parking_final_exm.presentation.extension.removeFormatting
 import com.example.tbilisi_parking_final_exm.presentation.state.user_panel.wallet.WalletState
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,8 +19,9 @@ import javax.inject.Inject
 @HiltViewModel
 class WalletViewModel @Inject constructor(
     private val fieldsAreNotBlank: FieldsAreNotBlankUseCase,
-    private val emailValidator: EmailValidatorUseCase,
-    private val passwordValidator: SignUpPasswordValidatorUseCase
+    private val cardNumberValidator: CardNumberValidatorUseCase,
+    private val dateValidator: DateValidatorUseCase,
+    private val cvvValidator: CvvValidatorUseCase
 ) : ViewModel() {
 
     private val _walletState = MutableStateFlow(WalletState())
@@ -27,61 +29,46 @@ class WalletViewModel @Inject constructor(
 
     fun onEvent(event: WalletEvent) = with(event) {
         when (this) {
-            is WalletEvent.SetCardLayoutState -> setCardLayoutState(field = field)
+            is WalletEvent.SetPayNowButtonState -> setPayNowButtonState(field = field)
 
-            is WalletEvent.SetButtonState -> setButtonState(fields = fields)
+            is WalletEvent.SetCardLayoutState -> setCardLayoutState(isCardLayoutEnabled = isCardLayoutEnabled)
 
-            is WalletEvent.SignUp -> validateFields(
-                firstName = firstName,
-                lastName = lastName,
-                email = email,
-                mobileNumber = mobileNumber,
-                password = password,
-                matchingPassword = matchingPassword,
-                personalNumber = personalNumber
+            is WalletEvent.SetProceedToPaymentButtonState -> setProceedToPaymentButtonState(fields = fields)
+
+            is WalletEvent.ProceedToPayment -> validateFields(
+                cardNumber = cardNumber,
+                date = date,
+                cvv = cvv
             )
         }
     }
 
     private fun validateFields(
-        firstName: String,
-        lastName: String,
-        email: TextInputLayout,
-        mobileNumber: String,
-        password: TextInputLayout,
-        matchingPassword: TextInputLayout,
-        personalNumber: String
+        cardNumber: TextInputLayout,
+        date: TextInputLayout,
+        cvv: TextInputLayout
     ) {
-        val emailInput = email.editText?.text.toString()
-        val passwordInput = password.editText?.text.toString()
-        val matchingPasswordInput = matchingPassword.editText?.text.toString()
+        val cardNumberInput = cardNumber.editText?.text.toString().removeFormatting(" ")
+        val dateInput = date.editText?.text.toString().removeFormatting("/")
+        val cvvInput = cvv.editText?.text.toString()
 
-        val isEmailValid = emailValidator(emailInput)
-        val isPasswordValid = passwordValidator(passwordInput, matchingPasswordInput)
+        val isCardNumberValid = cardNumberValidator(cardNumberInput)
+        val isDateValid = dateValidator(dateInput)
+        val isCvvValid = cvvValidator(cvvInput)
 
         val areFieldsValid =
-            listOf(isEmailValid, isPasswordValid)
+            listOf(isCardNumberValid, isDateValid, isCvvValid)
                 .all { it }
 
-        validateField(isEmailValid, email)
-        validateField(isPasswordValid, password)
-        validateField(isPasswordValid, matchingPassword)
+        validateField(isCardNumberValid, cardNumber)
+        validateField(isDateValid, date)
+        validateField(isCvvValid, cvv)
 
         if (!areFieldsValid) {
             return
         }
 
-        val user = User(
-            firstName = firstName,
-            lastName = lastName,
-            email = emailInput,
-            mobileNumber = mobileNumber,
-            password = passwordInput,
-            matchingPassword = matchingPasswordInput,
-            personalNumber = personalNumber
-        )
-
-        signUp(user)
+        proceedToPayment()
     }
 
     private fun validateField(isFieldValid: Boolean, textInputLayout: TextInputLayout) {
@@ -103,19 +90,25 @@ class WalletViewModel @Inject constructor(
         }
     }
 
-    private fun signUp(user: User) {
-
+    private fun proceedToPayment() {
+        println("Success")
     }
 
-    private fun setCardLayoutState(field: TextInputLayout) {
+    private fun setPayNowButtonState(field: TextInputLayout) {
         _walletState.update { currentState ->
-            currentState.copy(isCardLayoutEnabled = fieldsAreNotBlank(listOf(field)))
+            currentState.copy(isPayNowButtonEnabled = fieldsAreNotBlank(listOf(field)))
         }
     }
 
-    private fun setButtonState(fields: List<TextInputLayout>) {
+    private fun setCardLayoutState(isCardLayoutEnabled: Boolean) {
         _walletState.update { currentState ->
-            currentState.copy(isButtonEnabled = fieldsAreNotBlank(fields))
+            currentState.copy(isCardLayoutEnabled = isCardLayoutEnabled)
+        }
+    }
+
+    private fun setProceedToPaymentButtonState(fields: List<TextInputLayout>) {
+        _walletState.update { currentState ->
+            currentState.copy(isProceedToPaymentButtonEnabled = fieldsAreNotBlank(fields))
         }
     }
 }

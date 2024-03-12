@@ -34,14 +34,15 @@
     <string name="add_balance">Add Balance</string>
     <string name="enter_amount">Enter Amount</string>
     <string name="card_details">card details</string>
-    <string name="number_of_cards">number of cards</string>
     <string name="cvv">CVV</string>
     <string name="date">Date</string>
-    <string name="date_hint">00/00</string>
+    <string name="date_hint">DD/MM</string>
     <string name="card_number_hint">0000 0000 0000 0000</string>
     <string name="cvv_hint">- - -</string>
     <string name="add_card">Add Card</string>
     <string name="proceed_to_payment">Proceed to Payment</string>
+    <string name="card_number">Card number</string>
+    <string name="pay_now">pay now</string>
 
 
 </resources>
