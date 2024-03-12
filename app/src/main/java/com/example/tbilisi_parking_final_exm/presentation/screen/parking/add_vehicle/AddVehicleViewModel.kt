@@ -7,11 +7,11 @@ import com.example.tbilisi_parking_final_exm.domain.usecase.add_vehicle.AddVehic
 import com.example.tbilisi_parking_final_exm.domain.usecase.profile.GetProfileUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.PlateNumberValidatorUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.FieldsAreNotBlankUseCase
-import com.example.tbilisi_parking_final_exm.presentation.event.add_vehicle.AddVehicleEvent
+import com.example.tbilisi_parking_final_exm.presentation.event.parking.add_vehicle.AddVehicleEvent
 import com.example.tbilisi_parking_final_exm.presentation.mapper.profile.toPresenter
 import com.example.tbilisi_parking_final_exm.presentation.mapper.vehicle.toDomain
 import com.example.tbilisi_parking_final_exm.presentation.model.vehicle.add_vehicle.AddVehicle
-import com.example.tbilisi_parking_final_exm.presentation.state.add_vehicle.AddVehicleState
+import com.example.tbilisi_parking_final_exm.presentation.state.parking.add_vehicle.AddVehicleState
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

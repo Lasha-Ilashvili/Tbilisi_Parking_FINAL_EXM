@@ -1,4 +1,4 @@
-package com.example.tbilisi_parking_final_exm.presentation.state.add_vehicle
+package com.example.tbilisi_parking_final_exm.presentation.state.parking.add_vehicle
 
 import com.google.android.material.textfield.TextInputLayout
 

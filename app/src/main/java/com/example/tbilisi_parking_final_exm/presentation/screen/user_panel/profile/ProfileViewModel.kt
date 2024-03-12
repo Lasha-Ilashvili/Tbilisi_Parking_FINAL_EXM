@@ -60,6 +60,4 @@ class ProfileViewModel @Inject constructor(
 
         }
     }
-
-
 }

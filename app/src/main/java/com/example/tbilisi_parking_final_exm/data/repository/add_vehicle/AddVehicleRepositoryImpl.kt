@@ -3,6 +3,7 @@ package com.example.tbilisi_parking_final_exm.data.repository.add_vehicle
 import com.example.tbilisi_parking_final_exm.data.common.HandleResponse
 import com.example.tbilisi_parking_final_exm.data.common.Resource
 import com.example.tbilisi_parking_final_exm.data.mapper.base.asResource
+import com.example.tbilisi_parking_final_exm.data.mapper.vehicle.toData
 import com.example.tbilisi_parking_final_exm.data.mapper.vehicle.toDomain
 import com.example.tbilisi_parking_final_exm.data.service.add_vehicle.AddVehicleService
 import com.example.tbilisi_parking_final_exm.domain.model.vehicle.add_vehicle.GetAddVehicle
@@ -17,7 +18,7 @@ class AddVehicleRepositoryImpl @Inject constructor(
 ) : AddVehicleRepository {
     override suspend fun addVehicle(vehicle: GetAddVehicle): Flow<Resource<GetVehicle>> {
         return handleResponse.safeApiCall {
-            addVehicleService.addVehicle(vehicle).apply {
+            addVehicleService.addVehicle(vehicle.toData()).apply {
             }
         }.asResource {
             it.toDomain()
