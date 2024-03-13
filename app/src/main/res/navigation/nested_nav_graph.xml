@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_parkingFragment_to_startParkingFragment"
             app:destination="@id/startParkingFragment" />
+        <action
+            android:id="@+id/action_parkingFragment_to_vehicleBottomSheetFragment"
+            app:destination="@id/vehicleBottomSheetFragment" />
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
@@ -34,7 +37,7 @@
         tools:layout="@layout/fragment_fines" />
     <dialog
         android:id="@+id/userPanelBottomSheet"
-        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.user_panel_bottom_sheet.UserPanelBottomSheet"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.user_panel.user_panel_bottom_sheet.UserPanelBottomSheet"
         android:label="UserPanelBottomSheet" >
         <action
             android:id="@+id/action_userPanelBottomSheet_to_profileFragment"
@@ -76,4 +79,9 @@
             android:name="plateNumber"
             app:argType="string" />
     </fragment>
+    <dialog
+        android:id="@+id/vehicleBottomSheetFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.parking.vehicle_bottom_sheet.VehicleBottomSheetFragment"
+        android:label="fragment_vehicle_bottom_sheet"
+        tools:layout="@layout/fragment_vehicle_bottom_sheet" />
 </navigation>

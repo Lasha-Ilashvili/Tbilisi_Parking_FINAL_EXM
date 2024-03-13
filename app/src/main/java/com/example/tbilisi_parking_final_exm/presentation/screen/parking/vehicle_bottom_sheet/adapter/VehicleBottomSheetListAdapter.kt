@@ -1,4 +1,4 @@
-package com.example.tbilisi_parking_final_exm.presentation.screen.user_panel_bottom_sheet.adapter
+package com.example.tbilisi_parking_final_exm.presentation.screen.parking.vehicle_bottom_sheet.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tbilisi_parking_final_exm.databinding.ItemUserPanelBottomSheetBinding
-import com.example.tbilisi_parking_final_exm.presentation.state.user_panel_bottom_sheet.UserPanelBottomSheetState
+import com.example.tbilisi_parking_final_exm.presentation.state.vehicle_bottom_sheet.VehicleBottomSheetState
 
-class BottomSheetListAdapter :
-    ListAdapter<UserPanelBottomSheetState, BottomSheetListAdapter.BottomSheetItemViewHolder>(
+class VehicleBottomSheetListAdapter :
+    ListAdapter<VehicleBottomSheetState, VehicleBottomSheetListAdapter.BottomSheetItemViewHolder>(
         BottomSheetItemDiffUtil()
     ) {
 
@@ -21,7 +21,7 @@ class BottomSheetListAdapter :
 
     inner class BottomSheetItemViewHolder(private val binding: ItemUserPanelBottomSheetBinding) :
         RecyclerView.ViewHolder(binding.root) {
-            private lateinit var item: UserPanelBottomSheetState
+        private lateinit var item: VehicleBottomSheetState
         fun bind() {
             with(binding) {
                 item = currentList[adapterPosition]
@@ -31,9 +31,9 @@ class BottomSheetListAdapter :
                     onItemClickListener?.invoke(item.id)
                 }
             }
-
         }
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = BottomSheetItemViewHolder(
         ItemUserPanelBottomSheetBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -43,22 +43,20 @@ class BottomSheetListAdapter :
     )
 
     override fun onBindViewHolder(holder: BottomSheetItemViewHolder, position: Int) {
-        holder.bind()
+       holder.bind()
     }
 
-
-
-    class BottomSheetItemDiffUtil : DiffUtil.ItemCallback<UserPanelBottomSheetState>() {
+    class BottomSheetItemDiffUtil : DiffUtil.ItemCallback<VehicleBottomSheetState>() {
         override fun areItemsTheSame(
-            oldItem: UserPanelBottomSheetState,
-            newItem: UserPanelBottomSheetState
+            oldItem: VehicleBottomSheetState,
+            newItem: VehicleBottomSheetState
         ): Boolean {
             return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: UserPanelBottomSheetState,
-            newItem: UserPanelBottomSheetState
+            oldItem: VehicleBottomSheetState,
+            newItem: VehicleBottomSheetState
         ): Boolean {
             return oldItem == newItem
         }
