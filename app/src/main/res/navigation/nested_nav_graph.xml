@@ -83,5 +83,14 @@
         android:id="@+id/vehicleBottomSheetFragment"
         android:name="com.example.tbilisi_parking_final_exm.presentation.screen.parking.vehicle_bottom_sheet.VehicleBottomSheetFragment"
         android:label="fragment_vehicle_bottom_sheet"
-        tools:layout="@layout/fragment_vehicle_bottom_sheet" />
+        tools:layout="@layout/fragment_vehicle_bottom_sheet" >
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument android:name="plateNumber"
+            app:argType="string" />
+        <argument
+            android:name="vehicleId"
+            app:argType="integer" />
+    </dialog>
 </navigation>

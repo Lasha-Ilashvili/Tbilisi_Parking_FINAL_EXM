@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tbilisi_parking_final_exm.databinding.ItemUserPanelBottomSheetBinding
+import com.example.tbilisi_parking_final_exm.databinding.ItemBottomSheetBinding
 import com.example.tbilisi_parking_final_exm.presentation.state.user_panel_bottom_sheet.UserPanelBottomSheetState
 
 class BottomSheetListAdapter :
@@ -19,7 +19,7 @@ class BottomSheetListAdapter :
         onItemClickListener = listener
     }
 
-    inner class BottomSheetItemViewHolder(private val binding: ItemUserPanelBottomSheetBinding) :
+    inner class BottomSheetItemViewHolder(private val binding: ItemBottomSheetBinding) :
         RecyclerView.ViewHolder(binding.root) {
             private lateinit var item: UserPanelBottomSheetState
         fun bind() {
@@ -35,7 +35,7 @@ class BottomSheetListAdapter :
         }
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = BottomSheetItemViewHolder(
-        ItemUserPanelBottomSheetBinding.inflate(
+        ItemBottomSheetBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false

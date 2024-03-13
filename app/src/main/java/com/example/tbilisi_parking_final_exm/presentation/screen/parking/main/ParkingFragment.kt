@@ -45,18 +45,28 @@ class ParkingFragment : BaseFragment<FragmentParkingBinding>(FragmentParkingBind
         vehicleDotsClickListener()
     }
 
-    private fun vehicleClickListener(){
+    private fun vehicleClickListener() {
         parkingVehiclesListAdapter.setOnItemClickListener { id, name, plateNumber ->
-            findNavController().navigate(ParkingFragmentDirections.actionParkingFragmentToStartParkingFragment(plateNumber))
+            findNavController().navigate(
+                ParkingFragmentDirections.actionParkingFragmentToStartParkingFragment(
+                    plateNumber
+                )
+            )
         }
     }
 
-    private fun vehicleDotsClickListener(){
+    private fun vehicleDotsClickListener() {
         parkingVehiclesListAdapter.setOnItemDotsClickListener { id, name, plateNumber ->
-//            println("dots has clicked $id $name $plateNumber")
-            findNavController().navigate(ParkingFragmentDirections.actionParkingFragmentToVehicleBottomSheetFragment())
+            findNavController().navigate(
+                ParkingFragmentDirections.actionParkingFragmentToVehicleBottomSheetFragment(
+                    name = name,
+                    plateNumber = plateNumber,
+                    vehicleId = id
+                )
+            )
         }
     }
+
     private fun setUpRecycler() {
         with(binding) {
             parkingVehiclesListAdapter = ParkingVehiclesListAdapter()

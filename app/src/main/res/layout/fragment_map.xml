@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_large"
         android:layout_marginBottom="100dp"
-        android:background="@drawable/bg_circle"
+        android:background="@drawable/circle_background"
         android:elevation="@dimen/margin_large"
         android:padding="@dimen/padding_standard"
         android:src="@drawable/ic_current_location"
