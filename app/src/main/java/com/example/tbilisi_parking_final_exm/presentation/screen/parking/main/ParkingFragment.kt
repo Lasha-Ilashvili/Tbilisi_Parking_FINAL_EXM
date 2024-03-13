@@ -78,6 +78,7 @@ class ParkingFragment : BaseFragment<FragmentParkingBinding>(FragmentParkingBind
     private fun handleState(state: ParkingState) = with(state) {
 
         vehicles?.let {
+            println(it)
             parkingVehiclesListAdapter.submitList(it)
         }
 

@@ -60,5 +60,7 @@
     <string name="start_parking_dialog">Do You Want To Start Parking?</string>
     <string name="start">Start</string>
     <string name="gel">GEL</string>
+    <string name="edit_vehicle">Edit Vehicle</string>
+    <string name="save">Save</string>
 
 </resources>
