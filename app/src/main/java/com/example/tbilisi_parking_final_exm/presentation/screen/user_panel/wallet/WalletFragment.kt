@@ -84,7 +84,6 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(FragmentWalletBinding
     }
 
     private fun proceedToPayment() = with(binding.cardDetailsLayout) {
-        println(etCardNumber.editText?.text.toString())
 
         viewModel.onEvent(
             WalletEvent.ProceedToPayment(

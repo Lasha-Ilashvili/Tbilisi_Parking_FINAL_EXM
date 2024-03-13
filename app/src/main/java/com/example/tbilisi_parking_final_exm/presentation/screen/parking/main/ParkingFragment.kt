@@ -59,8 +59,8 @@ class ParkingFragment : BaseFragment<FragmentParkingBinding>(FragmentParkingBind
         parkingVehiclesListAdapter.setOnItemDotsClickListener { id, name, plateNumber ->
             findNavController().navigate(
                 ParkingFragmentDirections.actionParkingFragmentToVehicleBottomSheetFragment(
-                    name = name,
-                    plateNumber = plateNumber,
+                    vehicleName = name,
+                    vehiclePlateNumber  = plateNumber,
                     vehicleId = id
                 )
             )
@@ -78,7 +78,6 @@ class ParkingFragment : BaseFragment<FragmentParkingBinding>(FragmentParkingBind
     private fun handleState(state: ParkingState) = with(state) {
 
         vehicles?.let {
-            println(it)
             parkingVehiclesListAdapter.submitList(it)
         }
 

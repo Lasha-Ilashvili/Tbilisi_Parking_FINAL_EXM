@@ -1,5 +1,6 @@
 package com.example.tbilisi_parking_final_exm.presentation.screen.parking.vehicle_bottom_sheet
 
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.tbilisi_parking_final_exm.databinding.FragmentVehicleBottomSheetBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseBottomSheet
@@ -7,14 +8,15 @@ import com.example.tbilisi_parking_final_exm.presentation.screen.parking.vehicle
 import com.example.tbilisi_parking_final_exm.presentation.state.vehicle_bottom_sheet.VehicleBottomSheetState
 
 
-class VehicleBottomSheetFragment : BaseBottomSheet<FragmentVehicleBottomSheetBinding>(FragmentVehicleBottomSheetBinding::inflate) {
+class VehicleBottomSheetFragment :
+    BaseBottomSheet<FragmentVehicleBottomSheetBinding>(FragmentVehicleBottomSheetBinding::inflate) {
 
     private val args: VehicleBottomSheetFragmentArgs by navArgs()
     override fun bind() {
         setBottomSheetListAdapter()
-        with(binding){
-            tvVehicleName.text = args.name
-            tvVehiclePlateNumber.text = args.plateNumber
+        with(binding) {
+            tvVehicleName.text = args.vehicleName
+            tvVehiclePlateNumber.text = args.vehiclePlateNumber
         }
     }
 
@@ -31,12 +33,17 @@ class VehicleBottomSheetFragment : BaseBottomSheet<FragmentVehicleBottomSheetBin
         }
     }
 
-    private fun recyclerItemClickListener(vehicleBottomSheetListAdapter: VehicleBottomSheetListAdapter){
+    private fun recyclerItemClickListener(vehicleBottomSheetListAdapter: VehicleBottomSheetListAdapter) {
         vehicleBottomSheetListAdapter.setOnItemClickListener {
-            when(it) {
+            when (it) {
                 VehicleBottomSheetState.EDIT.id -> {
-//                    navigate to edit page
+                    findNavController().navigate(
+                        VehicleBottomSheetFragmentDirections.actionVehicleBottomSheetFragmentToEditVehicleFragment(
+                            args.vehicleName, args.vehicleId, args.vehiclePlateNumber,
+                        )
+                    )
                 }
+
                 VehicleBottomSheetState.DELETE.id -> {
 //                    remove vehicle
                 }

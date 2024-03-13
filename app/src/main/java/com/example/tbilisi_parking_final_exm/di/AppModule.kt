@@ -4,6 +4,7 @@ package com.example.tbilisi_parking_final_exm.di
 import com.example.tbilisi_parking_final_exm.BuildConfig
 import com.example.tbilisi_parking_final_exm.data.common.HandleResponse
 import com.example.tbilisi_parking_final_exm.data.service.add_vehicle.AddVehicleService
+import com.example.tbilisi_parking_final_exm.data.service.edit_vehicle.EditVehicleService
 import com.example.tbilisi_parking_final_exm.data.service.get_vehicle.GetAllVehicleService
 import com.example.tbilisi_parking_final_exm.data.service.log_in.LogInService
 import com.example.tbilisi_parking_final_exm.data.service.map.LatLngService
@@ -181,6 +182,12 @@ object AppModule {
     @Provides
     fun provideGetAllVehicle(retrofit: Retrofit): GetAllVehicleService{
         return retrofit.create(GetAllVehicleService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideEditVehicle(retrofit: Retrofit): EditVehicleService{
+        return retrofit.create(EditVehicleService::class.java)
     }
 
     @Provides

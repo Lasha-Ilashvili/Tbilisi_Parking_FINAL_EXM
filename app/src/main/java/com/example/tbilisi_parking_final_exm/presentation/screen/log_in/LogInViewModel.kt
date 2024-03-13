@@ -35,8 +35,8 @@ class LogInViewModel @Inject constructor(
     val logInState: SharedFlow<LogInState> = _logInState.asStateFlow()
 
 
-    private val _login = MutableSharedFlow<LoginUiEvent>()
-    val uiEvent get() = _login
+    private val _uiEvent = MutableSharedFlow<LoginUiEvent>()
+    val uiEvent get() = _uiEvent
 
     fun onEvent(event: LogInEvent) = with(event) {
         when (this) {
@@ -82,7 +82,7 @@ class LogInViewModel @Inject constructor(
                     is Resource.Success -> {
                         saveAccessToken(it.data.accessToken)
                         saveRefreshToken(it.data.refreshToken)
-                        _login.emit(LoginUiEvent.NavigateToParkingFragment)
+                        _uiEvent.emit(LoginUiEvent.NavigateToParkingFragment)
                     }
 
                     is Resource.Error -> updateErrorMessage(it.errorMessage)

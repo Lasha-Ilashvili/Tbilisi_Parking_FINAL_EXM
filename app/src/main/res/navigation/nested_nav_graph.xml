@@ -85,12 +85,33 @@
         android:label="fragment_vehicle_bottom_sheet"
         tools:layout="@layout/fragment_vehicle_bottom_sheet" >
         <argument
-            android:name="name"
+            android:name="vehicleName"
             app:argType="string" />
-        <argument android:name="plateNumber"
+        <argument android:name="vehiclePlateNumber"
             app:argType="string" />
         <argument
             android:name="vehicleId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_vehicleBottomSheetFragment_to_editVehicleFragment"
+            app:destination="@id/editVehicleFragment" />
     </dialog>
+    <fragment
+        android:id="@+id/editVehicleFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.parking.edit_vehicle.EditVehicleFragment"
+        android:label="fragment_edit_vehicle"
+        tools:layout="@layout/fragment_edit_vehicle" >
+        <argument
+            android:name="vehicleName"
+            app:argType="string" />
+        <argument android:name="vehicleId"
+            app:argType="integer" />
+        <argument android:name="vehiclePlateNumber"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_editVehicleFragment_to_parkingFragment"
+            app:destination="@id/parkingFragment"
+            app:popUpTo="@id/nested_nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>
