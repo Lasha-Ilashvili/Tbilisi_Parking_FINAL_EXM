@@ -33,7 +33,6 @@ class AddVehicleFragment :
     override fun bindViewActionListeners() {
         with(binding) {
 
-
             btnAddVehicle.setOnClickListener {
                 val inputMethodManager =
                     requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
