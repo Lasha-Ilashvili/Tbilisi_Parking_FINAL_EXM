@@ -7,10 +7,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.tbilisi_parking_final_exm.databinding.FragmentCardsBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
-import com.example.tbilisi_parking_final_exm.presentation.event.cards.CardsEvent
+import com.example.tbilisi_parking_final_exm.presentation.event.cards.main.CardsEvent
 import com.example.tbilisi_parking_final_exm.presentation.model.cards.Card
 import com.example.tbilisi_parking_final_exm.presentation.screen.cards.main.adapter.CardsRecyclerAdapter
-import com.example.tbilisi_parking_final_exm.presentation.state.cards.CardsState
+import com.example.tbilisi_parking_final_exm.presentation.state.cards.main.CardsState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -46,12 +46,14 @@ class CardsFragment : BaseFragment<FragmentCardsBinding>(FragmentCardsBinding::i
         }
     }
 
-    private fun navigateToBuyCard(zonalCard: Card.ZonalCard) = with(zonalCard) {
-        findNavController().navigate(
-            CardsFragmentDirections.actionCardsFragmentToBuyCardFragment(
-                period = period,
-                price = price
+    private fun navigateToBuyCard(zonalCard: Card.ZonalCard?) {
+        zonalCard?.let {
+            findNavController().navigate(
+                CardsFragmentDirections.actionCardsFragmentToBuyCardFragment(
+                    period = it.period,
+                    price = it.price
+                )
             )
-        )
+        }
     }
 }

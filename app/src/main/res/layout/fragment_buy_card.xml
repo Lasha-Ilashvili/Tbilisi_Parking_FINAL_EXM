@@ -1,15 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.screen.cards.buy_card.BuyCardFragment">
+    android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/card_layout"
-        layout="@layout/card_item"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/customLayoutPadding"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center" />
+        tools:context=".presentation.screen.sign_up.personal_information.PersonalInformationFragment">
 
-</FrameLayout>
+        <include
+            android:id="@+id/card_layout"
+            layout="@layout/card_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/btnBack" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btnBack"
+            style="@style/customButtonArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back_arrow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/customPageTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/buy_card"
+            app:layout_constraintBottom_toBottomOf="@+id/btnBack"
+            app:layout_constraintStart_toEndOf="@+id/btnBack"
+            app:layout_constraintTop_toTopOf="@id/btnBack" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etPlateNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPlateNumberInput"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/plate_number"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etPersonalNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etPlateNumber">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPersonalNumberInput"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/personal_number"
+                android:inputType="number"
+                android:maxLength="11" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBuyCard"
+            style="@style/customButtonMaterial"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium_plus"
+            android:text="@string/buy_card"
+            android:textAllCaps="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etPersonalNumber" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

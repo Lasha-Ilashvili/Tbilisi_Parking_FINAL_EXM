@@ -11,7 +11,7 @@ class CardsRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private lateinit var cards: List<Card>
 
-    var onClick: ((Card.ZonalCard) -> Unit)? = null
+    var onClick: ((Card.ZonalCard?) -> Unit)? = null
 
     private companion object {
         private const val TITLE = 0
@@ -75,8 +75,8 @@ class CardsRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             val zonalCard = card.zonalCard
 
             tvCardTitle.text = card.title
-            tvPeriod.text = zonalCard.period
-            tvPrice.text = zonalCard.price.toString()
+            tvPeriod.text = zonalCard?.period
+            tvPrice.text = zonalCard?.price.toString()
         }
     }
 }

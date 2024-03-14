@@ -1,4 +1,4 @@
-package com.example.tbilisi_parking_final_exm.presentation.state.cards
+package com.example.tbilisi_parking_final_exm.presentation.state.cards.main
 
 import com.example.tbilisi_parking_final_exm.presentation.model.cards.Card
 

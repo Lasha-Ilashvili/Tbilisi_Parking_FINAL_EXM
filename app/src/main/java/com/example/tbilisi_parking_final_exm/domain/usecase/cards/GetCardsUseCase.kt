@@ -9,6 +9,9 @@ class GetCardsUseCase @Inject constructor(
     operator fun invoke() =
         listOf(
             Card(
+                title = "buy card"
+            ),
+            Card(
                 title = "one day",
                 zonalCard = Card.ZonalCard(
                     period = "1 day",
@@ -16,29 +19,29 @@ class GetCardsUseCase @Inject constructor(
                 )
             ),
             Card(
-                title = "imperdiet",
+                title = "one week",
                 zonalCard = Card.ZonalCard(
-                    period = "veritus",
-                    price = 7840
+                    period = "1 week",
+                    price = 100
                 )
             ),
             Card(
-                title = "solet",
+                title = "one month",
                 zonalCard = Card.ZonalCard(
-                    period = "partiendo",
-                    price = 8666
+                    period = "1 month",
+                    price = 300
                 )
             ),
             Card(
-                title = "vix", zonalCard = Card.ZonalCard(
-                    period = "laudem",
-                    price = 12948
+                title = "six months", zonalCard = Card.ZonalCard(
+                    period = "6 months",
+                    price = 500
                 )
             ),
             Card(
-                title = "lobortis", zonalCard = Card.ZonalCard(
-                    period = "intellegebat",
-                    price = 4943
+                title = "one year", zonalCard = Card.ZonalCard(
+                    period = "1 year",
+                    price = 800
                 )
             )
         )
