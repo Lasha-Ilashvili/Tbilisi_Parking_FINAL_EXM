@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".presentation.screen.cards.CardsFragment">
+    android:orientation="vertical"
+    tools:context=".presentation.screen.cards.main.CardsFragment">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPageTitle"
+        style="@style/customBottomNavPageTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cards" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCards"
+        android:layout_width="match_parent"
+        android:paddingStart="@dimen/padding_large"
+        android:paddingEnd="@dimen/padding_large"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:context=".presentation.screen.cards.main.CardsFragment"
+        tools:listitem="@layout/card_item" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

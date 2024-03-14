@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nested_nav_graph"
-    app:startDestination="@id/parkingFragment">
+    app:startDestination="@id/cardsFragment">
 
     <fragment
         android:id="@+id/parkingFragment"
@@ -24,9 +24,13 @@
         tools:layout="@layout/fragment_map" />
     <fragment
         android:id="@+id/cardsFragment"
-        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.cards.CardsFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.cards.main.CardsFragment"
         android:label="fragment_cards"
-        tools:layout="@layout/fragment_cards" />
+        tools:layout="@layout/fragment_cards" >
+        <action
+            android:id="@+id/action_cardsFragment_to_buyCardFragment"
+            app:destination="@id/buyCardFragment" />
+    </fragment>
     <fragment
         android:id="@+id/finesFragment"
         android:name="com.example.tbilisi_parking_final_exm.presentation.screen.fines.FinesFragment"
@@ -75,5 +79,17 @@
         <argument
             android:name="plateNumber"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/buyCardFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.cards.buy_card.BuyCardFragment"
+        android:label="fragment_buy_card"
+        tools:layout="@layout/fragment_buy_card" >
+        <argument
+            android:name="period"
+            app:argType="string" />
+        <argument
+            android:name="price"
+            app:argType="integer" />
     </fragment>
 </navigation>

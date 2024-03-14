@@ -27,8 +27,8 @@
     </style>
 
     <style name="customBottomNavPageTitle" parent="customPageTitle">
-        <item name="android:layout_marginTop">@dimen/margin_medium_plus</item>
-        <item name="android:layout_marginBottom">@dimen/margin_medium_plus</item>
+        <item name="android:layout_marginTop">@dimen/margin_small</item>
+        <item name="android:layout_marginBottom">@dimen/margin_medium</item>
     </style>
 
     <style name="customFieldsTitle">
