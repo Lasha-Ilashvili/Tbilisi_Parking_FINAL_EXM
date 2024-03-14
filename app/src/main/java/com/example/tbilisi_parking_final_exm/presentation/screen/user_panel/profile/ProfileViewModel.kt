@@ -6,7 +6,7 @@ import com.example.tbilisi_parking_final_exm.data.common.Resource
 import com.example.tbilisi_parking_final_exm.domain.usecase.profile.GetProfileUseCase
 import com.example.tbilisi_parking_final_exm.presentation.event.profile.ProfileEvent
 import com.example.tbilisi_parking_final_exm.presentation.mapper.profile.toPresenter
-import com.example.tbilisi_parking_final_exm.presentation.state.profile.ProfileState
+import com.example.tbilisi_parking_final_exm.presentation.state.user_panel.profile.ProfileState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow

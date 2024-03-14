@@ -5,7 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.tbilisi_parking_final_exm.data.common.Resource
 import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.SaveAccessTokenUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.SaveRefreshTokenUseCase
+import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.SaveUserIdUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.log_in.LogInUseCase
+import com.example.tbilisi_parking_final_exm.domain.usecase.profile.GetProfileUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.EmailValidatorUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.FieldsAreNotBlankUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.LogInPasswordValidatorUseCase
@@ -28,15 +30,17 @@ class LogInViewModel @Inject constructor(
     private val logInUseCase: LogInUseCase,
     private val fieldsAreNotBlank: FieldsAreNotBlankUseCase,
     private val saveAccessToken: SaveAccessTokenUseCase,
-    private val saveRefreshToken: SaveRefreshTokenUseCase
+    private val saveRefreshToken: SaveRefreshTokenUseCase,
+    private val saveUserId: SaveUserIdUseCase,
+    private val getProfile: GetProfileUseCase
 ) : ViewModel() {
 
     private val _logInState = MutableStateFlow(LogInState())
     val logInState: SharedFlow<LogInState> = _logInState.asStateFlow()
 
 
-    private val _login = MutableSharedFlow<LoginUiEvent>()
-    val uiEvent get() = _login
+    private val _uiEvent = MutableSharedFlow<LoginUiEvent>()
+    val uiEvent get() = _uiEvent
 
     fun onEvent(event: LogInEvent) = with(event) {
         when (this) {
@@ -82,7 +86,7 @@ class LogInViewModel @Inject constructor(
                     is Resource.Success -> {
                         saveAccessToken(it.data.accessToken)
                         saveRefreshToken(it.data.refreshToken)
-                        _login.emit(LoginUiEvent.NavigateToParkingFragment)
+                        getUserId()
                     }
 
                     is Resource.Error -> updateErrorMessage(it.errorMessage)
@@ -92,6 +96,25 @@ class LogInViewModel @Inject constructor(
                             isLoading = it.loading
                         )
                     }
+                }
+            }
+        }
+    }
+
+    private suspend fun getUserId() {
+        getProfile().collect {
+            when (it) {
+                is Resource.Success -> {
+                    saveUserId(it.data.id)
+                    _uiEvent.emit(LoginUiEvent.NavigateToParkingFragment)
+                }
+
+                is Resource.Error -> updateErrorMessage(it.errorMessage)
+
+                is Resource.Loading -> _logInState.update { currentState ->
+                    currentState.copy(
+                        isLoading = it.loading
+                    )
                 }
             }
         }
@@ -112,7 +135,6 @@ class LogInViewModel @Inject constructor(
             )
         }
     }
-
 
     sealed interface LoginUiEvent {
         data object NavigateToParkingFragment : LoginUiEvent

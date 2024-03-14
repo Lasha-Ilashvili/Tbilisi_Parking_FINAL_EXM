@@ -61,5 +61,7 @@
     <string name="start">Start</string>
     <string name="gel">GEL</string>
     <string name="buy_card">buy card</string>
+    <string name="edit_vehicle">Edit Vehicle</string>
+    <string name="save">Save</string>
 
 </resources>

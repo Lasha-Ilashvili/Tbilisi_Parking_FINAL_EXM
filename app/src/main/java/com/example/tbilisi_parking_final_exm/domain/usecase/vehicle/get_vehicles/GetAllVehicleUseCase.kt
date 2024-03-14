@@ -1,4 +1,4 @@
-package com.example.tbilisi_parking_final_exm.domain.usecase.get_vehicles
+package com.example.tbilisi_parking_final_exm.domain.usecase.vehicle.get_vehicles
 
 import com.example.tbilisi_parking_final_exm.domain.repository.get_vehicles.GetAllVehicleRepository
 import javax.inject.Inject

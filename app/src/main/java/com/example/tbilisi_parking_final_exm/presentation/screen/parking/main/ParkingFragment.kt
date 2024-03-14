@@ -21,6 +21,8 @@ class ParkingFragment : BaseFragment<FragmentParkingBinding>(FragmentParkingBind
 
     private val viewModel: ParkingViewModel by viewModels()
     private lateinit var parkingVehiclesListAdapter: ParkingVehiclesListAdapter
+
+
     override fun bind() {
         viewModel.onEvent(ParkingEvent.FetchAllVehicle)
         setUpRecycler()
@@ -45,18 +47,28 @@ class ParkingFragment : BaseFragment<FragmentParkingBinding>(FragmentParkingBind
         vehicleDotsClickListener()
     }
 
-    private fun vehicleClickListener(){
+    private fun vehicleClickListener() {
         parkingVehiclesListAdapter.setOnItemClickListener { id, name, plateNumber ->
-//            println("vehicleItem clicked $id $name $plateNumber")
-            findNavController().navigate(ParkingFragmentDirections.actionParkingFragmentToStartParkingFragment(plateNumber))
+            findNavController().navigate(
+                ParkingFragmentDirections.actionParkingFragmentToStartParkingFragment(
+                    plateNumber
+                )
+            )
         }
     }
 
-    private fun vehicleDotsClickListener(){
+    private fun vehicleDotsClickListener() {
         parkingVehiclesListAdapter.setOnItemDotsClickListener { id, name, plateNumber ->
-//            println("dots has clicked $id $name $plateNumber")
+            findNavController().navigate(
+                ParkingFragmentDirections.actionParkingFragmentToVehicleBottomSheetFragment(
+                    vehicleName = name,
+                    vehiclePlateNumber  = plateNumber,
+                    vehicleId = id
+                )
+            )
         }
     }
+
     private fun setUpRecycler() {
         with(binding) {
             parkingVehiclesListAdapter = ParkingVehiclesListAdapter()
