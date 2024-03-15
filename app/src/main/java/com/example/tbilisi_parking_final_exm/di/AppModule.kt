@@ -4,6 +4,7 @@ package com.example.tbilisi_parking_final_exm.di
 import com.example.tbilisi_parking_final_exm.BuildConfig
 import com.example.tbilisi_parking_final_exm.data.common.HandleResponse
 import com.example.tbilisi_parking_final_exm.data.service.add_vehicle.AddVehicleService
+import com.example.tbilisi_parking_final_exm.data.service.cards.CardsService
 import com.example.tbilisi_parking_final_exm.data.service.edit_vehicle.EditVehicleService
 import com.example.tbilisi_parking_final_exm.data.service.get_vehicle.GetAllVehicleService
 import com.example.tbilisi_parking_final_exm.data.service.log_in.LogInService
@@ -134,7 +135,7 @@ object AppModule {
         moshiConverterFactory: MoshiConverterFactory
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://maps.googleapis.com/maps/api/geocode/")
+            .baseUrl(BuildConfig.BASE_URL_MAP)
             .client(okHttpClient)
             .addConverterFactory(moshiConverterFactory)
             .build()
@@ -174,19 +175,19 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideAddVehicleService(retrofit: Retrofit): AddVehicleService{
+    fun provideAddVehicleService(retrofit: Retrofit): AddVehicleService {
         return retrofit.create(AddVehicleService::class.java)
     }
 
     @Singleton
     @Provides
-    fun provideGetAllVehicle(retrofit: Retrofit): GetAllVehicleService{
+    fun provideGetAllVehicle(retrofit: Retrofit): GetAllVehicleService {
         return retrofit.create(GetAllVehicleService::class.java)
     }
 
     @Singleton
     @Provides
-    fun provideEditVehicle(retrofit: Retrofit): EditVehicleService{
+    fun provideEditVehicle(retrofit: Retrofit): EditVehicleService {
         return retrofit.create(EditVehicleService::class.java)
     }
 
@@ -196,5 +197,9 @@ object AppModule {
         return Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
     }
 
-
+    @Singleton
+    @Provides
+    fun provideCardsService(retrofit: Retrofit): CardsService {
+        return retrofit.create(CardsService::class.java)
+    }
 }
