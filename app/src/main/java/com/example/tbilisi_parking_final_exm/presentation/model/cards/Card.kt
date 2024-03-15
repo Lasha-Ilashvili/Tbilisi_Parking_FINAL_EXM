@@ -7,6 +7,7 @@ data class Card(
 ) {
     data class ZonalCard(
         val period: String,
-        val price: Int
+        val price: Int,
+        val backgroundColor: String
     )
 }

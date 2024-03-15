@@ -63,5 +63,10 @@
     <string name="buy_card">buy card</string>
     <string name="edit_vehicle">Edit Vehicle</string>
     <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="are_you_sure_want_to_delete">Are you sure want to delete?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="zonal_card">Zonal card</string>
 
 </resources>

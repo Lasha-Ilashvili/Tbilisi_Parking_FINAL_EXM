@@ -2,8 +2,10 @@ package com.example.tbilisi_parking_final_exm.presentation.screen.parking.vehicl
 
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.tbilisi_parking_final_exm.R
 import com.example.tbilisi_parking_final_exm.databinding.FragmentVehicleBottomSheetBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseBottomSheet
+import com.example.tbilisi_parking_final_exm.presentation.extension.showAlertDialog
 import com.example.tbilisi_parking_final_exm.presentation.screen.parking.vehicle_bottom_sheet.adapter.VehicleBottomSheetListAdapter
 import com.example.tbilisi_parking_final_exm.presentation.state.parking.vehicle_bottom_sheet.VehicleBottomSheetState
 
@@ -45,10 +47,18 @@ class VehicleBottomSheetFragment :
                 }
 
                 VehicleBottomSheetState.DELETE.id -> {
-//                    remove vehicle
+                    setUpDialog()
                 }
             }
         }
+    }
 
+    private fun setUpDialog() {
+        requireContext().showAlertDialog(
+            title = getString(R.string.delete),
+            message = getString(R.string.are_you_sure_want_to_delete),
+            positiveButtonText = getString(R.string.yes),
+            negativeButtonText = getString(R.string.no)
+        ) {}
     }
 }

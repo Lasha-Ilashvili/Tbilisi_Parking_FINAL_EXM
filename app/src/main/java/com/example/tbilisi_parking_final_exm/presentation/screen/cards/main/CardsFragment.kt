@@ -51,7 +51,8 @@ class CardsFragment : BaseFragment<FragmentCardsBinding>(FragmentCardsBinding::i
             findNavController().navigate(
                 CardsFragmentDirections.actionCardsFragmentToBuyCardFragment(
                     period = it.period,
-                    price = it.price
+                    price = it.price,
+                    backgroundColor = it.backgroundColor
                 )
             )
         }
