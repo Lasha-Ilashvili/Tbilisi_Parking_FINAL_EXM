@@ -9,6 +9,7 @@ import com.example.tbilisi_parking_final_exm.data.service.get_vehicle.GetAllVehi
 import com.example.tbilisi_parking_final_exm.data.service.log_in.LogInService
 import com.example.tbilisi_parking_final_exm.data.service.map.LatLngService
 import com.example.tbilisi_parking_final_exm.data.service.profile.ProfileService
+import com.example.tbilisi_parking_final_exm.data.service.refresh_token.RefreshTokenService
 import com.example.tbilisi_parking_final_exm.data.service.sign_up.SignUpService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -76,7 +77,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    @Named("OkHttpClientForLogIn")
+    @Named("OkHttpClientWithBasicAuth")
     fun provideOkHttpClientForLogIn(
         httpLoggingInterceptor: HttpLoggingInterceptor,
     ): OkHttpClient {
@@ -101,9 +102,9 @@ object AppModule {
 
     @Provides
     @Singleton
-    @Named("retrofitForLogIn")
+    @Named("retrofitWithBasicAuthOkHttpClient")
     fun provideRetrofitClientForLogIn(
-        @Named("OkHttpClientForLogIn") okHttpClient: OkHttpClient,
+        @Named("OkHttpClientWithBasicAuth") okHttpClient: OkHttpClient,
         moshiConverterFactory: MoshiConverterFactory
     ): Retrofit {
         return Retrofit.Builder()
@@ -148,7 +149,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideLogInService(@Named("retrofitForLogIn") retrofit: Retrofit): LogInService {
+    fun provideLogInService(@Named("retrofitWithBasicAuthOkHttpClient") retrofit: Retrofit): LogInService {
 
         return retrofit.create(LogInService::class.java)
     }
@@ -188,6 +189,12 @@ object AppModule {
     @Provides
     fun provideEditVehicle(retrofit: Retrofit): EditVehicleService{
         return retrofit.create(EditVehicleService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideRefreshTokenService(@Named("retrofitWithBasicAuthOkHttpClient") retrofit: Retrofit): RefreshTokenService {
+        return retrofit.create(RefreshTokenService::class.java)
     }
 
     @Provides

@@ -14,7 +14,12 @@ class HandleResponse() {
             if (response.isSuccessful && body != null) {
                 emit(Resource.Success(data = body))
             } else {
-                emit(Resource.Error(errorMessage = response.errorBody().parseErrorMessage()))
+                val errorCode = response.code()
+                if(errorCode == 401){
+                    emit(Resource.Error(errorMessage = "Unauthorized access"))
+                } else {
+                    emit(Resource.Error(errorMessage = response.errorBody().parseErrorMessage()))
+                }
             }
         } catch (e: Throwable) {
             emit(Resource.Error(errorMessage = e.message ?: ""))
