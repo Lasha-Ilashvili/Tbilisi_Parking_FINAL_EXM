@@ -12,7 +12,8 @@ class GetCardsUseCase @Inject constructor(
 //    suspend operator fun invoke() =
 //        cardsRepository.getCards()
 
-    operator fun invoke() = flow<GetCard> {
+
+    operator fun invoke() = flow<List<GetCard>> {
         listOf(
             GetCard(
                 title = "buy card"
@@ -57,5 +58,4 @@ class GetCardsUseCase @Inject constructor(
             )
         )
     }
-
 }

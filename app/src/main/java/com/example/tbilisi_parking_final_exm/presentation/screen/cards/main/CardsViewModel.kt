@@ -2,7 +2,6 @@ package com.example.tbilisi_parking_final_exm.presentation.screen.cards.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tbilisi_parking_final_exm.data.common.Resource
 import com.example.tbilisi_parking_final_exm.domain.usecase.cards.GetCardsUseCase
 import com.example.tbilisi_parking_final_exm.presentation.event.cards.main.CardsEvent
 import com.example.tbilisi_parking_final_exm.presentation.mapper.cards.toPresentation
@@ -32,21 +31,26 @@ class CardsViewModel @Inject constructor(
     private fun getCards() {
         viewModelScope.launch {
             getCardsUseCase().collect {
-                when (it) {
-                    is Resource.Loading -> _cardsState.update { currentState ->
-                        currentState.copy(isLoading = it.loading)
-                    }
-
-                    is Resource.Error -> updateErrorMessage(message = it.errorMessage)
-
-                    is Resource.Success -> {
-                        _cardsState.update { currentState ->
-                            currentState.copy(data = it.data.map { getCard ->
-                                getCard.toPresentation()
-                            })
-                        }
-                    }
+                _cardsState.update { currentState ->
+                    currentState.copy(data = it.map { getCard ->
+                        getCard.toPresentation()
+                    })
                 }
+
+//                when (it) {
+//                    is Resource.Loading -> _cardsState.update { currentState ->
+//                        currentState.copy(isLoading = it.loading)
+//                    }
+//
+//                    is Resource.Error -> updateErrorMessage(message = it.errorMessage)
+//
+//                    is Resource.Success -> {
+//                        _cardsState.update { currentState ->
+//                            currentState.copy(data = it.data.map { getCard ->
+//                                getCard.toPresentation()
+//                            })
+//                        }
+//                    }
             }
         }
     }
