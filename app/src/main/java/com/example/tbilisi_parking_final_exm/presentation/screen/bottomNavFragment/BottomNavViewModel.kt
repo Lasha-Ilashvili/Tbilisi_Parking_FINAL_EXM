@@ -23,6 +23,7 @@ class BottomNavViewModel @Inject constructor(
         }
     }
 
+
     private fun clearDatastore() {
         viewModelScope.launch {
             clearDataStore()
