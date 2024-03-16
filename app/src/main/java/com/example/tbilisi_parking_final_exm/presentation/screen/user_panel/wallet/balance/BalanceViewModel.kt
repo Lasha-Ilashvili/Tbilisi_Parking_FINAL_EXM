@@ -51,6 +51,8 @@ class BalanceViewModel @Inject constructor(
                 cvv = cvv,
                 isRememberCardChecked = isRememberCardChecked
             )
+
+            BalanceEvent.ResetErrorMessage -> updateErrorMessage()
         }
     }
 
@@ -112,7 +114,7 @@ class BalanceViewModel @Inject constructor(
                         currentState.copy(isLoading = it.loading)
                     }
 
-                    is Resource.Success -> BalanceUiEvent.NavigateToMain
+                    is Resource.Success -> _uiEvent.emit(BalanceUiEvent.NavigateToMain)
                 }
             }
         }

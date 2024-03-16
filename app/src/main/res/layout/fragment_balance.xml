@@ -11,6 +11,10 @@
         android:layout_height="wrap_content"
         tools:context=".presentation.screen.user_panel.wallet.main.WalletFragment">
 
+        <include
+            android:id="@+id/progressBar"
+            layout="@layout/loading_layout" />
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
             android:layout_width="wrap_content"

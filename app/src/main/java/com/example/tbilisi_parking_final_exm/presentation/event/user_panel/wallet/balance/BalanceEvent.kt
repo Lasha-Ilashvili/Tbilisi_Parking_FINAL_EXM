@@ -4,6 +4,7 @@ import com.google.android.material.textfield.TextInputLayout
 
 
 sealed class BalanceEvent {
+    data object ResetErrorMessage : BalanceEvent()
     data class SetButtonState(val fields: List<TextInputLayout>) : BalanceEvent()
     data class ProceedToPayment(
         val cardNumber: TextInputLayout,
