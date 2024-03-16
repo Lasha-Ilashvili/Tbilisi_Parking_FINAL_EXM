@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbilisi_parking_final_exm.data.common.Resource
 import com.example.tbilisi_parking_final_exm.domain.usecase.profile.GetProfileUseCase
-import com.example.tbilisi_parking_final_exm.presentation.event.profile.ProfileEvent
+import com.example.tbilisi_parking_final_exm.presentation.event.user_panel.profile.ProfileEvent
 import com.example.tbilisi_parking_final_exm.presentation.mapper.profile.toPresenter
 import com.example.tbilisi_parking_final_exm.presentation.state.user_panel.profile.ProfileState
 import dagger.hilt.android.lifecycle.HiltViewModel

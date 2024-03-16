@@ -8,7 +8,7 @@ import com.example.tbilisi_parking_final_exm.presentation.event.user_panel.user_
 import com.example.tbilisi_parking_final_exm.presentation.extension.restartApp
 import com.example.tbilisi_parking_final_exm.presentation.extension.showAlertDialog
 import com.example.tbilisi_parking_final_exm.presentation.screen.user_panel.user_panel_bottom_sheet.adapter.BottomSheetListAdapter
-import com.example.tbilisi_parking_final_exm.presentation.state.user_panel_bottom_sheet.UserPanelBottomSheetState
+import com.example.tbilisi_parking_final_exm.presentation.state.user_panel.user_panel_bottom_sheet.UserPanelBottomSheetState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

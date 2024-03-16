@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tbilisi_parking_final_exm.databinding.ItemBottomSheetBinding
-import com.example.tbilisi_parking_final_exm.presentation.state.user_panel_bottom_sheet.UserPanelBottomSheetState
+import com.example.tbilisi_parking_final_exm.presentation.state.user_panel.user_panel_bottom_sheet.UserPanelBottomSheetState
 
 class BottomSheetListAdapter :
     ListAdapter<UserPanelBottomSheetState, BottomSheetListAdapter.BottomSheetItemViewHolder>(

@@ -3,10 +3,7 @@ package com.example.tbilisi_parking_final_exm.presentation.screen.log_in
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbilisi_parking_final_exm.data.common.Resource
-import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.SaveAccessTokenUseCase
-import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.SaveRefreshTokenUseCase
-import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.SaveSessionUseCase
-import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.SaveUserIdUseCase
+import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.DataStoreUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.log_in.LogInUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.profile.GetProfileUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.EmailValidatorUseCase
@@ -30,11 +27,8 @@ class LogInViewModel @Inject constructor(
     private val passwordValidator: LogInPasswordValidatorUseCase,
     private val logInUseCase: LogInUseCase,
     private val fieldsAreNotBlank: FieldsAreNotBlankUseCase,
-    private val saveAccessToken: SaveAccessTokenUseCase,
-    private val saveRefreshToken: SaveRefreshTokenUseCase,
-    private val saveUserId: SaveUserIdUseCase,
     private val getProfile: GetProfileUseCase,
-    private val saveSession: SaveSessionUseCase
+    private val dataStoreUseCase: DataStoreUseCase
 ) : ViewModel() {
 
     private val _logInState = MutableStateFlow(LogInState())
@@ -89,9 +83,9 @@ class LogInViewModel @Inject constructor(
             logInUseCase(email = email, password = password).collect {
                 when (it) {
                     is Resource.Success -> {
-                        saveAccessToken(it.data.accessToken)
-                        saveRefreshToken(it.data.refreshToken)
-                        if (isSessionSaved) saveSession.invoke()
+                       dataStoreUseCase.saveAccessToken(it.data.accessToken)
+                        dataStoreUseCase.saveRefreshToken(it.data.refreshToken)
+                        if (isSessionSaved) dataStoreUseCase.saveSession.invoke()
 
                         getUserId()
                     }
@@ -112,7 +106,7 @@ class LogInViewModel @Inject constructor(
         getProfile().collect {
             when (it) {
                 is Resource.Success -> {
-                    saveUserId(it.data.id)
+                    dataStoreUseCase.saveUserId(it.data.id)
                     _uiEvent.emit(LoginUiEvent.NavigateToParkingFragment)
                 }
 

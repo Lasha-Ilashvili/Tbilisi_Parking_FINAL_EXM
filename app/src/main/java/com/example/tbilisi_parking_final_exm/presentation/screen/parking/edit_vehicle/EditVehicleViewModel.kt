@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.tbilisi_parking_final_exm.data.common.Resource
 import com.example.tbilisi_parking_final_exm.domain.usecase.vehicle.edit_vehicle.EditVehicleUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.FieldsAreNotBlankUseCase
-import com.example.tbilisi_parking_final_exm.presentation.event.edit_vehicle.EditVehicleEvent
+import com.example.tbilisi_parking_final_exm.presentation.event.parking.edit_vehicle.EditVehicleEvent
 import com.example.tbilisi_parking_final_exm.presentation.mapper.vehicle.toDomain
 import com.example.tbilisi_parking_final_exm.presentation.model.vehicle.edit_vehicle.EditVehicle
 import com.example.tbilisi_parking_final_exm.presentation.state.parking.edit_vehicle.EditVehicleState

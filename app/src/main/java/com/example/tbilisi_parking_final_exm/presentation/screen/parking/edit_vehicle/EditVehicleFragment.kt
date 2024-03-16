@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.tbilisi_parking_final_exm.databinding.FragmentEditVehicleBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
-import com.example.tbilisi_parking_final_exm.presentation.event.edit_vehicle.EditVehicleEvent
+import com.example.tbilisi_parking_final_exm.presentation.event.parking.edit_vehicle.EditVehicleEvent
 import com.example.tbilisi_parking_final_exm.presentation.extension.hideKeyboard
 import com.example.tbilisi_parking_final_exm.presentation.state.parking.edit_vehicle.EditVehicleState
 import com.google.android.material.textfield.TextInputLayout

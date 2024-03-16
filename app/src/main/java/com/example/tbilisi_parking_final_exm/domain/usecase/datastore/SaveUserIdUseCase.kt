@@ -9,6 +9,6 @@ class SaveUserIdUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke(userId: Int) {
-        dataStoreRepository.saveString(key = PreferenceKeys.userId, value = userId.toString()  )
+        dataStoreRepository.saveString(key = PreferenceKeys.userId, value = userId.toString())
     }
 }
