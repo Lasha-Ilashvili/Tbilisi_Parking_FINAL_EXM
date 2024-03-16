@@ -76,7 +76,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    @Named("OkHttpClientForLogIn")
+    @Named("OkHttpClientForAuth")
     fun provideOkHttpClientForLogIn(
         httpLoggingInterceptor: HttpLoggingInterceptor,
     ): OkHttpClient {
@@ -101,9 +101,9 @@ object AppModule {
 
     @Provides
     @Singleton
-    @Named("retrofitForLogIn")
+    @Named("retrofitForAuth")
     fun provideRetrofitClientForLogIn(
-        @Named("OkHttpClientForLogIn") okHttpClient: OkHttpClient,
+        @Named("OkHttpClientForAuth") okHttpClient: OkHttpClient,
         moshiConverterFactory: MoshiConverterFactory
     ): Retrofit {
         return Retrofit.Builder()
@@ -128,13 +128,13 @@ object AppModule {
 
     @Provides
     @Singleton
-    @Named("RetrofitForMap")
+    @Named("retrofitForMap")
     fun provideRetrofitClientForMap(
         okHttpClient: OkHttpClient,
         moshiConverterFactory: MoshiConverterFactory
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://maps.googleapis.com/maps/api/geocode/")
+            .baseUrl(BuildConfig.BASE_URL_MAP)
             .client(okHttpClient)
             .addConverterFactory(moshiConverterFactory)
             .build()
@@ -142,13 +142,13 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideLatLngService(@Named("RetrofitForMap") retrofit: Retrofit): LatLngService {
+    fun provideLatLngService(@Named("retrofitForMap") retrofit: Retrofit): LatLngService {
         return retrofit.create(LatLngService::class.java)
     }
 
     @Singleton
     @Provides
-    fun provideLogInService(@Named("retrofitForLogIn") retrofit: Retrofit): LogInService {
+    fun provideLogInService(@Named("retrofitForAuth") retrofit: Retrofit): LogInService {
 
         return retrofit.create(LogInService::class.java)
     }
@@ -162,7 +162,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideSignUpService(retrofit: Retrofit): SignUpService {
+    fun provideSignUpService(@Named("retrofitForAuth") retrofit: Retrofit): SignUpService {
         return retrofit.create(SignUpService::class.java)
     }
 
@@ -174,19 +174,19 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideAddVehicleService(retrofit: Retrofit): AddVehicleService{
+    fun provideAddVehicleService(retrofit: Retrofit): AddVehicleService {
         return retrofit.create(AddVehicleService::class.java)
     }
 
     @Singleton
     @Provides
-    fun provideGetAllVehicle(retrofit: Retrofit): GetAllVehicleService{
+    fun provideGetAllVehicle(retrofit: Retrofit): GetAllVehicleService {
         return retrofit.create(GetAllVehicleService::class.java)
     }
 
     @Singleton
     @Provides
-    fun provideEditVehicle(retrofit: Retrofit): EditVehicleService{
+    fun provideEditVehicle(retrofit: Retrofit): EditVehicleService {
         return retrofit.create(EditVehicleService::class.java)
     }
 
@@ -195,6 +195,4 @@ object AppModule {
     fun provideMoshi(): Moshi {
         return Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
     }
-
-
 }
