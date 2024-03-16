@@ -1,4 +1,4 @@
-package com.example.tbilisi_parking_final_exm.data.model.vehicle.vehicle
+package com.example.tbilisi_parking_final_exm.data.model.parking.vehicle
 
 data class VehicleDto (
     val id: Int,

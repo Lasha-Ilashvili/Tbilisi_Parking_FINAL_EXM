@@ -1,4 +1,4 @@
-package com.example.tbilisi_parking_final_exm.domain.repository.get_vehicles
+package com.example.tbilisi_parking_final_exm.domain.repository.parking.get_vehicles
 
 import com.example.tbilisi_parking_final_exm.data.common.Resource
 import com.example.tbilisi_parking_final_exm.domain.model.vehicle.vehicle.GetVehicle

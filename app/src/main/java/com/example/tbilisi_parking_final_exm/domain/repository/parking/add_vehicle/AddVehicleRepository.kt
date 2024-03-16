@@ -1,4 +1,4 @@
-package com.example.tbilisi_parking_final_exm.domain.repository.add_vehicle
+package com.example.tbilisi_parking_final_exm.domain.repository.parking.add_vehicle
 
 import com.example.tbilisi_parking_final_exm.data.common.Resource
 import com.example.tbilisi_parking_final_exm.domain.model.vehicle.add_vehicle.GetAddVehicle
