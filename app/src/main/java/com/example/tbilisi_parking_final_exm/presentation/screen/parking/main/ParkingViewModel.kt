@@ -3,10 +3,7 @@ package com.example.tbilisi_parking_final_exm.presentation.screen.parking.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbilisi_parking_final_exm.data.common.Resource
-import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.GetRefreshTokenUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.GetUserIdUseCase
-import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.SaveAccessTokenUseCase
-import com.example.tbilisi_parking_final_exm.domain.usecase.refresh_token.RefreshTokenUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.vehicle.get_vehicles.GetAllVehicleUseCase
 import com.example.tbilisi_parking_final_exm.presentation.event.parking.ParkingEvent
 import com.example.tbilisi_parking_final_exm.presentation.mapper.vehicle.toPresenter
@@ -48,6 +45,8 @@ class ParkingViewModel @Inject constructor(
                     }
 
                     is Resource.Error -> {
+//                        complete session while Unauthorized access occurs (refreshToken expired)
+                        if(it.errorMessage == "Unauthorized access")
                         updateErrorMessage(it.errorMessage)
                     }
 

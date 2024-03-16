@@ -11,8 +11,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.tbilisi_parking_final_exm.R
 import com.example.tbilisi_parking_final_exm.databinding.FragmentBottomNavBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
-import com.example.tbilisi_parking_final_exm.presentation.event.bottomNav.BottomNavEvent
-import com.example.tbilisi_parking_final_exm.presentation.extension.showAlertDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -27,11 +25,6 @@ class BottomNavFragment :
     }
 
     override fun bindViewActionListeners() {
-        binding.navigateToHome.setOnClickListener {
-
-            setUpDialog()
-
-        }
     }
 
     override fun bindObserves() {
@@ -74,19 +67,5 @@ class BottomNavFragment :
             }
         }
     }
-
-    private fun setUpDialog() {
-        requireContext().showAlertDialog(
-            title = "Log Out",
-            message = "Do you want to log_out?",
-            positiveButtonText = "Yes",
-            negativeButtonText = "No",
-            positiveButtonClickAction = {
-                viewModel.onEvent(BottomNavEvent.ClearDataStore)
-            }
-
-        )
-    }
-
 }
 
