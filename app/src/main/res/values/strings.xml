@@ -63,5 +63,6 @@
     <string name="buy_card">buy card</string>
     <string name="edit_vehicle">Edit Vehicle</string>
     <string name="save">Save</string>
+    <string name="save_session">Save Session</string>
 
 </resources>

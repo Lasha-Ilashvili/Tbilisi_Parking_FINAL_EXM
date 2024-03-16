@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.tbilisi_parking_final_exm.data.common.Resource
 import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.SaveAccessTokenUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.SaveRefreshTokenUseCase
+import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.SaveSessionUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.SaveUserIdUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.log_in.LogInUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.profile.GetProfileUseCase
@@ -32,7 +33,8 @@ class LogInViewModel @Inject constructor(
     private val saveAccessToken: SaveAccessTokenUseCase,
     private val saveRefreshToken: SaveRefreshTokenUseCase,
     private val saveUserId: SaveUserIdUseCase,
-    private val getProfile: GetProfileUseCase
+    private val getProfile: GetProfileUseCase,
+    private val saveSession: SaveSessionUseCase
 ) : ViewModel() {
 
     private val _logInState = MutableStateFlow(LogInState())
@@ -42,11 +44,14 @@ class LogInViewModel @Inject constructor(
     private val _uiEvent = MutableSharedFlow<LoginUiEvent>()
     val uiEvent get() = _uiEvent
 
+    private var isSessionSaved : Boolean = false
+
     fun onEvent(event: LogInEvent) = with(event) {
         when (this) {
             is LogInEvent.LogIn -> validateForms(email = email, password = password)
             is LogInEvent.SetButtonState -> setButtonState(fields = fields)
             is LogInEvent.ResetErrorMessage -> updateErrorMessage(message = null)
+            is LogInEvent.SaveSession -> setSession(isChecked = isChecked)
         }
     }
 
@@ -86,6 +91,10 @@ class LogInViewModel @Inject constructor(
                     is Resource.Success -> {
                         saveAccessToken(it.data.accessToken)
                         saveRefreshToken(it.data.refreshToken)
+                        if(isSessionSaved){
+                            saveSession.invoke()
+                        }
+
                         getUserId()
                     }
 
@@ -134,6 +143,10 @@ class LogInViewModel @Inject constructor(
                 errorMessage = message
             )
         }
+    }
+
+    private fun setSession(isChecked: Boolean) {
+        isSessionSaved = isChecked
     }
 
     sealed interface LoginUiEvent {

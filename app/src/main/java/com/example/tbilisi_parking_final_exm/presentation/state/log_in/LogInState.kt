@@ -8,5 +8,5 @@ data class LogInState(
     val token: String? = null,
     val errorMessage: String? = null,
     val isErrorEnabled: Boolean = false,
-    val isButtonEnabled: Boolean = false
+    val isButtonEnabled: Boolean = false,
 )

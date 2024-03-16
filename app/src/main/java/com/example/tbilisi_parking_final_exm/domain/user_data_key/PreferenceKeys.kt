@@ -6,4 +6,5 @@ object PreferenceKeys {
     val accessToken = stringPreferencesKey("access_token")
     val refreshToken = stringPreferencesKey("refresh_token")
     val userId = stringPreferencesKey("userId")
+    val isSessionSaved = stringPreferencesKey("sessionSaved")
 }

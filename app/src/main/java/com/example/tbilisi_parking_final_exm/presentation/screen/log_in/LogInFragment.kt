@@ -40,6 +40,10 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
             btnBackArrow.setOnClickListener {
                 findNavController().navigate(LogInFragmentDirections.actionLogInFragmentToHomeFragment())
             }
+
+            checkBox.setOnCheckedChangeListener { _, isChecked ->
+                viewModel.onEvent(LogInEvent.SaveSession(isChecked))
+            }
         }
     }
 
@@ -119,12 +123,15 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
                 etEmail.visibility = View.GONE
                 etPassword.visibility = View.GONE
                 btnLogIn.visibility = View.GONE
+                checkBox.visibility = View.GONE
 
             } else {
                 progressBar.root.visibility = View.GONE
                 etEmail.visibility = View.VISIBLE
                 etPassword.visibility = View.VISIBLE
                 btnLogIn.visibility = View.VISIBLE
+                checkBox.visibility = View.VISIBLE
+
             }
         }
     }
