@@ -124,6 +124,7 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
                 etPassword.visibility = View.GONE
                 btnLogIn.visibility = View.GONE
                 checkBox.visibility = View.GONE
+                tvSaveSession.visibility =View.GONE
 
             } else {
                 progressBar.root.visibility = View.GONE
@@ -131,6 +132,7 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
                 etPassword.visibility = View.VISIBLE
                 btnLogIn.visibility = View.VISIBLE
                 checkBox.visibility = View.VISIBLE
+                tvSaveSession.visibility =View.VISIBLE
 
             }
         }
