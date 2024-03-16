@@ -14,11 +14,19 @@ class RefreshTokenRepositoryImpl @Inject constructor(
     private val handleResponse: HandleResponse,
     private val refreshTokenService: RefreshTokenService
 ) : RefreshTokenRepository {
-    override suspend fun refreshToken(token: String): Flow<Resource<GetNewToken>> {
+    override suspend fun refreshToken(token: String):Flow<Resource<GetNewToken>> {
+
+//        try {
+//            val response = refreshTokenService.refreshToken(grantType = "refresh_token", refreshToken = token)
+//            if(response.isSuccessful) {
+//                val refreshedToken = response.b
+//            }
+//        }
         return handleResponse.safeApiCall {
-            refreshTokenService.refreshToken(grantType = "refresh_token", refreshToken = token).apply {
-                println("this is refreshTokenRepositoryImpl -> $this")
-            }
+            refreshTokenService.refreshToken(grantType = "refresh_token", refreshToken = token)
+                .apply {
+                    println("this is refreshTokenRepositoryImpl -> $this")
+                }
         }.asResource {
             it.toDomain()
         }

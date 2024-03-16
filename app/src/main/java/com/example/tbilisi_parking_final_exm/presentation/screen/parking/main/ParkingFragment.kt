@@ -69,6 +69,8 @@ class ParkingFragment : BaseFragment<FragmentParkingBinding>(FragmentParkingBind
         }
     }
 
+
+
     private fun setUpRecycler() {
         with(binding) {
             parkingVehiclesListAdapter = ParkingVehiclesListAdapter()

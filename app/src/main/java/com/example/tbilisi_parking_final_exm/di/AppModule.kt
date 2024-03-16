@@ -11,6 +11,8 @@ import com.example.tbilisi_parking_final_exm.data.service.map.LatLngService
 import com.example.tbilisi_parking_final_exm.data.service.profile.ProfileService
 import com.example.tbilisi_parking_final_exm.data.service.refresh_token.RefreshTokenService
 import com.example.tbilisi_parking_final_exm.data.service.sign_up.SignUpService
+import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.GetRefreshTokenUseCase
+import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.SaveAccessTokenUseCase
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -55,12 +57,17 @@ object AppModule {
     @Singleton
     fun provideOkHttpClient(
         httpLoggingInterceptor: HttpLoggingInterceptor,
-        authTokenFlow: Flow<String?>
+        authTokenFlow: Flow<String?>,
+        refreshTokenService: RefreshTokenService,
+        saveAccessTokenUseCase: SaveAccessTokenUseCase,
+        getRefreshTokenUseCase: GetRefreshTokenUseCase
     ): OkHttpClient {
+
         val client = OkHttpClient.Builder()
         if (BuildConfig.DEBUG) {
             client.addInterceptor(httpLoggingInterceptor)
         }
+
         client.addInterceptor { chain ->
             val authToken = runBlocking { authTokenFlow.first() }
             val newRequest = if (!authToken.isNullOrBlank()) {
@@ -70,7 +77,37 @@ object AppModule {
             } else {
                 chain.request()
             }
-            chain.proceed(newRequest)
+
+//            handle accessToken refreshing processes
+            val response = chain.proceed(newRequest)
+            if (response.code == 401) {
+
+                if (!authToken.isNullOrBlank()) {
+                    println(authToken)
+                    val refreshToken = runBlocking { getRefreshTokenUseCase().first() }
+                    val refreshedToken = runBlocking {
+                        refreshTokenService.refreshToken(
+                            "refresh_token",
+                            refreshToken
+                        )
+                    }
+
+                    val newToken = refreshedToken.body()?.accessToken
+                    runBlocking { saveAccessTokenUseCase(newToken!!) }
+                    val readNewAuthToken = runBlocking { authTokenFlow.first() }
+
+                    val newRequestWithNewToken = if (!readNewAuthToken.isNullOrBlank()) {
+                        chain.request().newBuilder()
+                            .addHeader("Authorization", "Bearer $readNewAuthToken")
+                            .build()
+                    } else {
+                        chain.request()
+                    }
+
+                    return@addInterceptor chain.proceed(newRequestWithNewToken)
+                }
+            }
+            return@addInterceptor response
         }
         return client.build()
     }
@@ -175,19 +212,19 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideAddVehicleService(retrofit: Retrofit): AddVehicleService{
+    fun provideAddVehicleService(retrofit: Retrofit): AddVehicleService {
         return retrofit.create(AddVehicleService::class.java)
     }
 
     @Singleton
     @Provides
-    fun provideGetAllVehicle(retrofit: Retrofit): GetAllVehicleService{
+    fun provideGetAllVehicle(retrofit: Retrofit): GetAllVehicleService {
         return retrofit.create(GetAllVehicleService::class.java)
     }
 
     @Singleton
     @Provides
-    fun provideEditVehicle(retrofit: Retrofit): EditVehicleService{
+    fun provideEditVehicle(retrofit: Retrofit): EditVehicleService {
         return retrofit.create(EditVehicleService::class.java)
     }
 
