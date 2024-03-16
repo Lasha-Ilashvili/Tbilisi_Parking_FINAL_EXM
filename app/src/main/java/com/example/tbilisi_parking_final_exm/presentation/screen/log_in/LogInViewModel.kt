@@ -44,7 +44,7 @@ class LogInViewModel @Inject constructor(
     private val _uiEvent = MutableSharedFlow<LoginUiEvent>()
     val uiEvent get() = _uiEvent
 
-    private var isSessionSaved : Boolean = false
+    private var isSessionSaved: Boolean = false
 
     fun onEvent(event: LogInEvent) = with(event) {
         when (this) {
@@ -91,9 +91,7 @@ class LogInViewModel @Inject constructor(
                     is Resource.Success -> {
                         saveAccessToken(it.data.accessToken)
                         saveRefreshToken(it.data.refreshToken)
-                        if(isSessionSaved){
-                            saveSession.invoke()
-                        }
+                        if (isSessionSaved) saveSession.invoke()
 
                         getUserId()
                     }

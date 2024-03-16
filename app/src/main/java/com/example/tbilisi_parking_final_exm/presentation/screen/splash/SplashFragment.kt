@@ -21,16 +21,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(FragmentSplashBinding
 
     }
 
-    private fun handleUiState(event: SplashViewModel.SplashUiEvent){
-        when(event) {
-            is SplashViewModel.SplashUiEvent.NavigateToHomeFragment -> {
-                findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToHomeFragment())
-            }
-            is SplashViewModel.SplashUiEvent.NavigateToBottomNavFragment -> {
-                findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToBottomNavFragment())
-            }
-        }
-    }
+
 
     override fun bindObserves() {
         viewLifecycleOwner.lifecycleScope.launch {
@@ -38,6 +29,18 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(FragmentSplashBinding
                 viewModel.uiEvent.collect{
                     handleUiState(it)
                 }
+            }
+        }
+    }
+
+    private fun handleUiState(event: SplashViewModel.SplashUiEvent){
+        when(event) {
+
+            is SplashViewModel.SplashUiEvent.NavigateToHomeFragment -> {
+                findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToHomeFragment())
+            }
+            is SplashViewModel.SplashUiEvent.NavigateToBottomNavFragment -> {
+                findNavController().navigate(SplashFragmentDirections.actionSplashFragmentToBottomNavFragment())
             }
         }
     }

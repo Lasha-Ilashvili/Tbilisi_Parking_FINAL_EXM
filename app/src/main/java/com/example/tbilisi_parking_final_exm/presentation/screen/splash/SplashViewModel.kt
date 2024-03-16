@@ -32,19 +32,22 @@ class SplashViewModel @Inject constructor(
                 } else {
                     getProfileUseCase.invoke().collect {
                         when (it) {
-                            is Resource.Success ->{
+                            is Resource.Success -> {
                                 _uiEvent.emit(SplashUiEvent.NavigateToBottomNavFragment)
                             }
 
                             is Resource.Loading -> {}
 
-                            is Resource.Error -> _uiEvent.emit(SplashUiEvent.NavigateToHomeFragment)
+                            is Resource.Error -> {
+                                _uiEvent.emit(SplashUiEvent.NavigateToHomeFragment)
+                            }
                         }
                     }
                 }
             }
         }
     }
+
 
     sealed interface SplashUiEvent {
         data object NavigateToBottomNavFragment : SplashUiEvent

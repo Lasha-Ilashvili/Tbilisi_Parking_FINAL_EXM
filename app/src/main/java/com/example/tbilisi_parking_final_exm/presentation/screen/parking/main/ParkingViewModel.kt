@@ -24,9 +24,6 @@ import javax.inject.Inject
 class ParkingViewModel @Inject constructor(
     private val getAllVehicle: GetAllVehicleUseCase,
     private val getUserId: GetUserIdUseCase,
-    private val refreshToken: RefreshTokenUseCase,
-    private val getRefreshToken: GetRefreshTokenUseCase,
-    private val saveAccessToken: SaveAccessTokenUseCase
 ) : ViewModel() {
 
     private val _parkingState = MutableStateFlow(ParkingState())
@@ -51,10 +48,6 @@ class ParkingViewModel @Inject constructor(
                     }
 
                     is Resource.Error -> {
-                        if (it.errorMessage == "Unauthorized access") {
-//                            getNewToken()
-                            println("Unauthorized access")
-                        }
                         updateErrorMessage(it.errorMessage)
                     }
 
@@ -69,34 +62,6 @@ class ParkingViewModel @Inject constructor(
             }
         }
     }
-
-//    private suspend fun getNewToken() {
-//        val refreshToken = runBlocking { getRefreshToken().first() }
-//        refreshToken(refreshToken).collect {
-//            when (it) {
-//                is Resource.Success -> {
-//                    saveAccessToken(it.data.accessToken)
-//                    fetchAllVehicle()
-//                    println("this is new token -> ${it.data.accessToken}")
-//
-//                }
-//
-//                is Resource.Error -> {
-//                    println("error occurred while refreshing token")
-//                    updateErrorMessage(it.errorMessage)
-//
-//                }
-//
-//                is Resource.Loading -> _parkingState.update { currentState ->
-//                    currentState.copy(
-//                        isLoading = it.loading
-//                    )
-//                }
-//            }
-//        }
-//    }
-
-
 
     private fun updateErrorMessage(message: String?) {
         _parkingState.update { currentState ->

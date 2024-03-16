@@ -11,6 +11,7 @@ import com.example.tbilisi_parking_final_exm.data.service.map.LatLngService
 import com.example.tbilisi_parking_final_exm.data.service.profile.ProfileService
 import com.example.tbilisi_parking_final_exm.data.service.refresh_token.RefreshTokenService
 import com.example.tbilisi_parking_final_exm.data.service.sign_up.SignUpService
+import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.ClearDataStoreUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.GetRefreshTokenUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.SaveAccessTokenUseCase
 import com.squareup.moshi.Moshi
@@ -60,7 +61,8 @@ object AppModule {
         authTokenFlow: Flow<String?>,
         refreshTokenService: RefreshTokenService,
         saveAccessTokenUseCase: SaveAccessTokenUseCase,
-        getRefreshTokenUseCase: GetRefreshTokenUseCase
+        getRefreshTokenUseCase: GetRefreshTokenUseCase,
+        clearDataStoreUseCase: ClearDataStoreUseCase
     ): OkHttpClient {
 
         val client = OkHttpClient.Builder()
@@ -83,7 +85,6 @@ object AppModule {
             if (response.code == 401) {
 
                 if (!authToken.isNullOrBlank()) {
-                    println(authToken)
                     val refreshToken = runBlocking { getRefreshTokenUseCase().first() }
                     val refreshedToken = runBlocking {
                         refreshTokenService.refreshToken(
@@ -92,19 +93,24 @@ object AppModule {
                         )
                     }
 
-                    val newToken = refreshedToken.body()?.accessToken
-                    runBlocking { saveAccessTokenUseCase(newToken!!) }
-                    val readNewAuthToken = runBlocking { authTokenFlow.first() }
+                    if (refreshedToken.isSuccessful) {
+                        val newToken = refreshedToken.body()?.accessToken
+                        runBlocking { saveAccessTokenUseCase(newToken!!) }
+                        val readNewAuthToken = runBlocking { authTokenFlow.first() }
 
-                    val newRequestWithNewToken = if (!readNewAuthToken.isNullOrBlank()) {
-                        chain.request().newBuilder()
-                            .addHeader("Authorization", "Bearer $readNewAuthToken")
-                            .build()
+                        val newRequestWithNewToken = if (!readNewAuthToken.isNullOrBlank()) {
+                            chain.request().newBuilder()
+                                .addHeader("Authorization", "Bearer $readNewAuthToken")
+                                .build()
+                        } else {
+                            chain.request()
+                        }
+                        return@addInterceptor chain.proceed(newRequestWithNewToken)
                     } else {
-                        chain.request()
+                        runBlocking { clearDataStoreUseCase.invoke() }
                     }
 
-                    return@addInterceptor chain.proceed(newRequestWithNewToken)
+
                 }
             }
             return@addInterceptor response
