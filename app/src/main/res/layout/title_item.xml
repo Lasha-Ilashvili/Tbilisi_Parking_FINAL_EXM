@@ -5,12 +5,13 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
-        android:text="@string/buy_card"
-        android:textStyle="bold"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:textSize="30sp"
-        android:textAllCaps="true"
         android:layout_marginBottom="@dimen/margin_large"
-        android:layout_height="wrap_content" />
+        android:fontFamily="@font/open_sans_regular"
+        android:text="@string/buy_card"
+        android:textAllCaps="true"
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
 </FrameLayout>
