@@ -126,11 +126,33 @@
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/walletFragment"
-        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.user_panel.wallet.WalletFragment"
-        android:label="WalletFragment" />
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.user_panel.wallet.main.WalletFragment"
+        android:label="WalletFragment" >
+        <action
+            android:id="@+id/action_walletFragment_to_balanceFragment"
+            app:destination="@id/balanceFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.tbilisi_parking_final_exm.presentation.screen.user_panel.settings.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/balanceFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.user_panel.wallet.balance.BalanceFragment"
+        android:label="fragment_balance"
+        tools:layout="@layout/fragment_balance" >
+        <argument
+            android:name="cardNumber"
+            app:argType="string"
+            android:defaultValue='""' />
+        <argument
+            android:name="date"
+            app:argType="string"
+            android:defaultValue='""' />
+        <argument
+            android:name="cvv"
+            app:argType="string"
+            android:defaultValue='""' />
+    </fragment>
 </navigation>

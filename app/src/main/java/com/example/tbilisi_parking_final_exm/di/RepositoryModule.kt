@@ -10,23 +10,26 @@ import com.example.tbilisi_parking_final_exm.data.repository.edit_vehicle.EditVe
 import com.example.tbilisi_parking_final_exm.data.repository.get_vehicles.GetAllVehicleRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.log_in.LogInRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.map.MarkerLocationsRepositoryImpl
-import com.example.tbilisi_parking_final_exm.data.repository.profile.ProfileRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.sign_up.SignUpRepositoryImpl
+import com.example.tbilisi_parking_final_exm.data.repository.user_panel.profile.ProfileRepositoryImpl
+import com.example.tbilisi_parking_final_exm.data.repository.user_panel.wallet.balance.RememberCardRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.service.add_vehicle.AddVehicleService
 import com.example.tbilisi_parking_final_exm.data.service.edit_vehicle.EditVehicleService
 import com.example.tbilisi_parking_final_exm.data.service.get_vehicle.GetAllVehicleService
 import com.example.tbilisi_parking_final_exm.data.service.log_in.LogInService
 import com.example.tbilisi_parking_final_exm.data.service.map.LatLngService
-import com.example.tbilisi_parking_final_exm.data.service.profile.ProfileService
 import com.example.tbilisi_parking_final_exm.data.service.sign_up.SignUpService
+import com.example.tbilisi_parking_final_exm.data.service.user_panel.profile.ProfileService
+import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.balance.RememberCardService
 import com.example.tbilisi_parking_final_exm.domain.repository.add_vehicle.AddVehicleRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.datastore.DataStoreRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.edit_vehicle.EditVehicleRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.get_vehicles.GetAllVehicleRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.log_in.LogInRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.map.MarkerLocationsRepository
-import com.example.tbilisi_parking_final_exm.domain.repository.profile.ProfileRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.sign_up.SignUpRepository
+import com.example.tbilisi_parking_final_exm.domain.repository.user_panel.profile.ProfileRepository
+import com.example.tbilisi_parking_final_exm.domain.repository.user_panel.wallet.balance.RememberCardRepository
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -136,4 +139,15 @@ object RepositoryModule {
         )
     }
 
+    @Singleton
+    @Provides
+    fun provideRememberCardRepository(
+        handleResponse: HandleResponse,
+        rememberCardService: RememberCardService
+    ): RememberCardRepository {
+        return RememberCardRepositoryImpl(
+            handleResponse = handleResponse,
+            rememberCardService = rememberCardService
+        )
+    }
 }

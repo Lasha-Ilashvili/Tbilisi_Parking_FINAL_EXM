@@ -12,7 +12,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -35,7 +34,7 @@ class ParkingViewModel @Inject constructor(
 
     private fun fetchAllVehicle() {
         viewModelScope.launch {
-            getAllVehicle(userId = getUserId().first().toInt()).collect {
+            getAllVehicle(userId = getUserId()).collect {
                 when (it) {
                     is Resource.Loading -> _parkingState.update { currentState ->
                         currentState.copy(

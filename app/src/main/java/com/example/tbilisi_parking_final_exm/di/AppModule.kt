@@ -8,8 +8,9 @@ import com.example.tbilisi_parking_final_exm.data.service.edit_vehicle.EditVehic
 import com.example.tbilisi_parking_final_exm.data.service.get_vehicle.GetAllVehicleService
 import com.example.tbilisi_parking_final_exm.data.service.log_in.LogInService
 import com.example.tbilisi_parking_final_exm.data.service.map.LatLngService
-import com.example.tbilisi_parking_final_exm.data.service.profile.ProfileService
 import com.example.tbilisi_parking_final_exm.data.service.sign_up.SignUpService
+import com.example.tbilisi_parking_final_exm.data.service.user_panel.profile.ProfileService
+import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.balance.RememberCardService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -76,7 +77,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    @Named("OkHttpClientForAuth")
+    @Named("OkHttpClientForLogin")
     fun provideOkHttpClientForLogIn(
         httpLoggingInterceptor: HttpLoggingInterceptor,
     ): OkHttpClient {
@@ -101,9 +102,9 @@ object AppModule {
 
     @Provides
     @Singleton
-    @Named("retrofitForAuth")
+    @Named("retrofitForLogin")
     fun provideRetrofitClientForLogIn(
-        @Named("OkHttpClientForAuth") okHttpClient: OkHttpClient,
+        @Named("OkHttpClientForLogin") okHttpClient: OkHttpClient,
         moshiConverterFactory: MoshiConverterFactory
     ): Retrofit {
         return Retrofit.Builder()
@@ -148,7 +149,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideLogInService(@Named("retrofitForAuth") retrofit: Retrofit): LogInService {
+    fun provideLogInService(@Named("retrofitForLogin") retrofit: Retrofit): LogInService {
 
         return retrofit.create(LogInService::class.java)
     }
@@ -162,7 +163,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideSignUpService(@Named("retrofitForAuth") retrofit: Retrofit): SignUpService {
+    fun provideSignUpService(@Named("retrofitForLogin") retrofit: Retrofit): SignUpService {
         return retrofit.create(SignUpService::class.java)
     }
 
@@ -194,5 +195,11 @@ object AppModule {
     @Singleton
     fun provideMoshi(): Moshi {
         return Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideRememberCardService(retrofit: Retrofit): RememberCardService {
+        return retrofit.create(RememberCardService::class.java)
     }
 }

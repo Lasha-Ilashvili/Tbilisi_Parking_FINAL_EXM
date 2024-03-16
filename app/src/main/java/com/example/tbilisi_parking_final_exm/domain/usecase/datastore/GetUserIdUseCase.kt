@@ -2,13 +2,14 @@ package com.example.tbilisi_parking_final_exm.domain.usecase.datastore
 
 import com.example.tbilisi_parking_final_exm.domain.repository.datastore.DataStoreRepository
 import com.example.tbilisi_parking_final_exm.domain.user_data_key.PreferenceKeys
+import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
 class GetUserIdUseCase @Inject constructor(
     private val dataStoreRepository: DataStoreRepository
 ) {
 
-    operator fun invoke() = dataStoreRepository.readString(
+    suspend operator fun invoke() = dataStoreRepository.readString(
         key = PreferenceKeys.userId
-    )
+    ).first().toInt()
 }

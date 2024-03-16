@@ -8,7 +8,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.tbilisi_parking_final_exm.databinding.FragmentProfileBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
-import com.example.tbilisi_parking_final_exm.presentation.event.profile.ProfileEvent
+import com.example.tbilisi_parking_final_exm.presentation.event.user_panel.profile.ProfileEvent
 import com.example.tbilisi_parking_final_exm.presentation.extension.showToast
 import com.example.tbilisi_parking_final_exm.presentation.state.user_panel.profile.ProfileState
 import dagger.hilt.android.AndroidEntryPoint
