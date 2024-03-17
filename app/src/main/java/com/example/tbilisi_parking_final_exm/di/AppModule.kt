@@ -8,12 +8,17 @@ import com.example.tbilisi_parking_final_exm.data.service.parking.edit_vehicle.E
 import com.example.tbilisi_parking_final_exm.data.service.parking.get_vehicle.GetAllVehicleService
 import com.example.tbilisi_parking_final_exm.data.service.log_in.LogInService
 import com.example.tbilisi_parking_final_exm.data.service.map.LatLngService
-import com.example.tbilisi_parking_final_exm.data.service.profile.ProfileService
 import com.example.tbilisi_parking_final_exm.data.service.refresh_token.RefreshTokenService
 import com.example.tbilisi_parking_final_exm.data.service.sign_up.SignUpService
 import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.ClearDataStoreUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.GetRefreshTokenUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.SaveAccessTokenUseCase
+import com.example.tbilisi_parking_final_exm.data.service.user_panel.profile.ProfileService
+import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.balance.AddToBalanceService
+import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.balance.GetBalanceService
+import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.cards.DeleteUserCardService
+import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.cards.GetUserCardsService
+import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.cards.SaveCardService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -135,7 +140,7 @@ object AppModule {
 
             // Add basic authentication header
             val authenticatedRequest = original.newBuilder()
-                .header("Authorization", Credentials.basic("park-pro-client-android-app", "secret"))
+                .header("Authorization", Credentials.basic(BuildConfig.BASIC_AUTH_CREDENTIAL_USER_NAME, BuildConfig.BASIC_AUTH_CREDENTIAL_USER_PASSWORD))
                 .build()
 
             chain.proceed(authenticatedRequest)
@@ -172,13 +177,13 @@ object AppModule {
 
     @Provides
     @Singleton
-    @Named("RetrofitForMap")
+    @Named("retrofitForMap")
     fun provideRetrofitClientForMap(
         okHttpClient: OkHttpClient,
         moshiConverterFactory: MoshiConverterFactory
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://maps.googleapis.com/maps/api/geocode/")
+            .baseUrl(BuildConfig.BASE_URL_MAP)
             .client(okHttpClient)
             .addConverterFactory(moshiConverterFactory)
             .build()
@@ -186,14 +191,13 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideLatLngService(@Named("RetrofitForMap") retrofit: Retrofit): LatLngService {
+    fun provideLatLngService(@Named("retrofitForMap") retrofit: Retrofit): LatLngService {
         return retrofit.create(LatLngService::class.java)
     }
 
     @Singleton
     @Provides
     fun provideLogInService(@Named("retrofitWithBasicAuthOkHttpClient") retrofit: Retrofit): LogInService {
-
         return retrofit.create(LogInService::class.java)
     }
 
@@ -206,7 +210,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideSignUpService(retrofit: Retrofit): SignUpService {
+    fun provideSignUpService(@Named("retrofitWithBasicAuthOkHttpClient") retrofit: Retrofit): SignUpService {
         return retrofit.create(SignUpService::class.java)
     }
 
@@ -246,5 +250,33 @@ object AppModule {
         return Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
     }
 
+    @Singleton
+    @Provides
+    fun provideSaveCardService(retrofit: Retrofit): SaveCardService {
+        return retrofit.create(SaveCardService::class.java)
+    }
 
+    @Singleton
+    @Provides
+    fun provideAddToBalanceService(retrofit: Retrofit): AddToBalanceService {
+        return retrofit.create(AddToBalanceService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideDeleteCardService(retrofit: Retrofit): DeleteUserCardService {
+        return retrofit.create(DeleteUserCardService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetUserCardsService(retrofit: Retrofit): GetUserCardsService {
+        return retrofit.create(GetUserCardsService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetBalanceService(retrofit: Retrofit): GetBalanceService {
+        return retrofit.create(GetBalanceService::class.java)
+    }
 }

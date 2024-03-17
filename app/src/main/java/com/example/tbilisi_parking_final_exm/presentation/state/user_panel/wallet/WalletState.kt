@@ -1,12 +1,13 @@
 package com.example.tbilisi_parking_final_exm.presentation.state.user_panel.wallet
 
-import com.google.android.material.textfield.TextInputLayout
+import com.example.tbilisi_parking_final_exm.presentation.model.user_panel.wallet.balance.Balance
+import com.example.tbilisi_parking_final_exm.presentation.model.user_panel.wallet.cards.UserCard
 
 
 data class WalletState(
-    val errorTextInputLayout: TextInputLayout? = null,
-    val isErrorEnabled: Boolean = false,
-    val isPayNowButtonEnabled: Boolean = false,
-    val isCardLayoutEnabled: Boolean = false,
-    val isProceedToPaymentButtonEnabled: Boolean = false
+    val isLoading: Boolean = false,
+    val data: List<UserCard>? = null,
+    val balance: Balance? = null,
+    val isButtonEnabled: Boolean = false,
+    val errorMessage: String? = null
 )

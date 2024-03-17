@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.tbilisi_parking_final_exm.data.common.Resource
 import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.DataStoreUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.log_in.LogInUseCase
-import com.example.tbilisi_parking_final_exm.domain.usecase.profile.GetProfileUseCase
+import com.example.tbilisi_parking_final_exm.domain.usecase.user_panel.profile.GetProfileUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.EmailValidatorUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.FieldsAreNotBlankUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.LogInPasswordValidatorUseCase

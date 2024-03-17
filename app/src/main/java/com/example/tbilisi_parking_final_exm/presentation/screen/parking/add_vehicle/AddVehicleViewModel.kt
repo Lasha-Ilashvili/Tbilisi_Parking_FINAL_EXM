@@ -3,10 +3,10 @@ package com.example.tbilisi_parking_final_exm.presentation.screen.parking.add_ve
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbilisi_parking_final_exm.data.common.Resource
-import com.example.tbilisi_parking_final_exm.domain.usecase.vehicle.add_vehicle.AddVehicleUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.GetUserIdUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.PlateNumberValidatorUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.FieldsAreNotBlankUseCase
+import com.example.tbilisi_parking_final_exm.domain.usecase.vehicle.add_vehicle.AddVehicleUseCase
 import com.example.tbilisi_parking_final_exm.presentation.event.parking.add_vehicle.AddVehicleEvent
 import com.example.tbilisi_parking_final_exm.presentation.mapper.vehicle.toDomain
 import com.example.tbilisi_parking_final_exm.presentation.model.vehicle.add_vehicle.AddVehicle
@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -65,7 +64,7 @@ class AddVehicleViewModel @Inject constructor(
 
     private fun registerVehicle(name: String, plateNumber: String) {
         viewModelScope.launch {
-            val vehicle = AddVehicle(userId = getUserId().first().toInt(), name = name, plateNumber = plateNumber)
+            val vehicle = AddVehicle(userId = getUserId(), name = name, plateNumber = plateNumber)
             addVehicleUseCase(vehicle.toDomain()).collect{
                 when (it) {
                     is Resource.Loading -> _addVehicleState.update { currentState ->

@@ -8,6 +8,7 @@ import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.Email
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.FieldsAreNotBlankUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.SignUpPasswordValidatorUseCase
 import com.example.tbilisi_parking_final_exm.presentation.event.sign_up.create_account.CreateAccountEvent
+import com.example.tbilisi_parking_final_exm.presentation.mapper.sign_up.toDomain
 import com.example.tbilisi_parking_final_exm.presentation.mapper.sign_up.toPresentation
 import com.example.tbilisi_parking_final_exm.presentation.model.sign_up.User
 import com.example.tbilisi_parking_final_exm.presentation.model.sign_up.UserCredentials
@@ -116,7 +117,7 @@ class CreateAccountViewModel @Inject constructor(
 
     private fun signUp(user: User) {
         viewModelScope.launch {
-            signUpUseCase(user).collect {
+            signUpUseCase(user.toDomain()).collect {
                 when (it) {
                     is Resource.Success -> {
                         _uiEvent.emit(
@@ -141,7 +142,6 @@ class CreateAccountViewModel @Inject constructor(
             currentState.copy(isButtonEnabled = fieldsAreNotBlank(fields))
         }
     }
-
 
 
     private fun updateErrorMessage(message: String? = null) {
