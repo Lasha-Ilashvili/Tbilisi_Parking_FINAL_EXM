@@ -64,8 +64,9 @@
     <string name="edit_vehicle">Edit Vehicle</string>
     <string name="save">Save</string>
     <string name="wallet">wallet</string>
-    <string name="remember_card">Remember Card</string>
+    <string name="save_card">Save Card</string>
     <string name="mastercard_visa">MasterCard / Visa</string>
     <string name="balance">Balance:</string>
+    <string name="choose_saved_card">choose saved card</string>
 
 </resources>

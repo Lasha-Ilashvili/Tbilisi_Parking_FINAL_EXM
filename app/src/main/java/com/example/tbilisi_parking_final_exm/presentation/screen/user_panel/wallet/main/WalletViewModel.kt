@@ -4,12 +4,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbilisi_parking_final_exm.data.common.Resource
 import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.GetUserIdUseCase
-import com.example.tbilisi_parking_final_exm.domain.usecase.user_panel.wallet.main.GetBalanceUseCase
-import com.example.tbilisi_parking_final_exm.domain.usecase.user_panel.wallet.main.GetRememberedCardsUseCase
+import com.example.tbilisi_parking_final_exm.domain.usecase.user_panel.wallet.balance.GetBalanceUseCase
+import com.example.tbilisi_parking_final_exm.domain.usecase.user_panel.wallet.cards.GetUserCardsUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.FieldsAreNotBlankUseCase
-import com.example.tbilisi_parking_final_exm.presentation.event.user_panel.wallet.main.WalletEvent
-import com.example.tbilisi_parking_final_exm.presentation.mapper.user_panel.wallet.main.toPresentation
-import com.example.tbilisi_parking_final_exm.presentation.state.user_panel.wallet.main.WalletState
+import com.example.tbilisi_parking_final_exm.presentation.event.user_panel.wallet.WalletEvent
+import com.example.tbilisi_parking_final_exm.presentation.mapper.user_panel.wallet.cards.toPresentation
+import com.example.tbilisi_parking_final_exm.presentation.state.user_panel.wallet.WalletState
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,7 +23,7 @@ import javax.inject.Inject
 class WalletViewModel @Inject constructor(
     private val fieldsAreNotBlank: FieldsAreNotBlankUseCase,
     private val getUserId: GetUserIdUseCase,
-    private val getRememberedCardsUseCase: GetRememberedCardsUseCase,
+    private val getUserCardsUseCase: GetUserCardsUseCase,
     private val getBalanceUseCase: GetBalanceUseCase
 ) : ViewModel() {
 
@@ -34,7 +34,7 @@ class WalletViewModel @Inject constructor(
         when (this) {
             is WalletEvent.SetButtonState -> setButtonState(field = field)
 
-            WalletEvent.GetRememberedCards -> getRememberedCards()
+            WalletEvent.GetUserCards -> getSavedCards()
 
             WalletEvent.GetBalance -> getBalance()
 
@@ -42,13 +42,13 @@ class WalletViewModel @Inject constructor(
         }
     }
 
-    private fun getRememberedCards() {
+    private fun getSavedCards() {
         viewModelScope.launch {
-            getRememberedCardsUseCase(getUserId()).collect {
+            getUserCardsUseCase(getUserId()).collect {
                 when (it) {
                     is Resource.Success -> _walletState.update { currentState ->
-                        currentState.copy(data = it.data.map { getRememberedCard ->
-                            getRememberedCard.toPresentation()
+                        currentState.copy(data = it.data.map { getSavedCard ->
+                            getSavedCard.toPresentation()
                         })
                     }
 

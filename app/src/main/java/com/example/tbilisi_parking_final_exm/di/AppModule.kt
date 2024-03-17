@@ -11,10 +11,10 @@ import com.example.tbilisi_parking_final_exm.data.service.map.LatLngService
 import com.example.tbilisi_parking_final_exm.data.service.sign_up.SignUpService
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.profile.ProfileService
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.balance.AddToBalanceService
-import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.balance.DeleteRememberedCardService
-import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.balance.RememberCardService
-import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.main.GetBalanceService
-import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.main.RememberedCardsService
+import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.balance.GetBalanceService
+import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.cards.DeleteUserCardService
+import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.cards.GetUserCardsService
+import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.cards.SaveCardService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -203,8 +203,8 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideRememberCardService(retrofit: Retrofit): RememberCardService {
-        return retrofit.create(RememberCardService::class.java)
+    fun provideSaveCardService(retrofit: Retrofit): SaveCardService {
+        return retrofit.create(SaveCardService::class.java)
     }
 
     @Singleton
@@ -215,14 +215,14 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideDeleteCardService(retrofit: Retrofit): DeleteRememberedCardService {
-        return retrofit.create(DeleteRememberedCardService::class.java)
+    fun provideDeleteCardService(retrofit: Retrofit): DeleteUserCardService {
+        return retrofit.create(DeleteUserCardService::class.java)
     }
 
     @Singleton
     @Provides
-    fun provideRememberedCardsService(retrofit: Retrofit): RememberedCardsService {
-        return retrofit.create(RememberedCardsService::class.java)
+    fun provideGetUserCardsService(retrofit: Retrofit): GetUserCardsService {
+        return retrofit.create(GetUserCardsService::class.java)
     }
 
     @Singleton

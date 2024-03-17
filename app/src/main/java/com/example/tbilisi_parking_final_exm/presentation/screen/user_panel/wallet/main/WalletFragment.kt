@@ -10,10 +10,11 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.tbilisi_parking_final_exm.databinding.FragmentWalletBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
-import com.example.tbilisi_parking_final_exm.presentation.event.user_panel.wallet.main.WalletEvent
+import com.example.tbilisi_parking_final_exm.presentation.event.user_panel.wallet.WalletEvent
 import com.example.tbilisi_parking_final_exm.presentation.extension.hideKeyboard
 import com.example.tbilisi_parking_final_exm.presentation.extension.showToast
-import com.example.tbilisi_parking_final_exm.presentation.state.user_panel.wallet.main.WalletState
+import com.example.tbilisi_parking_final_exm.presentation.screen.user_panel.wallet.main.adapter.UserCardsListAdapter
+import com.example.tbilisi_parking_final_exm.presentation.state.user_panel.wallet.WalletState
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -25,7 +26,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(FragmentWalletBinding
 
     override fun bind() {
         viewModel.onEvent(WalletEvent.GetBalance)
-        viewModel.onEvent(WalletEvent.GetRememberedCards)
+        viewModel.onEvent(WalletEvent.GetUserCards)
     }
 
     override fun bindViewActionListeners() {
@@ -81,7 +82,9 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(FragmentWalletBinding
         }
 
         data?.let {
-            println(it)
+            binding.rvUserCards.adapter = UserCardsListAdapter().apply {
+                submitList(it)
+            }
         }
     }
 }

@@ -13,7 +13,7 @@ import com.example.tbilisi_parking_final_exm.presentation.event.user_panel.walle
 import com.example.tbilisi_parking_final_exm.presentation.extension.removeFormatting
 import com.example.tbilisi_parking_final_exm.presentation.mapper.user_panel.wallet.balance.toDomain
 import com.example.tbilisi_parking_final_exm.presentation.model.user_panel.wallet.balance.AddBalanceRequest
-import com.example.tbilisi_parking_final_exm.presentation.model.user_panel.wallet.balance.CardDetails
+import com.example.tbilisi_parking_final_exm.presentation.model.user_panel.wallet.cards.CardDetails
 import com.example.tbilisi_parking_final_exm.presentation.state.user_panel.wallet.balance.BalanceState
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.lifecycle.HiltViewModel
