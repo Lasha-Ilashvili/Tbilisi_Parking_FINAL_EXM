@@ -10,6 +10,7 @@ import com.example.tbilisi_parking_final_exm.databinding.FragmentWalletBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.user_panel.wallet.main.WalletEvent
 import com.example.tbilisi_parking_final_exm.presentation.extension.hideKeyboard
+import com.example.tbilisi_parking_final_exm.presentation.extension.showToast
 import com.example.tbilisi_parking_final_exm.presentation.state.user_panel.wallet.main.WalletState
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,6 +20,10 @@ import kotlinx.coroutines.launch
 class WalletFragment : BaseFragment<FragmentWalletBinding>(FragmentWalletBinding::inflate) {
 
     private val viewModel: WalletViewModel by viewModels()
+
+    override fun bind() {
+        viewModel.onEvent(WalletEvent.GetRememberedCards)
+    }
 
     override fun bindViewActionListeners() {
         with(binding) {
@@ -31,11 +36,14 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(FragmentWalletBinding
             btnPayNow.setOnClickListener {
                 it.hideKeyboard()
 
-                findNavController().navigate(WalletFragmentDirections.actionWalletFragmentToBalanceFragment())
+                findNavController().navigate(
+                    WalletFragmentDirections.actionWalletFragmentToBalanceFragment(
+                        amount = etAmount.editText?.text.toString().toInt(),
+                    )
+                )
             }
         }
     }
-
 
     override fun bindObserves() {
         viewLifecycleOwner.lifecycleScope.launch {
@@ -49,8 +57,6 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(FragmentWalletBinding
 
     /* IMPLEMENTATION DETAILS */
 
-    override fun bind() {}
-
     private fun addTextListeners(field: TextInputLayout) {
         field.editText?.doAfterTextChanged {
             viewModel.onEvent(WalletEvent.SetButtonState(field))
@@ -58,6 +64,16 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(FragmentWalletBinding
     }
 
     private fun handleState(walletState: WalletState) = with(walletState) {
+
         binding.btnPayNow.isEnabled = isButtonEnabled
+
+        errorMessage?.let {
+            binding.root.showToast(errorMessage)
+            viewModel.onEvent(WalletEvent.ResetErrorMessage)
+        }
+
+        data?.let {
+            println(it)
+        }
     }
 }

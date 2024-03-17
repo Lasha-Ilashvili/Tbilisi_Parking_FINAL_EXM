@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbilisi_parking_final_exm.data.common.Resource
 import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.GetUserIdUseCase
-import com.example.tbilisi_parking_final_exm.domain.usecase.user_panel.wallet.balance.RememberCardUseCase
+import com.example.tbilisi_parking_final_exm.domain.usecase.user_panel.wallet.balance.AddToBalanceUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.FieldsAreNotBlankUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.wallet.CardNumberValidatorUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.wallet.CvvValidatorUseCase
@@ -12,6 +12,7 @@ import com.example.tbilisi_parking_final_exm.domain.usecase.validator.wallet.Dat
 import com.example.tbilisi_parking_final_exm.presentation.event.user_panel.wallet.balance.BalanceEvent
 import com.example.tbilisi_parking_final_exm.presentation.extension.removeFormatting
 import com.example.tbilisi_parking_final_exm.presentation.mapper.user_panel.wallet.balance.toDomain
+import com.example.tbilisi_parking_final_exm.presentation.model.user_panel.wallet.balance.AddBalanceRequest
 import com.example.tbilisi_parking_final_exm.presentation.model.user_panel.wallet.balance.CardDetails
 import com.example.tbilisi_parking_final_exm.presentation.state.user_panel.wallet.balance.BalanceState
 import com.google.android.material.textfield.TextInputLayout
@@ -32,7 +33,7 @@ class BalanceViewModel @Inject constructor(
     private val dateValidator: DateValidatorUseCase,
     private val cvvValidator: CvvValidatorUseCase,
     private val getUserId: GetUserIdUseCase,
-    private val rememberCardUseCase: RememberCardUseCase
+    private val addToBalanceUseCase: AddToBalanceUseCase
 ) : ViewModel() {
 
     private val _balanceState = MutableStateFlow(BalanceState())
@@ -49,6 +50,8 @@ class BalanceViewModel @Inject constructor(
                 cardNumber = cardNumber,
                 date = date,
                 cvv = cvv,
+                cardId = cardId,
+                amount = amount,
                 isRememberCardChecked = isRememberCardChecked
             )
 
@@ -60,14 +63,18 @@ class BalanceViewModel @Inject constructor(
         cardNumber: TextInputLayout,
         date: TextInputLayout,
         cvv: TextInputLayout,
+        cardId: Int?,
+        amount: Int,
         isRememberCardChecked: Boolean
     ) {
-        val cardNumberInput = cardNumber.editText?.text.toString().removeFormatting(" ")
-        val dateInput = date.editText?.text.toString().removeFormatting("/")
+        val dateInput = date.editText?.text.toString()
+
+        val cardNumberInputFormatted = cardNumber.editText?.text.toString().removeFormatting(" ")
+        val dateInputFormatted = dateInput.removeFormatting("/")
         val cvvInput = cvv.editText?.text.toString()
 
-        val isCardNumberValid = cardNumberValidator(cardNumberInput)
-        val isDateValid = dateValidator(dateInput)
+        val isCardNumberValid = cardNumberValidator(cardNumberInputFormatted)
+        val isDateValid = dateValidator(dateInputFormatted)
         val isCvvValid = cvvValidator(cvvInput)
 
         val areFieldsValid =
@@ -82,15 +89,54 @@ class BalanceViewModel @Inject constructor(
             return
         }
 
-        if (isRememberCardChecked) {
-            rememberCard(
-                cardNumber = cardNumberInput,
-                date = date.editText?.text.toString(),
-                cvv = cvvInput
-            )
-        }
+        proceedToPayment(
+            cardNumber = cardNumberInputFormatted,
+            date = dateInput,
+            cvv = cvvInput,
+            cardId = cardId,
+            amount = amount,
+            isRememberCardChecked = isRememberCardChecked
+        )
+    }
 
-        proceedToPayment()
+    private fun proceedToPayment(
+        cardNumber: String,
+        date: String,
+        cvv: String,
+        cardId: Int?,
+        amount: Int,
+        isRememberCardChecked: Boolean
+    ) {
+        viewModelScope.launch {
+            val addBalanceRequest = AddBalanceRequest(
+                userId = getUserId(),
+                cardId = cardId,
+                amount = amount
+            )
+
+            val cardDetails = CardDetails(
+                userId = getUserId(),
+                cardNumber = cardNumber,
+                date = date,
+                cvv = cvv
+            )
+
+            addToBalanceUseCase(
+                getAddBalanceRequest = addBalanceRequest.toDomain(),
+                getCardDetails = cardDetails.toDomain(),
+                isRememberCardChecked = isRememberCardChecked
+            ).collect {
+                when (it) {
+                    is Resource.Error -> updateErrorMessage(it.errorMessage)
+
+                    is Resource.Loading -> _balanceState.update { currentState ->
+                        currentState.copy(isLoading = it.loading)
+                    }
+
+                    is Resource.Success -> _uiEvent.emit(BalanceUiEvent.NavigateToMain)
+                }
+            }
+        }
     }
 
     private fun rememberCard(
@@ -106,17 +152,17 @@ class BalanceViewModel @Inject constructor(
                 cvv = cvv
             )
 
-            rememberCardUseCase(cardDetails.toDomain()).collect {
-                when (it) {
-                    is Resource.Error -> updateErrorMessage(it.errorMessage)
-
-                    is Resource.Loading -> _balanceState.update { currentState ->
-                        currentState.copy(isLoading = it.loading)
-                    }
-
-                    is Resource.Success -> _uiEvent.emit(BalanceUiEvent.NavigateToMain)
-                }
-            }
+//            addToBalanceUseCase(cardDetails.toDomain()).collect {
+//                when (it) {
+//                    is Resource.Error -> updateErrorMessage(it.errorMessage)
+//
+//                    is Resource.Loading -> _balanceState.update { currentState ->
+//                        currentState.copy(isLoading = it.loading)
+//                    }
+//
+//                    is Resource.Success -> _uiEvent.emit(BalanceUiEvent.NavigateToMain)
+//                }
+//            }
         }
     }
 
@@ -137,10 +183,6 @@ class BalanceViewModel @Inject constructor(
                 isErrorEnabled = isErrorEnabled
             )
         }
-    }
-
-    private fun proceedToPayment() {
-        println("Success")
     }
 
     private fun setButtonState(fields: List<TextInputLayout>) {

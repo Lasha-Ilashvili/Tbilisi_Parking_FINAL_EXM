@@ -8,6 +8,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.tbilisi_parking_final_exm.R
 import com.example.tbilisi_parking_final_exm.databinding.FragmentBalanceBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
@@ -26,6 +27,7 @@ import kotlinx.coroutines.launch
 class BalanceFragment : BaseFragment<FragmentBalanceBinding>(FragmentBalanceBinding::inflate) {
 
     private val viewModel: BalanceViewModel by viewModels()
+    private val args: BalanceFragmentArgs by navArgs()
 
     override fun bindViewActionListeners() {
         with(binding) {
@@ -88,7 +90,9 @@ class BalanceFragment : BaseFragment<FragmentBalanceBinding>(FragmentBalanceBind
                 cardNumber = etCardNumber,
                 date = etCardDate,
                 cvv = etCVV,
-                isRememberCardChecked = chkRememberCard.isChecked
+                cardId = args.cardId?.toIntOrNull(),
+                isRememberCardChecked = chkRememberCard.isChecked,
+                amount = args.amount
             )
         )
     }

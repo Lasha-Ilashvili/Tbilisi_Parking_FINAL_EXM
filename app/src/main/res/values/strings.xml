@@ -65,5 +65,6 @@
     <string name="save">Save</string>
     <string name="wallet">wallet</string>
     <string name="remember_card">Remember Card</string>
+    <string name="mastercard_visa">MasterCard / Visa</string>
 
 </resources>

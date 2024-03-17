@@ -154,5 +154,13 @@
             android:name="cvv"
             app:argType="string"
             android:defaultValue='""' />
+        <argument
+            android:name="amount"
+            app:argType="integer" />
+        <argument
+            android:name="cardId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="null" />
     </fragment>
 </navigation>

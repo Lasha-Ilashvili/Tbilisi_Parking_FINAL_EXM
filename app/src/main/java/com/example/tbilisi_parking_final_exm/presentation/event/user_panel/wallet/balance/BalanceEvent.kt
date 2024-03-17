@@ -10,6 +10,8 @@ sealed class BalanceEvent {
         val cardNumber: TextInputLayout,
         val date: TextInputLayout,
         val cvv: TextInputLayout,
+        val cardId: Int?,
+        val amount: Int,
         val isRememberCardChecked: Boolean
     ) : BalanceEvent()
 }

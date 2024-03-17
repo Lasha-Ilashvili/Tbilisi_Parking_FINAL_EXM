@@ -10,7 +10,10 @@ import com.example.tbilisi_parking_final_exm.data.service.log_in.LogInService
 import com.example.tbilisi_parking_final_exm.data.service.map.LatLngService
 import com.example.tbilisi_parking_final_exm.data.service.sign_up.SignUpService
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.profile.ProfileService
+import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.balance.AddToBalanceService
+import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.balance.DeleteRememberedCardService
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.balance.RememberCardService
+import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.main.RememberedCardsService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -201,5 +204,23 @@ object AppModule {
     @Provides
     fun provideRememberCardService(retrofit: Retrofit): RememberCardService {
         return retrofit.create(RememberCardService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideAddToBalanceService(retrofit: Retrofit): AddToBalanceService {
+        return retrofit.create(AddToBalanceService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideDeleteCardService(retrofit: Retrofit): DeleteRememberedCardService {
+        return retrofit.create(DeleteRememberedCardService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideRememberedCardsService(retrofit: Retrofit): RememberedCardsService {
+        return retrofit.create(RememberedCardsService::class.java)
     }
 }
