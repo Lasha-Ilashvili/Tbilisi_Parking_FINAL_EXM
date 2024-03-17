@@ -156,7 +156,7 @@
             android:defaultValue='""' />
         <argument
             android:name="amount"
-            app:argType="integer" />
+            app:argType="float" />
         <argument
             android:name="cardId"
             app:argType="string"

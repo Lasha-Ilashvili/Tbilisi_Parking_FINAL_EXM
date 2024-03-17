@@ -92,7 +92,7 @@ class BalanceFragment : BaseFragment<FragmentBalanceBinding>(FragmentBalanceBind
                 cvv = etCVV,
                 cardId = args.cardId?.toIntOrNull(),
                 isRememberCardChecked = chkRememberCard.isChecked,
-                amount = args.amount
+                amount = args.amount.toDouble()
             )
         )
     }

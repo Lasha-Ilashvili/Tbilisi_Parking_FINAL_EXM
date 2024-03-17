@@ -14,6 +14,7 @@ import com.example.tbilisi_parking_final_exm.data.repository.map.MarkerLocations
 import com.example.tbilisi_parking_final_exm.data.repository.sign_up.SignUpRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.user_panel.profile.ProfileRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.user_panel.wallet.balance.AddToBalanceRepositoryImpl
+import com.example.tbilisi_parking_final_exm.data.repository.user_panel.wallet.main.GetBalanceRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.user_panel.wallet.main.RememberedCardsRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.service.add_vehicle.AddVehicleService
 import com.example.tbilisi_parking_final_exm.data.service.edit_vehicle.EditVehicleService
@@ -25,6 +26,7 @@ import com.example.tbilisi_parking_final_exm.data.service.user_panel.profile.Pro
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.balance.AddToBalanceService
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.balance.DeleteRememberedCardService
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.balance.RememberCardService
+import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.main.GetBalanceService
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.main.RememberedCardsService
 import com.example.tbilisi_parking_final_exm.domain.repository.add_vehicle.AddVehicleRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.datastore.DataStoreRepository
@@ -35,6 +37,7 @@ import com.example.tbilisi_parking_final_exm.domain.repository.map.MarkerLocatio
 import com.example.tbilisi_parking_final_exm.domain.repository.sign_up.SignUpRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.user_panel.profile.ProfileRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.user_panel.wallet.balance.AddToBalanceRepository
+import com.example.tbilisi_parking_final_exm.domain.repository.user_panel.wallet.main.GetBalanceRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.user_panel.wallet.main.RememberedCardsRepository
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -185,6 +188,18 @@ object RepositoryModule {
             handleResponse = handleResponse,
             rememberedCardsService = rememberedCardsService,
             deleteRememberedCardService = deleteRememberedCardService
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetBalanceRepository(
+        handleResponse: HandleResponse,
+        getBalanceService: GetBalanceService
+    ): GetBalanceRepository {
+        return GetBalanceRepositoryImpl(
+            handleResponse = handleResponse,
+            getBalanceService = getBalanceService
         )
     }
 }

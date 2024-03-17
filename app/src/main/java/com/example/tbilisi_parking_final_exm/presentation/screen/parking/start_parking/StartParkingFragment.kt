@@ -16,6 +16,7 @@ import com.example.tbilisi_parking_final_exm.databinding.FragmentStartParkingBin
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.parking.start_parking.StartParkingEvent
 import com.example.tbilisi_parking_final_exm.presentation.extension.hideKeyboard
+import com.example.tbilisi_parking_final_exm.presentation.extension.showToast
 import com.example.tbilisi_parking_final_exm.presentation.state.parking.start_parking.StartParkingState
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,6 +33,11 @@ class StartParkingFragment :
         A(1, R.color.dark_blue, R.drawable.ic_letter_a),
         B(2, R.color.yellow, R.drawable.ic_letter_b),
         C(3, R.color.green, R.drawable.ic_letter_c)
+    }
+
+    override fun bind() {
+        viewModel.onEvent(StartParkingEvent.GetBalance)
+        binding.tvPlateNumber.text = args.plateNumber
     }
 
     override fun bindViewActionListeners() {
@@ -75,10 +81,6 @@ class StartParkingFragment :
 
     /* IMPLEMENTATION DETAILS */
 
-    override fun bind() {
-        binding.tvPlateNumber.text = args.plateNumber
-    }
-
     private fun addTextListeners(field: TextInputLayout) {
         field.editText?.doAfterTextChanged {
             viewModel.onEvent(StartParkingEvent.SetButtonState(field))
@@ -100,7 +102,18 @@ class StartParkingFragment :
     }
 
     private fun handleState(startParkingState: StartParkingState) = with(startParkingState) {
+        binding.progressBar.root.visibility = if (isLoading) View.VISIBLE else View.GONE
+
         binding.btnNext.isEnabled = isButtonEnabled
+
+        errorMessage?.let {
+            binding.root.showToast(errorMessage)
+            viewModel.onEvent(StartParkingEvent.ResetErrorMessage)
+        }
+
+        balance?.let {
+            binding.tvBalance.text = it.balance.toString()
+        }
 
         binding.costLayout.root.visibility =
             if (isCostLayoutEnabled) View.VISIBLE else View.GONE

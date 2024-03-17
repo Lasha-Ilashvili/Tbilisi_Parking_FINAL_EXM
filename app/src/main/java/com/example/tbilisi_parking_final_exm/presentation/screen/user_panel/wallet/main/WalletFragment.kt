@@ -1,5 +1,7 @@
 package com.example.tbilisi_parking_final_exm.presentation.screen.user_panel.wallet.main
 
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -22,6 +24,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(FragmentWalletBinding
     private val viewModel: WalletViewModel by viewModels()
 
     override fun bind() {
+        viewModel.onEvent(WalletEvent.GetBalance)
         viewModel.onEvent(WalletEvent.GetRememberedCards)
     }
 
@@ -38,7 +41,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(FragmentWalletBinding
 
                 findNavController().navigate(
                     WalletFragmentDirections.actionWalletFragmentToBalanceFragment(
-                        amount = etAmount.editText?.text.toString().toInt(),
+                        amount = etAmount.editText?.text.toString().toFloat(),
                     )
                 )
             }
@@ -64,12 +67,17 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(FragmentWalletBinding
     }
 
     private fun handleState(walletState: WalletState) = with(walletState) {
+        binding.progressBar.root.visibility = if (isLoading) VISIBLE else GONE
 
         binding.btnPayNow.isEnabled = isButtonEnabled
 
         errorMessage?.let {
             binding.root.showToast(errorMessage)
             viewModel.onEvent(WalletEvent.ResetErrorMessage)
+        }
+
+        balance?.let {
+            binding.tvBalance.text = it.balance.toString()
         }
 
         data?.let {

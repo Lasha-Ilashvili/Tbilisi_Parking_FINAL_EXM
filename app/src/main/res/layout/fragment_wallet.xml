@@ -12,6 +12,10 @@
         tools:context=".presentation.screen.user_panel.wallet.main.WalletFragment">
 
         <include
+            android:id="@+id/progressBar"
+            layout="@layout/loading_layout" />
+
+        <include
             android:id="@+id/card_details_layout"
             layout="@layout/card_details"
             android:layout_width="match_parent"
@@ -42,14 +46,33 @@
             app:layout_constraintTop_toTopOf="@+id/btnBack" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvBalance"
+            android:id="@+id/tvBalanceText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_large"
-            android:text="Balance: 0.00ლ"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:text="@string/balance"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintEnd_toStartOf="@id/tvBalance"
+            app:layout_constraintTop_toBottomOf="@+id/btnBack" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintEnd_toStartOf="@+id/tvCurrency"
+            app:layout_constraintTop_toTopOf="@+id/tvBalanceText"
+            tools:text="125.35" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvCurrency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gel"
             android:textSize="@dimen/text_size_large"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnBack" />
+            app:layout_constraintTop_toTopOf="@+id/tvBalanceText" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etAmount"
@@ -67,7 +90,7 @@
                 android:layout_height="match_parent"
                 android:hint="@string/enter_amount"
                 android:imeOptions="actionDone"
-                android:inputType="number" />
+                android:inputType="numberDecimal" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton

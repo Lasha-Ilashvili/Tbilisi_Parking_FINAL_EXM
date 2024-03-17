@@ -13,6 +13,7 @@ import com.example.tbilisi_parking_final_exm.data.service.user_panel.profile.Pro
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.balance.AddToBalanceService
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.balance.DeleteRememberedCardService
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.balance.RememberCardService
+import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.main.GetBalanceService
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.main.RememberedCardsService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -222,5 +223,11 @@ object AppModule {
     @Provides
     fun provideRememberedCardsService(retrofit: Retrofit): RememberedCardsService {
         return retrofit.create(RememberedCardsService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetBalanceService(retrofit: Retrofit): GetBalanceService {
+        return retrofit.create(GetBalanceService::class.java)
     }
 }

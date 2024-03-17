@@ -66,5 +66,6 @@
     <string name="wallet">wallet</string>
     <string name="remember_card">Remember Card</string>
     <string name="mastercard_visa">MasterCard / Visa</string>
+    <string name="balance">Balance:</string>
 
 </resources>

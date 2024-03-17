@@ -4,5 +4,5 @@ package com.example.tbilisi_parking_final_exm.presentation.model.user_panel.wall
 data class AddBalanceRequest(
     val userId: Int,
     val cardId: Int?,
-    val amount: Int,
+    val amount: Double,
 )

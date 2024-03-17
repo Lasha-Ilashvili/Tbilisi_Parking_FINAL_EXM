@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbilisi_parking_final_exm.data.common.Resource
 import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.GetUserIdUseCase
+import com.example.tbilisi_parking_final_exm.domain.usecase.user_panel.wallet.main.GetBalanceUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.user_panel.wallet.main.GetRememberedCardsUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.FieldsAreNotBlankUseCase
 import com.example.tbilisi_parking_final_exm.presentation.event.user_panel.wallet.main.WalletEvent
@@ -22,7 +23,8 @@ import javax.inject.Inject
 class WalletViewModel @Inject constructor(
     private val fieldsAreNotBlank: FieldsAreNotBlankUseCase,
     private val getUserId: GetUserIdUseCase,
-    private val getRememberedCardsUseCase: GetRememberedCardsUseCase
+    private val getRememberedCardsUseCase: GetRememberedCardsUseCase,
+    private val getBalanceUseCase: GetBalanceUseCase
 ) : ViewModel() {
 
     private val _walletState = MutableStateFlow(WalletState())
@@ -33,6 +35,8 @@ class WalletViewModel @Inject constructor(
             is WalletEvent.SetButtonState -> setButtonState(field = field)
 
             WalletEvent.GetRememberedCards -> getRememberedCards()
+
+            WalletEvent.GetBalance -> getBalance()
 
             WalletEvent.ResetErrorMessage -> updateErrorMessage()
         }
@@ -46,6 +50,24 @@ class WalletViewModel @Inject constructor(
                         currentState.copy(data = it.data.map { getRememberedCard ->
                             getRememberedCard.toPresentation()
                         })
+                    }
+
+                    is Resource.Loading -> _walletState.update { currentState ->
+                        currentState.copy(isLoading = it.loading)
+                    }
+
+                    is Resource.Error -> updateErrorMessage(message = it.errorMessage)
+                }
+            }
+        }
+    }
+
+    private fun getBalance(){
+        viewModelScope.launch {
+            getBalanceUseCase(getUserId()).collect{
+                when (it) {
+                    is Resource.Success -> _walletState.update { currentState ->
+                        currentState.copy(balance = it.data.toPresentation())
                     }
 
                     is Resource.Loading -> _walletState.update { currentState ->

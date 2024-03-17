@@ -64,7 +64,7 @@ class BalanceViewModel @Inject constructor(
         date: TextInputLayout,
         cvv: TextInputLayout,
         cardId: Int?,
-        amount: Int,
+        amount: Double,
         isRememberCardChecked: Boolean
     ) {
         val dateInput = date.editText?.text.toString()
@@ -104,7 +104,7 @@ class BalanceViewModel @Inject constructor(
         date: String,
         cvv: String,
         cardId: Int?,
-        amount: Int,
+        amount: Double,
         isRememberCardChecked: Boolean
     ) {
         viewModelScope.launch {
