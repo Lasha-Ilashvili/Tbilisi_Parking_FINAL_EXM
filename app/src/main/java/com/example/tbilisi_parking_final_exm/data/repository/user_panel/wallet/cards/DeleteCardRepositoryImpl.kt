@@ -3,17 +3,16 @@ package com.example.tbilisi_parking_final_exm.data.repository.user_panel.wallet.
 import com.example.tbilisi_parking_final_exm.data.common.HandleResponse
 import com.example.tbilisi_parking_final_exm.data.common.Resource
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.cards.DeleteUserCardService
-import com.example.tbilisi_parking_final_exm.domain.repository.user_panel.wallet.cards.DeleteCardsRepository
+import com.example.tbilisi_parking_final_exm.domain.repository.user_panel.wallet.cards.DeleteCardRepository
 import kotlinx.coroutines.flow.Flow
-import okhttp3.ResponseBody
 import javax.inject.Inject
 
-class DeleteCardsRepositoryImpl @Inject constructor(
+class DeleteCardRepositoryImpl @Inject constructor(
     private val handleResponse: HandleResponse,
     private val deleteUserCardService: DeleteUserCardService
-) : DeleteCardsRepository {
+) : DeleteCardRepository {
 
-    override suspend fun deleteSavedCard(cardId: Int): Flow<Resource<ResponseBody>> {
+    override suspend fun deleteSavedCard(cardId: Int): Flow<Resource<Unit>> {
         return handleResponse.safeApiCall {
             deleteUserCardService.deleteUserCard(cardId)
         }

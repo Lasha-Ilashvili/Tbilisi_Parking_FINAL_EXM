@@ -2,6 +2,7 @@ package com.example.tbilisi_parking_final_exm.presentation.screen.cards.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.tbilisi_parking_final_exm.domain.model.cards.GetCard
 import com.example.tbilisi_parking_final_exm.domain.usecase.cards.GetCardsUseCase
 import com.example.tbilisi_parking_final_exm.presentation.event.cards.main.CardsEvent
 import com.example.tbilisi_parking_final_exm.presentation.mapper.cards.toPresentation
@@ -30,11 +31,13 @@ class CardsViewModel @Inject constructor(
 
     private fun getCards() {
         viewModelScope.launch {
-            getCardsUseCase().collect {
+
                 _cardsState.update { currentState ->
-                    currentState.copy(data = it.map { getCard ->
-                        getCard.toPresentation()
-                    })
+                    currentState.copy(
+                        data = cards.map {
+                            it.toPresentation()
+                        }
+                    )
                 }
 
 //                when (it) {
@@ -52,7 +55,7 @@ class CardsViewModel @Inject constructor(
 //                        }
 //                    }
             }
-        }
+
     }
 
     private fun updateErrorMessage(message: String? = null) {
@@ -60,4 +63,48 @@ class CardsViewModel @Inject constructor(
             currentState.copy(errorMessage = message)
         }
     }
+
+    val cards = listOf(
+        GetCard(
+            title = "buy card"
+        ),
+        GetCard(
+            title = "one day",
+            zonalCard = GetCard.GetZonalCard(
+                period = "1 day",
+                price = (20),
+                backgroundColor = "#219BCC"
+            )
+        ),
+        GetCard(
+            title = "one week",
+            zonalCard = GetCard.GetZonalCard(
+                period = "1 week",
+                price = 100,
+                backgroundColor = "#03DAC6"
+            )
+        ),
+        GetCard(
+            title = "one month",
+            zonalCard = GetCard.GetZonalCard(
+                period = "1 month",
+                price = 300,
+                backgroundColor = "#605A7C"
+            )
+        ),
+        GetCard(
+            title = "six months", zonalCard = GetCard.GetZonalCard(
+                period = "6 months",
+                price = 500,
+                backgroundColor = "#E38568"
+            )
+        ),
+        GetCard(
+            title = "one year", zonalCard = GetCard.GetZonalCard(
+                period = "1 year",
+                price = 800,
+                backgroundColor = "#68E387"
+            )
+        )
+    )
 }

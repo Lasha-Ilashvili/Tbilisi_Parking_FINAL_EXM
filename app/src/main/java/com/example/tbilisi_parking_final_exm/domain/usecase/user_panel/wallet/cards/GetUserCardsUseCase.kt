@@ -6,6 +6,6 @@ import javax.inject.Inject
 class GetUserCardsUseCase @Inject constructor(
     private val getUserCardsRepository: GetUserCardsRepository
 ) {
-    suspend operator fun invoke(userId: Int) =
-        getUserCardsRepository.getSavedCards(userId)
+    suspend operator fun invoke(cardId: Int) =
+        getUserCardsRepository.getSavedCards(cardId)
 }

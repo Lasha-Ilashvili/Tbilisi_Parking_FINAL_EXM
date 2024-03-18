@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.tbilisi_parking_final_exm.data.common.Resource
 import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.GetUserIdUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.user_panel.wallet.balance.GetBalanceUseCase
+import com.example.tbilisi_parking_final_exm.domain.usecase.user_panel.wallet.cards.DeleteCardUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.user_panel.wallet.cards.GetUserCardsUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.FieldsAreNotBlankUseCase
 import com.example.tbilisi_parking_final_exm.presentation.event.user_panel.wallet.WalletEvent
@@ -24,7 +25,8 @@ class WalletViewModel @Inject constructor(
     private val fieldsAreNotBlank: FieldsAreNotBlankUseCase,
     private val getUserId: GetUserIdUseCase,
     private val getUserCardsUseCase: GetUserCardsUseCase,
-    private val getBalanceUseCase: GetBalanceUseCase
+    private val getBalanceUseCase: GetBalanceUseCase,
+    private val deleteCardsUseCase: DeleteCardUseCase
 ) : ViewModel() {
 
     private val _walletState = MutableStateFlow(WalletState())
@@ -33,6 +35,8 @@ class WalletViewModel @Inject constructor(
     fun onEvent(event: WalletEvent) = with(event) {
         when (this) {
             is WalletEvent.SetButtonState -> setButtonState(field = field)
+
+            is WalletEvent.DeleteCard -> deleteCard(cardId = cardId)
 
             WalletEvent.GetUserCards -> getSavedCards()
 
@@ -62,13 +66,29 @@ class WalletViewModel @Inject constructor(
         }
     }
 
-    private fun getBalance(){
+    private fun getBalance() {
         viewModelScope.launch {
-            getBalanceUseCase(getUserId()).collect{
+            getBalanceUseCase(getUserId()).collect {
                 when (it) {
                     is Resource.Success -> _walletState.update { currentState ->
                         currentState.copy(balance = it.data.toPresentation())
                     }
+
+                    is Resource.Loading -> _walletState.update { currentState ->
+                        currentState.copy(isLoading = it.loading)
+                    }
+
+                    is Resource.Error -> updateErrorMessage(message = it.errorMessage)
+                }
+            }
+        }
+    }
+
+    private fun deleteCard(cardId: Int) {
+        viewModelScope.launch {
+            deleteCardsUseCase(cardId = cardId).collect {
+                when (it) {
+                    is Resource.Success -> getSavedCards()
 
                     is Resource.Loading -> _walletState.update { currentState ->
                         currentState.copy(isLoading = it.loading)

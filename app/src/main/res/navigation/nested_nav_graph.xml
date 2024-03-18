@@ -148,15 +148,18 @@
         <argument
             android:name="cardNumber"
             app:argType="string"
-            android:defaultValue='""' />
+            android:defaultValue='null'
+            app:nullable="true" />
         <argument
             android:name="date"
             app:argType="string"
-            android:defaultValue='""' />
+            app:nullable="true"
+            android:defaultValue="null" />
         <argument
             android:name="cvv"
             app:argType="string"
-            android:defaultValue='""' />
+            android:defaultValue='null'
+            app:nullable="true" />
         <argument
             android:name="amount"
             app:argType="float" />

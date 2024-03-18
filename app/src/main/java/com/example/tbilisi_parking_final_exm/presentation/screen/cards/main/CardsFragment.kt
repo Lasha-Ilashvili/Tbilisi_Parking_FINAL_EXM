@@ -22,6 +22,7 @@ class CardsFragment : BaseFragment<FragmentCardsBinding>(FragmentCardsBinding::i
 
     private val viewModel: CardsViewModel by viewModels()
 
+
     override fun bind() {
         viewModel.onEvent(CardsEvent.GetCards)
     }

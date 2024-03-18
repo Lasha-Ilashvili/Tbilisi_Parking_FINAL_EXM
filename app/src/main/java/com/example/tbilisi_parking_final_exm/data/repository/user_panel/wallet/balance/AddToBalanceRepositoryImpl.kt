@@ -11,7 +11,6 @@ import com.example.tbilisi_parking_final_exm.domain.model.user_panel.wallet.bala
 import com.example.tbilisi_parking_final_exm.domain.model.user_panel.wallet.cards.GetCardDetails
 import com.example.tbilisi_parking_final_exm.domain.repository.user_panel.wallet.balance.AddToBalanceRepository
 import kotlinx.coroutines.flow.Flow
-import okhttp3.ResponseBody
 import javax.inject.Inject
 
 class AddToBalanceRepositoryImpl @Inject constructor(
@@ -25,7 +24,7 @@ class AddToBalanceRepositoryImpl @Inject constructor(
         getAddBalanceRequest: GetAddBalanceRequest,
         getCardDetails: GetCardDetails,
         isRememberCardChecked: Boolean
-    ): Flow<Resource<ResponseBody>> {
+    ): Flow<Resource<Unit>> {
         if (getAddBalanceRequest.cardId != null)
             return handleResponse.safeApiCall {
                 addToBalanceService.addToBalance(getAddBalanceRequest.toData())

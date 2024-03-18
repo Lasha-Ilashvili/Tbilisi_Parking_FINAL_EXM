@@ -139,33 +139,6 @@ class BalanceViewModel @Inject constructor(
         }
     }
 
-    private fun rememberCard(
-        cardNumber: String,
-        date: String,
-        cvv: String
-    ) {
-        viewModelScope.launch {
-            val cardDetails = CardDetails(
-                userId = getUserId(),
-                cardNumber = cardNumber,
-                date = date,
-                cvv = cvv
-            )
-
-//            addToBalanceUseCase(cardDetails.toDomain()).collect {
-//                when (it) {
-//                    is Resource.Error -> updateErrorMessage(it.errorMessage)
-//
-//                    is Resource.Loading -> _balanceState.update { currentState ->
-//                        currentState.copy(isLoading = it.loading)
-//                    }
-//
-//                    is Resource.Success -> _uiEvent.emit(BalanceUiEvent.NavigateToMain)
-//                }
-//            }
-        }
-    }
-
     private fun validateField(isFieldValid: Boolean, textInputLayout: TextInputLayout) {
         updateErrorTextInputLayout(
             errorTextInputLayout = textInputLayout,

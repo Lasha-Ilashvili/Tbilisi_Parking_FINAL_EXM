@@ -2,6 +2,7 @@ package com.example.tbilisi_parking_final_exm.presentation.screen.user_panel.wal
 
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.widget.EditText
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -28,6 +29,11 @@ class BalanceFragment : BaseFragment<FragmentBalanceBinding>(FragmentBalanceBind
 
     private val viewModel: BalanceViewModel by viewModels()
     private val args: BalanceFragmentArgs by navArgs()
+
+    override fun bind() {
+        setFields()
+
+    }
 
     override fun bindViewActionListeners() {
         with(binding) {
@@ -69,11 +75,38 @@ class BalanceFragment : BaseFragment<FragmentBalanceBinding>(FragmentBalanceBind
 
     /* IMPLEMENTATION DETAILS */
 
-    override fun bind() {}
+    private fun setFields() {
+        with(binding.cardDetailsLayout) {
+            etCardNumberInput.setText(args.cardNumber.takeUnless { it.isNullOrEmpty() } ?: "")
+            etCardDateInput.setText(args.date.takeUnless { it.isNullOrEmpty() } ?: "")
+            etCVVInput.setText(args.cvv.takeUnless { it.isNullOrEmpty() } ?: "")
+
+            applyFormatting(etCardNumberInput)
+
+            if (!etCardNumberInput.text.isNullOrEmpty() &&
+                !etCardDateInput.text.isNullOrEmpty() &&
+                !etCVVInput.text.isNullOrEmpty()
+            ) {
+                viewModel.onEvent(BalanceEvent.SetButtonState(listOf(etCardNumber, etCardDate, etCVV)))
+            }
+        }
+    }
 
     private fun formatInput(cardNumber: TextInputEditText, cardDate: TextInputEditText) {
         cardNumber.applyFormatting(symbol = " ", separator = 4)
         cardDate.applyFormatting(symbol = "/", separator = 2)
+    }
+    private fun applyFormatting(editText: EditText) {
+        val text = editText.text.toString().replace(" ", "")
+        val formattedText = StringBuilder()
+        for (index in text.indices) {
+            if (index % 4 == 0 && index > 0) {
+                formattedText.append(" ")
+            }
+            formattedText.append(text[index])
+        }
+        editText.setText(formattedText)
+        editText.setSelection(formattedText.length)
     }
 
     private fun addTextListeners(fields: List<TextInputLayout>) {
