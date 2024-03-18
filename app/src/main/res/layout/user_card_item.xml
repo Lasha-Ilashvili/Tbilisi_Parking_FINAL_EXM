@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/margin_medium">
+    android:background="?android:attr/selectableItemBackground">
 
     <View
         android:id="@+id/leftDivider"
@@ -43,13 +43,14 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvCardType"
-        style="@style/customPageTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/mastercard_visa"
-        app:layout_constraintBottom_toBottomOf="@+id/cardLayout"
+        android:textAllCaps="true"
+        app:layout_constraintBottom_toTopOf="@+id/tvCardNumber"
+        app:layout_constraintEnd_toEndOf="@+id/btnDelete"
         app:layout_constraintStart_toEndOf="@+id/cardLayout"
-        app:layout_constraintTop_toTopOf="@+id/cardLayout" />
+        app:layout_constraintTop_toTopOf="@+id/btnDelete" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvCardNumber"
@@ -57,12 +58,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_small"
         android:textAllCaps="true"
-        app:layout_constraintBottom_toBottomOf="@+id/tvCardType"
-        app:layout_constraintStart_toEndOf="@+id/tvCardType"
-        app:layout_constraintTop_toTopOf="@+id/tvCardType"
+        app:layout_constraintBottom_toBottomOf="@+id/btnDelete"
+        app:layout_constraintEnd_toEndOf="@+id/tvCardType"
+        app:layout_constraintTop_toBottomOf="@+id/tvCardType"
         tools:text="xxxx 5978" />
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/btnDelete"
         style="@style/customButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

@@ -13,11 +13,13 @@ import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.user_panel.wallet.WalletEvent
 import com.example.tbilisi_parking_final_exm.presentation.extension.hideKeyboard
 import com.example.tbilisi_parking_final_exm.presentation.extension.showToast
+import com.example.tbilisi_parking_final_exm.presentation.model.user_panel.wallet.cards.UserCard
 import com.example.tbilisi_parking_final_exm.presentation.screen.user_panel.wallet.main.adapter.UserCardsListAdapter
 import com.example.tbilisi_parking_final_exm.presentation.state.user_panel.wallet.WalletState
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class WalletFragment : BaseFragment<FragmentWalletBinding>(FragmentWalletBinding::inflate) {
@@ -40,10 +42,8 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(FragmentWalletBinding
             btnPayNow.setOnClickListener {
                 it.hideKeyboard()
 
-                findNavController().navigate(
-                    WalletFragmentDirections.actionWalletFragmentToBalanceFragment(
-                        amount = etAmount.editText?.text.toString().toFloat(),
-                    )
+                navigateToBalance(
+                    amount = etAmount.editText?.text.toString().toFloat()
                 )
             }
         }
@@ -67,24 +67,59 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(FragmentWalletBinding
         }
     }
 
-    private fun handleState(walletState: WalletState) = with(walletState) {
-        binding.progressBar.root.visibility = if (isLoading) VISIBLE else GONE
+    private fun handleState(walletState: WalletState) = with(binding) {
+        progressBar.root.visibility = if (walletState.isLoading) VISIBLE else GONE
 
-        binding.btnPayNow.isEnabled = isButtonEnabled
+        btnPayNow.isEnabled = walletState.isButtonEnabled
 
-        errorMessage?.let {
-            binding.root.showToast(errorMessage)
+        walletState.errorMessage?.let {
+            root.showToast(walletState.errorMessage)
             viewModel.onEvent(WalletEvent.ResetErrorMessage)
         }
 
-        balance?.let {
-            binding.tvBalance.text = it.balance.toString()
+        walletState.balance?.let {
+            tvBalance.text = it.balance.toString()
         }
 
-        data?.let {
-            binding.rvUserCards.adapter = UserCardsListAdapter().apply {
+        walletState.data?.let {
+            rvUserCards.adapter = UserCardsListAdapter().apply {
+                if (btnPayNow.isEnabled)
+                    onClick = ::navigationFromRecycler
+                onDeleteClick = ::deleteCard
                 submitList(it)
             }
         }
+    }
+
+    private fun deleteCard(cardId: Int) {
+        viewModel.onEvent(WalletEvent.DeleteCard(cardId = cardId))
+    }
+
+    private fun navigationFromRecycler(card: UserCard) = with(card) {
+        navigateToBalance(
+            amount = binding.etAmount.editText?.text.toString().toFloat(),
+            cardId = id.toString(),
+            cardNumber = cardNumber,
+            date = date,
+            cvv = cvv
+        )
+    }
+
+    private fun navigateToBalance(
+        amount: Float,
+        cardId: String? = null,
+        cardNumber: String = "",
+        date: String = "",
+        cvv: String = ""
+    ) {
+        findNavController().navigate(
+            WalletFragmentDirections.actionWalletFragmentToBalanceFragment(
+                amount = amount,
+                cardId = cardId,
+                cardNumber = cardNumber,
+                date = date,
+                cvv = cvv
+            )
+        )
     }
 }

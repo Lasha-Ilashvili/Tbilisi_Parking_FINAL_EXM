@@ -21,6 +21,9 @@ class UserCardsListAdapter :
         }
     }
 
+    var onClick: ((UserCard) -> Unit)? = null
+    var onDeleteClick: ((Int) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserCardsViewHolder {
         return UserCardsViewHolder(
             UserCardItemBinding.inflate(
@@ -38,12 +41,28 @@ class UserCardsListAdapter :
     inner class UserCardsViewHolder(private val binding: UserCardItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind() {
-            val card = currentList[adapterPosition]
-
+        init {
             with(binding) {
+                root.setOnClickListener {
+                    onClick?.invoke(currentList[adapterPosition])
+                }
 
+                btnDelete.setOnClickListener {
+                    onDeleteClick?.invoke(currentList[adapterPosition].id)
+                }
             }
+        }
+
+        fun bind() {
+            binding.tvCardNumber.text = getMaskedCardNumber(currentList[adapterPosition])
+        }
+
+        private fun getMaskedCardNumber(card: UserCard): CharSequence = with(card) {
+            val maskedPart = cardNumber.substring(cardNumber.length - 8, cardNumber.length - 4)
+                .replace(Regex("\\d"), "*")
+            val lastFourDigits = cardNumber.substring(cardNumber.length - 4)
+
+            "$maskedPart $lastFourDigits"
         }
     }
 }

@@ -5,6 +5,7 @@ import com.google.android.material.textfield.TextInputLayout
 
 sealed class WalletEvent {
     data class SetButtonState(val field: TextInputLayout) : WalletEvent()
+    data class DeleteCard(val cardId: Int) : WalletEvent()
     data object GetUserCards : WalletEvent()
     data object GetBalance : WalletEvent()
     data object ResetErrorMessage : WalletEvent()
