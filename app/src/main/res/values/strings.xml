@@ -74,4 +74,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="zonal_card">Zonal card</string>
+    <string name="active_parking">Active Parking</string>
+    <string name="_19_march_tuesday_01_30">19 march, Tuesday, 01:30</string>
+    <string name="finish_parking">Finish Parking</string>
 </resources>

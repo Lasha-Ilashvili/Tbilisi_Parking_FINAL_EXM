@@ -35,6 +35,7 @@ class ParkingViewModel @Inject constructor(
     private fun fetchAllVehicle() {
         viewModelScope.launch {
             getAllVehicle(userId = getUserId()).collect {
+                println(it)
                 when (it) {
                     is Resource.Loading -> _parkingState.update { currentState ->
                         currentState.copy(
