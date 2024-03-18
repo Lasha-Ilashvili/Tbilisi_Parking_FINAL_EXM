@@ -57,7 +57,10 @@
             android:id="@+id/action_startParkingFragment_to_parkingIsStartedFragment"
             app:destination="@id/parkingIsStartedFragment"
             app:popUpTo="@id/nested_nav_graph"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="false" />
+        <argument
+            android:name="carId"
+            app:argType="integer" />
     </fragment>
 
     <fragment
@@ -184,5 +187,10 @@
             app:destination="@id/parkingFragment"
             app:popUpTo="@id/nested_nav_graph"
             app:popUpToInclusive="true" />
+        <argument android:name="stationExternalId"
+            app:argType="string" />
+        <argument
+            android:name="carId"
+            app:argType="integer" />
     </fragment>
 </navigation>

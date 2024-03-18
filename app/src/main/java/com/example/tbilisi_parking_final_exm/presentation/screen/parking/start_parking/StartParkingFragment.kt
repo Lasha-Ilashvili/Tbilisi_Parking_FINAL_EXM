@@ -137,9 +137,19 @@ class StartParkingFragment :
             title = getString(R.string.start_parking),
             message = getString(R.string.start_parking_dialog),
             positiveButtonText = getString(R.string.start),
-            negativeButtonText = getString(R.string.cancel)
-        ) {
+            negativeButtonText = getString(R.string.cancel),
+            positiveButtonClickAction = {
+                startParking()
+            }
+        )
+    }
+    private fun startParking() {
+        val stationId = binding.etLotNumber.editText?.text.toString()
+        val carId = args.carId
 
-        }
+        findNavController().navigate(StartParkingFragmentDirections.actionStartParkingFragmentToParkingIsStartedFragment(
+            stationExternalId = stationId, carId =carId
+        ))
+
     }
 }

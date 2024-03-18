@@ -48,10 +48,10 @@ class ParkingFragment : BaseFragment<FragmentParkingBinding>(FragmentParkingBind
     }
 
     private fun vehicleClickListener() {
-        parkingVehiclesListAdapter.setOnItemClickListener { id, name, plateNumber ->
+        parkingVehiclesListAdapter.setOnItemClickListener { id, _, plateNumber ->
             findNavController().navigate(
                 ParkingFragmentDirections.actionParkingFragmentToStartParkingFragment(
-                    plateNumber
+                    plateNumber = plateNumber, carId = id
                 )
             )
         }
@@ -62,13 +62,12 @@ class ParkingFragment : BaseFragment<FragmentParkingBinding>(FragmentParkingBind
             findNavController().navigate(
                 ParkingFragmentDirections.actionParkingFragmentToVehicleBottomSheetFragment(
                     vehicleName = name,
-                    vehiclePlateNumber  = plateNumber,
+                    vehiclePlateNumber = plateNumber,
                     vehicleId = id
                 )
             )
         }
     }
-
 
 
     private fun setUpRecycler() {

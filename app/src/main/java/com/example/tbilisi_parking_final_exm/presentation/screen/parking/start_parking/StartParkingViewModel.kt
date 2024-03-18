@@ -32,19 +32,19 @@ class StartParkingViewModel @Inject constructor(
         when (this) {
             is StartParkingEvent.SetButtonState -> setButtonState(field = field)
 
-            StartParkingEvent.GetBalance -> getBalance()
+            is StartParkingEvent.GetBalance -> getBalance()
 
             is StartParkingEvent.SetCostLayoutState -> setCostLayoutState(isCostLayoutEnabled = isCostLayoutEnabled)
 
             is StartParkingEvent.SetZoneState -> setZoneState(zone = zone)
 
-            StartParkingEvent.ResetErrorMessage -> updateErrorMessage()
+            is StartParkingEvent.ResetErrorMessage -> updateErrorMessage()
         }
     }
 
-    private fun getBalance(){
+    private fun getBalance() {
         viewModelScope.launch {
-            getBalanceUseCase(getUserId()).collect{
+            getBalanceUseCase(getUserId()).collect {
                 when (it) {
                     is Resource.Success -> _startParkingState.update { currentState ->
                         currentState.copy(balance = it.data.toPresentation())

@@ -7,7 +7,8 @@ sealed class StartParkingEvent {
     data object GetBalance : StartParkingEvent()
     data class SetButtonState(val field: TextInputLayout) : StartParkingEvent()
     data class SetCostLayoutState(val isCostLayoutEnabled: Boolean = true) : StartParkingEvent()
-    data class SetZoneState(val zone: StartParkingFragment.Zone = StartParkingFragment.Zone.A) : StartParkingEvent()
-    data object ResetErrorMessage : StartParkingEvent()
+    data class SetZoneState(val zone: StartParkingFragment.Zone = StartParkingFragment.Zone.A) :
+        StartParkingEvent()
 
+    data object ResetErrorMessage : StartParkingEvent()
 }
