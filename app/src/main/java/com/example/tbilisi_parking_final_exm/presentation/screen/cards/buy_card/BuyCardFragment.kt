@@ -1,5 +1,6 @@
 package com.example.tbilisi_parking_final_exm.presentation.screen.cards.buy_card
 
+import android.graphics.Color
 import android.view.View.GONE
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
@@ -59,6 +60,10 @@ class BuyCardFragment : BaseFragment<FragmentBuyCardBinding>(FragmentBuyCardBind
         tvCardTitle.visibility = GONE
         tvPeriod.text = args.period
         tvPrice.text = args.price.toString()
+
+        ivCardBackground.background.setTint(Color.parseColor(args.backgroundColor))
+        ivCardBackground.background.alpha = 99
+        ivCardBackground.setColorFilter(Color.parseColor(args.backgroundColor))
     }
 
     private fun addTextListeners(fields: List<TextInputLayout>) {

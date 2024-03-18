@@ -2,7 +2,6 @@ package com.example.tbilisi_parking_final_exm.presentation.screen.parking.start_
 
 import android.content.res.ColorStateList
 import android.view.View
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
@@ -17,6 +16,7 @@ import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.parking.start_parking.StartParkingEvent
 import com.example.tbilisi_parking_final_exm.presentation.extension.hideKeyboard
 import com.example.tbilisi_parking_final_exm.presentation.extension.showToast
+import com.example.tbilisi_parking_final_exm.presentation.extension.showAlertDialog
 import com.example.tbilisi_parking_final_exm.presentation.state.parking.start_parking.StartParkingState
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,9 +53,7 @@ class StartParkingFragment :
                 btnStartParking.setOnClickListener {
                     it.hideKeyboard()
 
-                    val dialogBuilder = AlertDialog.Builder(requireContext())
-                    setUpDialog(dialogBuilder)
-                    dialogBuilder.create().show()
+                    setUpDialog()
                 }
             }
 
@@ -134,16 +132,12 @@ class StartParkingFragment :
         etLotNumber.setStartIconTintList(ColorStateList.valueOf(color))
     }
 
-    private fun setUpDialog(dialogBuilder: AlertDialog.Builder) = with(dialogBuilder) {
-        setTitle(getString(R.string.start_parking))
-        setMessage(getString(R.string.start_parking_dialog))
-
-        setPositiveButton(getString(R.string.start)) { _, _ ->
-
-        }
-
-        setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
-            dialog.dismiss()
-        }
+    private fun setUpDialog() {
+        requireContext().showAlertDialog(
+            title = getString(R.string.start_parking),
+            message = getString(R.string.start_parking_dialog),
+            positiveButtonText = getString(R.string.start),
+            negativeButtonText = getString(R.string.cancel)
+        ) {}
     }
 }

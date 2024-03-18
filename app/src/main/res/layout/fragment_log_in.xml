@@ -49,6 +49,7 @@
                 android:id="@+id/etEmailInput"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fontFamily="@font/open_sans_regular"
                 android:hint="@string/email"
                 android:inputType="textEmailAddress" />
 
@@ -68,6 +69,7 @@
                 android:id="@+id/etPasswordInput"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fontFamily="@font/open_sans_regular"
                 android:hint="@string/password"
                 android:inputType="textPassword" />
 

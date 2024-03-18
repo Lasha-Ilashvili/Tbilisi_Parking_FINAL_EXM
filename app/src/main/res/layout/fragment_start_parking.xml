@@ -71,11 +71,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tvBalanceText" />
 
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvPlateNumberText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_large"
+            android:fontFamily="@font/open_sans_regular"
             android:text="@string/plate_number"
             android:textSize="@dimen/text_size_large"
             app:layout_constraintStart_toStartOf="parent"
@@ -86,6 +88,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_large"
+            android:fontFamily="@font/open_sans_regular"
             android:textSize="@dimen/text_size_mega_large"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/tvPlateNumberText"
@@ -148,6 +151,7 @@
                 android:id="@+id/etLotNumberInput"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fontFamily="@font/open_sans_regular"
                 android:hint="@string/lot_number"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>

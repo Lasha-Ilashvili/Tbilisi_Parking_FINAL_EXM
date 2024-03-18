@@ -44,6 +44,7 @@
             android:id="@+id/etNameOfVehicleInput"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fontFamily="@font/open_sans_regular"
             android:hint="@string/name_of_the_vehicle"
             android:inputType="textEmailAddress" />
 
@@ -62,6 +63,7 @@
             android:id="@+id/etPlateNumberInput"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fontFamily="@font/open_sans_regular"
             android:hint="@string/plate_number"
             android:inputType="textEmailAddress" />
 
@@ -72,6 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:fontFamily="@font/open_sans_regular"
         android:text="@string/e_g_aa111aa"
         android:textColor="@color/gray"
         app:layout_constraintStart_toStartOf="parent"

@@ -6,6 +6,7 @@ import com.example.tbilisi_parking_final_exm.data.common.HandleResponse
 import com.example.tbilisi_parking_final_exm.data.service.parking.add_vehicle.AddVehicleService
 import com.example.tbilisi_parking_final_exm.data.service.parking.edit_vehicle.EditVehicleService
 import com.example.tbilisi_parking_final_exm.data.service.parking.get_vehicle.GetAllVehicleService
+import com.example.tbilisi_parking_final_exm.data.service.cards.CardsService
 import com.example.tbilisi_parking_final_exm.data.service.log_in.LogInService
 import com.example.tbilisi_parking_final_exm.data.service.map.LatLngService
 import com.example.tbilisi_parking_final_exm.data.service.refresh_token.RefreshTokenService
@@ -140,7 +141,13 @@ object AppModule {
 
             // Add basic authentication header
             val authenticatedRequest = original.newBuilder()
-                .header("Authorization", Credentials.basic(BuildConfig.BASIC_AUTH_CREDENTIAL_USER_NAME, BuildConfig.BASIC_AUTH_CREDENTIAL_USER_PASSWORD))
+                .header(
+                    "Authorization",
+                    Credentials.basic(
+                        BuildConfig.BASIC_AUTH_CREDENTIAL_USER_NAME,
+                        BuildConfig.BASIC_AUTH_CREDENTIAL_USER_PASSWORD
+                    )
+                )
                 .build()
 
             chain.proceed(authenticatedRequest)
@@ -252,6 +259,7 @@ object AppModule {
 
     @Singleton
     @Provides
+
     fun provideSaveCardService(retrofit: Retrofit): SaveCardService {
         return retrofit.create(SaveCardService::class.java)
     }
@@ -278,5 +286,13 @@ object AppModule {
     @Provides
     fun provideGetBalanceService(retrofit: Retrofit): GetBalanceService {
         return retrofit.create(GetBalanceService::class.java)
+
+    }
+
+    @Singleton
+    @Provides
+    fun provideCardsService(retrofit: Retrofit): CardsService {
+        return retrofit.create(CardsService::class.java)
+
     }
 }

@@ -42,9 +42,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:fontFamily="@font/open_sans_regular"
         android:text="LK293KL"
-        android:textSize="19sp"
         android:textColor="@color/gray"
+        android:textSize="19sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvPlateNumberTitle" />
 
@@ -60,6 +61,7 @@
             android:id="@+id/etVehicleNameInput"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fontFamily="@font/open_sans_regular"
             android:hint="Vehicle Name"
             android:inputType="text" />
 

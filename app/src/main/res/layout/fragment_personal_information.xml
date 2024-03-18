@@ -40,9 +40,9 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etPersonalNumber"
-            android:layout_marginTop="@dimen/margin_large"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTitle">
@@ -51,6 +51,7 @@
                 android:id="@+id/etPersonalNumberInput"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fontFamily="@font/open_sans_regular"
                 android:hint="@string/personal_number"
                 android:inputType="number"
                 android:maxLength="11" />
@@ -58,9 +59,9 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etFirstName"
-            android:layout_marginTop="@dimen/margin_large"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etPersonalNumber">
@@ -69,15 +70,16 @@
                 android:id="@+id/etFirstNameInput"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fontFamily="@font/open_sans_regular"
                 android:hint="@string/first_name"
                 android:inputType="textCapWords" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etLastName"
-            android:layout_marginTop="@dimen/margin_large"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etFirstName">
@@ -86,15 +88,16 @@
                 android:id="@+id/etLastNameInput"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fontFamily="@font/open_sans_regular"
                 android:hint="@string/last_name"
                 android:inputType="textCapWords" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etMobileNumber"
-            android:layout_marginTop="@dimen/margin_large"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etLastName"
@@ -104,6 +107,7 @@
                 android:id="@+id/etMobileNumberInput"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fontFamily="@font/open_sans_regular"
                 android:hint="@string/mobile_number"
                 android:inputType="number"
                 android:maxLength="9" />

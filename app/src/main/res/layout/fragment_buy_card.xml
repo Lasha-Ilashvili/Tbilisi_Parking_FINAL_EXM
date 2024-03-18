@@ -49,6 +49,7 @@
                 android:id="@+id/etPlateNumberInput"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fontFamily="@font/open_sans_regular"
                 android:hint="@string/plate_number"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -66,6 +67,7 @@
                 android:id="@+id/etPersonalNumberInput"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:fontFamily="@font/open_sans_regular"
                 android:hint="@string/personal_number"
                 android:inputType="number"
                 android:maxLength="11" />

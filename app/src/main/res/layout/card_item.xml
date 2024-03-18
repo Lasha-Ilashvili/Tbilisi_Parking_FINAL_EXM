@@ -3,13 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:elevation="20dp">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvCardTitle"
-        android:textAllCaps="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans_regular"
+        android:textAllCaps="true"
         android:textSize="@dimen/text_size_large"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,19 +24,31 @@
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/margin_large"
         android:layout_marginBottom="@dimen/margin_large"
-        android:src="@drawable/card_item_background"
+        android:background="@drawable/card_item_background"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCardTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCardTitle"
+        app:srcCompat="@drawable/parking_background" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="?android:attr/actionBarSize"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_margin="@dimen/margin_medium"
+        app:layout_constraintStart_toStartOf="@+id/ivCardBackground"
+        app:layout_constraintTop_toTopOf="@+id/ivCardBackground"
+        app:srcCompat="@drawable/parking_background" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvPeriod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_medium"
+        android:fontFamily="@font/open_sans_regular"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_size_large"
+        android:textSize="@dimen/text_size_mega_large"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/ivCardBackground"
         app:layout_constraintStart_toStartOf="@+id/ivCardBackground"
         app:layout_constraintTop_toTopOf="@+id/ivCardBackground"
@@ -45,9 +59,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_medium"
-        android:text="Zonal card"
+        android:fontFamily="@font/open_sans_regular"
+        android:text="@string/zonal_card"
+        android:textAllCaps="true"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_size_large"
+        android:textSize="@dimen/text_size_mega_large"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/ivCardBackground"
         app:layout_constraintStart_toStartOf="@+id/ivCardBackground"
         app:layout_constraintTop_toBottomOf="@+id/tvPeriod" />
@@ -57,7 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.465" />
+        app:layout_constraintGuide_percent="0.5" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvPrice"
@@ -65,11 +82,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_medium"
         android:layout_marginBottom="@dimen/margin_medium"
+        android:fontFamily="@font/open_sans_regular"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_size_large"
+        android:textSize="@dimen/text_size_mega_large"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/ivCardBackground"
         app:layout_constraintEnd_toEndOf="@+id/guideline"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/tvZonalCard"
         tools:text="20" />
 
@@ -77,10 +95,12 @@
         android:id="@+id/tvPriceCurrency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans_regular"
         android:text="@string/gel"
         android:textAllCaps="true"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_size_large"
+        android:textSize="@dimen/text_size_mega_large"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/tvPrice"
         app:layout_constraintTop_toTopOf="@+id/tvPrice" />
 

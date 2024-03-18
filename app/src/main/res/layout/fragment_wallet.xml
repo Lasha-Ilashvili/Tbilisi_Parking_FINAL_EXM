@@ -12,17 +12,6 @@
         android:id="@+id/progressBar"
         layout="@layout/loading_layout" />
 
-    <include
-        android:id="@+id/card_details_layout"
-        layout="@layout/card_details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_medium_plus"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etAmount" />
-
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btnBack"
         style="@style/customButtonArrow"
@@ -156,10 +145,14 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_user_cards"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_default="wrap"
         app:layout_constraintStart_toStartOf="parent"
+        android:paddingBottom="@dimen/padding_extra_large"
+        android:clipToPadding="false"
         app:layout_constraintTop_toBottomOf="@+id/tvChooseSavedCard"
         tools:listitem="@layout/user_card_item" />
 

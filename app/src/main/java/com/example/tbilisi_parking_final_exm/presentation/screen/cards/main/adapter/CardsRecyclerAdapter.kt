@@ -1,5 +1,6 @@
 package com.example.tbilisi_parking_final_exm.presentation.screen.cards.main.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -75,8 +76,14 @@ class CardsRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             val zonalCard = card.zonalCard
 
             tvCardTitle.text = card.title
-            tvPeriod.text = zonalCard?.period
-            tvPrice.text = zonalCard?.price.toString()
+
+            zonalCard?.let {
+                tvPeriod.text = it.period
+                tvPrice.text = it.price.toString()
+                ivCardBackground.background.setTint(Color.parseColor(it.backgroundColor))
+                ivCardBackground.background.alpha = 99
+                ivCardBackground.setColorFilter(Color.parseColor(it.backgroundColor))
+            }
         }
     }
 }

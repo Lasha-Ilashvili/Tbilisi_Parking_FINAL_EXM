@@ -66,6 +66,9 @@
         <argument
             android:name="price"
             app:argType="integer" />
+        <argument
+            android:name="backgroundColor"
+            app:argType="string" />
     </fragment>
         <argument
             android:name="period"
