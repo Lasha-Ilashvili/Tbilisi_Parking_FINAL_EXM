@@ -12,9 +12,9 @@
 <!--        android:title="@string/map" />-->
 
     <item
-        android:id="@+id/cardsFragment"
+        android:id="@+id/licensesFragment"
         android:icon="@drawable/ic_credit_card"
-        android:title="@string/cards" />
+        android:title="@string/licenses" />
 
     <item
         android:id="@+id/finesFragment"

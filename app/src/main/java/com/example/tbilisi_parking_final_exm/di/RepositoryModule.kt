@@ -4,8 +4,8 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import com.example.tbilisi_parking_final_exm.data.common.HandleResponse
 import com.example.tbilisi_parking_final_exm.data.data_source.map.LatLngDataSource
-import com.example.tbilisi_parking_final_exm.data.repository.cards.CardsRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.datastore.DataStoreRepositoryImpl
+import com.example.tbilisi_parking_final_exm.data.repository.licenses.LicensesRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.log_in.LogInRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.map.MarkerLocationsRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.parking.add_vehicle.AddVehicleRepositoryImpl
@@ -18,7 +18,7 @@ import com.example.tbilisi_parking_final_exm.data.repository.user_panel.wallet.b
 import com.example.tbilisi_parking_final_exm.data.repository.user_panel.wallet.balance.GetBalanceRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.user_panel.wallet.cards.DeleteCardRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.user_panel.wallet.cards.GetUserCardsRepositoryImpl
-import com.example.tbilisi_parking_final_exm.data.service.cards.CardsService
+import com.example.tbilisi_parking_final_exm.data.service.licenses.LicensesService
 import com.example.tbilisi_parking_final_exm.data.service.log_in.LogInService
 import com.example.tbilisi_parking_final_exm.data.service.map.LatLngService
 import com.example.tbilisi_parking_final_exm.data.service.parking.add_vehicle.AddVehicleService
@@ -32,7 +32,7 @@ import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.bala
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.cards.DeleteUserCardService
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.cards.GetUserCardsService
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.cards.SaveCardService
-import com.example.tbilisi_parking_final_exm.domain.repository.cards.CardsRepository
+import com.example.tbilisi_parking_final_exm.domain.repository.licenses.LicensesRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.datastore.DataStoreRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.log_in.LogInRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.map.MarkerLocationsRepository
@@ -223,13 +223,13 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideCardsRepository(
+    fun provideLicensesRepository(
         handleResponse: HandleResponse,
-        cardsService: CardsService
-    ): CardsRepository {
-        return CardsRepositoryImpl(
+        licensesService: LicensesService
+    ): LicensesRepository {
+        return LicensesRepositoryImpl(
             handleResponse = handleResponse,
-            cardsService = cardsService
+            licensesService = licensesService
 
         )
     }

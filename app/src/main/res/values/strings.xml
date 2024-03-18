@@ -16,7 +16,7 @@
     <string name="invalid_input">Invalid input</string>
     <string name="terms_and_agreements_url">https://static.municipal.gov.ge/terms-and-agreements/en.html</string>
     <string name="map">Map</string>
-    <string name="cards">Cards</string>
+    <string name="licenses">Licenses</string>
     <string name="fines">Fines</string>
     <string name="parking">Parking</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -60,7 +60,7 @@
     <string name="start_parking_dialog">Do You Want To Start Parking?</string>
     <string name="start">Start</string>
     <string name="gel">GEL</string>
-    <string name="buy_card">buy card</string>
+    <string name="buy_license">buy license</string>
     <string name="edit_vehicle">Edit Vehicle</string>
     <string name="save">Save</string>
     <string name="save_session">Save Session</string>

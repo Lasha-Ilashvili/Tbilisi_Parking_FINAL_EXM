@@ -9,7 +9,7 @@
         android:id="@+id/parkingFragment"
         android:name="com.example.tbilisi_parking_final_exm.presentation.screen.parking.main.ParkingFragment"
         android:label="fragment_parking"
-        tools:layout="@layout/fragment_parking" >
+        tools:layout="@layout/fragment_parking">
         <action
             android:id="@+id/action_parkingFragment_to_addVehicleFragment"
             app:destination="@id/addVehicleFragment" />
@@ -26,13 +26,13 @@
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" />
     <fragment
-        android:id="@+id/cardsFragment"
-        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.cards.main.CardsFragment"
+        android:id="@+id/licensesFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.licenses.all_licenses.LicensesFragment"
         android:label="fragment_cards"
-        tools:layout="@layout/fragment_cards" >
+        tools:layout="@layout/fragment_licenses">
         <action
-            android:id="@+id/action_cardsFragment_to_buyCardFragment"
-            app:destination="@id/buyCardFragment" />
+            android:id="@+id/action_cardsFragment_to_buyLicenseFragment"
+            app:destination="@id/buyLicenseFragment" />
     </fragment>
     <fragment
         android:id="@+id/finesFragment"
@@ -48,18 +48,17 @@
         android:id="@+id/startParkingFragment"
         android:name="com.example.tbilisi_parking_final_exm.presentation.screen.parking.start_parking.StartParkingFragment"
         android:label="StartParkingFragment"
-        tools:layout="@layout/fragment_start_parking"
-        >
+        tools:layout="@layout/fragment_start_parking">
         <argument
             android:name="plateNumber"
             app:argType="string" />
     </fragment>
 
     <fragment
-        android:id="@+id/buyCardFragment"
-        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.cards.buy_card.BuyCardFragment"
+        android:id="@+id/buyLicenseFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.licenses.buy_license.BuyLicenseFragment"
         android:label="fragment_buy_card"
-        tools:layout="@layout/fragment_buy_card" >
+        tools:layout="@layout/fragment_buy_license">
         <argument
             android:name="period"
             app:argType="string" />
@@ -70,22 +69,23 @@
             android:name="backgroundColor"
             app:argType="string" />
     </fragment>
-        <argument
-            android:name="period"
-            app:argType="string" />
-        <argument
-            android:name="price"
-            app:argType="integer" />
+    <argument
+        android:name="period"
+        app:argType="string" />
+    <argument
+        android:name="price"
+        app:argType="integer" />
 
     <dialog
         android:id="@+id/vehicleBottomSheetFragment"
         android:name="com.example.tbilisi_parking_final_exm.presentation.screen.parking.vehicle_bottom_sheet.VehicleBottomSheetFragment"
         android:label="fragment_vehicle_bottom_sheet"
-        tools:layout="@layout/fragment_vehicle_bottom_sheet" >
+        tools:layout="@layout/fragment_vehicle_bottom_sheet">
         <argument
             android:name="vehicleName"
             app:argType="string" />
-        <argument android:name="vehiclePlateNumber"
+        <argument
+            android:name="vehiclePlateNumber"
             app:argType="string" />
         <argument
             android:name="vehicleId"
@@ -98,20 +98,22 @@
         android:id="@+id/editVehicleFragment"
         android:name="com.example.tbilisi_parking_final_exm.presentation.screen.parking.edit_vehicle.EditVehicleFragment"
         android:label="fragment_edit_vehicle"
-        tools:layout="@layout/fragment_edit_vehicle" >
+        tools:layout="@layout/fragment_edit_vehicle">
         <argument
             android:name="vehicleName"
             app:argType="string" />
-        <argument android:name="vehicleId"
+        <argument
+            android:name="vehicleId"
             app:argType="integer" />
-        <argument android:name="vehiclePlateNumber"
+        <argument
+            android:name="vehiclePlateNumber"
             app:argType="string" />
 
     </fragment>
     <dialog
         android:id="@+id/userPanelBottomSheet"
         android:name="com.example.tbilisi_parking_final_exm.presentation.screen.user_panel.user_panel_bottom_sheet.UserPanelBottomSheet"
-        android:label="UserPanelBottomSheet" >
+        android:label="UserPanelBottomSheet">
         <action
             android:id="@+id/action_userPanelBottomSheet_to_profileFragment"
             app:destination="@id/profileFragment" />
@@ -130,7 +132,7 @@
     <fragment
         android:id="@+id/walletFragment"
         android:name="com.example.tbilisi_parking_final_exm.presentation.screen.user_panel.wallet.main.WalletFragment"
-        android:label="WalletFragment" >
+        android:label="WalletFragment">
         <action
             android:id="@+id/action_walletFragment_to_balanceFragment"
             app:destination="@id/balanceFragment" />
@@ -144,29 +146,29 @@
         android:id="@+id/balanceFragment"
         android:name="com.example.tbilisi_parking_final_exm.presentation.screen.user_panel.wallet.balance.BalanceFragment"
         android:label="fragment_balance"
-        tools:layout="@layout/fragment_balance" >
+        tools:layout="@layout/fragment_balance">
         <argument
             android:name="cardNumber"
-            app:argType="string"
             android:defaultValue='null'
+            app:argType="string"
             app:nullable="true" />
         <argument
             android:name="date"
+            android:defaultValue="null"
             app:argType="string"
-            app:nullable="true"
-            android:defaultValue="null" />
+            app:nullable="true" />
         <argument
             android:name="cvv"
-            app:argType="string"
             android:defaultValue='null'
+            app:argType="string"
             app:nullable="true" />
         <argument
             android:name="amount"
             app:argType="float" />
         <argument
             android:name="cardId"
+            android:defaultValue="null"
             app:argType="string"
-            app:nullable="true"
-            android:defaultValue="null" />
+            app:nullable="true" />
     </fragment>
 </navigation>

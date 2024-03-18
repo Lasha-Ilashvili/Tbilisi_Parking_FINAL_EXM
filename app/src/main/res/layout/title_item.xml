@@ -9,7 +9,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="@dimen/margin_large"
         android:fontFamily="@font/open_sans_regular"
-        android:text="@string/buy_card"
+        android:text="@string/buy_license"
         android:textAllCaps="true"
         android:textSize="30sp"
         android:textStyle="bold" />
