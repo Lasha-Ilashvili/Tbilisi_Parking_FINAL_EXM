@@ -16,11 +16,22 @@
             layout="@layout/loading_layout" />
 
         <include
-            android:id="@+id/card_layout"
+            android:id="@+id/licenseLayout"
             layout="@layout/license_item"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/btnBack" />
+
+        <include
+            android:id="@+id/cardLayout"
+            layout="@layout/card_details"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginHorizontal="@dimen/margin_large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/paymentOptions" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btnBack"
@@ -47,7 +58,7 @@
             android:layout_marginTop="@dimen/margin_large"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/card_layout">
+            app:layout_constraintTop_toBottomOf="@+id/licenseLayout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPlateNumberInput"
@@ -78,17 +89,57 @@
                 android:maxLength="11" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvChoosePayment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium_plus"
+            android:fontFamily="@font/open_sans_regular"
+            android:text="@string/choose_a_payment_method"
+            android:textSize="@dimen/text_size_medium"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etPersonalNumber" />
+
+        <RadioGroup
+            android:id="@+id/paymentOptions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvChoosePayment">
+
+            <RadioButton
+                android:id="@+id/rbPlasticCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans_regular"
+                android:text="@string/pay_with_plastic_card"
+                android:textSize="@dimen/text_size_medium" />
+
+            <RadioButton
+                android:id="@+id/rbBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:fontFamily="@font/open_sans_regular"
+                android:text="@string/pay_from_your_balance"
+                android:textSize="@dimen/text_size_medium" />
+        </RadioGroup>
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnBuyLicense"
             style="@style/customButtonMaterial"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_medium_plus"
+            android:layout_marginTop="@dimen/margin_large"
             android:text="@string/buy_license"
             android:textAllCaps="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etPersonalNumber" />
+            app:layout_constraintTop_toBottomOf="@+id/cardLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

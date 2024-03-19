@@ -1,7 +1,7 @@
 package com.example.tbilisi_parking_final_exm.presentation.extension
 
 import android.widget.EditText
-import com.example.tbilisi_parking_final_exm.presentation.screen.user_panel.wallet.balance.adapter.CardInputAdapter
+import com.example.tbilisi_parking_final_exm.presentation.common.adapter.CardInputAdapter
 
 
 fun EditText.applyFormatting(symbol: String, separator: Int) {

@@ -9,6 +9,9 @@ sealed class BuyLicenseEvent {
     data class BuyLicense(
         val plateNumber: TextInputLayout,
         val personalNumber: TextInputLayout,
-        val descriptionId: Int
+        val descriptionId: Int,
+        val cardNumber: TextInputLayout? = null,
+        val date: TextInputLayout? = null,
+        val cvv: TextInputLayout? = null
     ) : BuyLicenseEvent()
 }

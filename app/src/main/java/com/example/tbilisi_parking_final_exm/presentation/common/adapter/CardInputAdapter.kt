@@ -1,4 +1,4 @@
-package com.example.tbilisi_parking_final_exm.presentation.screen.user_panel.wallet.balance.adapter
+package com.example.tbilisi_parking_final_exm.presentation.common.adapter
 
 import android.text.Editable
 import android.text.TextWatcher

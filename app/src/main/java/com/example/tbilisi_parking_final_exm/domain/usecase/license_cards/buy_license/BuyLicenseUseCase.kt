@@ -2,6 +2,7 @@ package com.example.tbilisi_parking_final_exm.domain.usecase.license_cards.buy_l
 
 import com.example.tbilisi_parking_final_exm.data.common.Resource
 import com.example.tbilisi_parking_final_exm.domain.model.license_cards.buy_license.GetBuyLicenseRequest
+import com.example.tbilisi_parking_final_exm.domain.model.user_panel.wallet.cards.GetCardDetails
 import com.example.tbilisi_parking_final_exm.domain.model.vehicle.vehicle.GetVehicle
 import com.example.tbilisi_parking_final_exm.domain.repository.license_cards.buy_license.BuyLicenseRepository
 import kotlinx.coroutines.flow.Flow
@@ -17,7 +18,8 @@ class BuyLicenseUseCase @Inject constructor(
         vehicles: List<GetVehicle>,
         plateNumber: String,
         descriptionId: Int,
-        userId: Int
+        userId: Int,
+        getCardDetails: GetCardDetails?
     ): Flow<Resource<Unit>> {
         val vehicleId = getVehicleId(vehicles, plateNumber)
 
@@ -27,7 +29,8 @@ class BuyLicenseUseCase @Inject constructor(
                     vehicleId = vehicleId,
                     descriptionId = descriptionId,
                     userId = userId
-                )
+                ),
+                getCardDetails = getCardDetails
             )
         }
 

@@ -241,11 +241,15 @@ object RepositoryModule {
     @Provides
     fun provideBuyLicenseRepository(
         handleResponse: HandleResponse,
-        buyLicenseService: BuyLicenseService
+        buyLicenseService: BuyLicenseService,
+        deleteUserCardService: DeleteUserCardService,
+        saveCardService: SaveCardService
     ): BuyLicenseRepository {
         return BuyLicenseRepositoryImpl(
             handleResponse = handleResponse,
-            buyLicenseService = buyLicenseService
+            buyLicenseService = buyLicenseService,
+            deleteUserCardService = deleteUserCardService,
+            saveCardService = saveCardService
         )
     }
 }

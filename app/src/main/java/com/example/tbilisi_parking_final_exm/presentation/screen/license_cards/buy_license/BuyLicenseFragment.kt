@@ -1,7 +1,8 @@
 package com.example.tbilisi_parking_final_exm.presentation.screen.license_cards.buy_license
 
 import android.graphics.Color
-import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -10,12 +11,15 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.tbilisi_parking_final_exm.R
+import com.example.tbilisi_parking_final_exm.databinding.CardDetailsBinding
 import com.example.tbilisi_parking_final_exm.databinding.FragmentBuyLicenseBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.license_cards.buy_license.BuyLicenseEvent
+import com.example.tbilisi_parking_final_exm.presentation.extension.applyFormatting
 import com.example.tbilisi_parking_final_exm.presentation.extension.hideKeyboard
 import com.example.tbilisi_parking_final_exm.presentation.extension.showToast
 import com.example.tbilisi_parking_final_exm.presentation.state.license_cards.buy_license.BuyLicenseState
+import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -38,16 +42,16 @@ class BuyLicenseFragment :
                 findNavController().popBackStack()
             }
 
-            addTextListeners(listOf(etPlateNumber, etPersonalNumber))
+            val fields = listOf(etPlateNumber, etPersonalNumber)
+
+            addTextListeners(fields)
+
+            rbPlasticCard.setOnCheckedChangeListener { _, isChecked ->
+                handleCheckedState(isChecked, fields)
+            }
 
             btnBuyLicense.setOnClickListener {
-                viewModel.onEvent(
-                    BuyLicenseEvent.BuyLicense(
-                        plateNumber = etPlateNumber,
-                        personalNumber = etPersonalNumber,
-                        descriptionId = args.id
-                    )
-                )
+                buyLicense()
 
                 it.hideKeyboard()
             }
@@ -74,18 +78,57 @@ class BuyLicenseFragment :
 
     /* IMPLEMENTATION DETAILS */
 
-    private fun setLayout() = with(binding.cardLayout) {
+    private fun setLayout() = with(binding.licenseLayout) {
         ivLicenseBackground.apply {
-
             background.setTint(Color.parseColor(args.backgroundColor))
             background.alpha = 99
             setColorFilter(Color.parseColor(args.backgroundColor))
         }
 
-        tvLicenseTitle.text = args.validity
+        tvLicenseTitleStatic.visibility = GONE
         tvPeriod.text = args.validity
         tvLicenseType.text = args.type
         tvPrice.text = args.price.toString()
+    }
+
+    private fun handleCheckedState(isChecked: Boolean, fields: List<TextInputLayout>) = with(binding) {
+        if (isChecked)
+            setCardLayout(cardLayout)
+        else {
+            cardLayout.root.visibility = GONE
+            viewModel.onEvent(BuyLicenseEvent.SetButtonState(fields))
+        }
+    }
+
+    private fun setCardLayout(cardLayout: CardDetailsBinding) = with(cardLayout) {
+        setVisibilities(cardLayout)
+
+        formatInput(etCardNumberInput, etCardDateInput)
+
+        val fields = listOf(
+            binding.etPlateNumber,
+            binding.etPersonalNumber,
+            cardLayout.etCardNumber,
+            cardLayout.etCardDate,
+            cardLayout.etCVV
+        )
+
+        viewModel.onEvent(BuyLicenseEvent.SetButtonState(fields))
+
+        addTextListeners(fields)
+    }
+
+    private fun setVisibilities(cardLayout: CardDetailsBinding) = with(cardLayout) {
+        root.visibility = VISIBLE
+        tvCardDetails.visibility = GONE
+        tvRememberCard.visibility = GONE
+        chkRememberCard.visibility = GONE
+        btnProceedToPayment.visibility = GONE
+    }
+
+    private fun formatInput(cardNumber: TextInputEditText, cardDate: TextInputEditText) {
+        cardNumber.applyFormatting(symbol = " ", separator = 4)
+        cardDate.applyFormatting(symbol = "/", separator = 2)
     }
 
     private fun addTextListeners(fields: List<TextInputLayout>) {
@@ -96,8 +139,28 @@ class BuyLicenseFragment :
         }
     }
 
+    private fun buyLicense() = with(binding) {
+        viewModel.onEvent(
+            if (rbPlasticCard.isChecked)
+                BuyLicenseEvent.BuyLicense(
+                    plateNumber = etPlateNumber,
+                    personalNumber = etPersonalNumber,
+                    descriptionId = args.id,
+                    cardNumber = cardLayout.etCardNumber,
+                    date = cardLayout.etCardDate,
+                    cvv = cardLayout.etCVV
+                )
+            else
+                BuyLicenseEvent.BuyLicense(
+                    plateNumber = etPlateNumber,
+                    personalNumber = etPersonalNumber,
+                    descriptionId = args.id,
+                )
+        )
+    }
+
     private fun handleState(buyLicenseState: BuyLicenseState) = with(buyLicenseState) {
-        binding.progressBar.root.visibility = if (isLoading) View.VISIBLE else View.GONE
+        binding.progressBar.root.visibility = if (isLoading) VISIBLE else GONE
 
         binding.btnBuyLicense.isEnabled = isButtonEnabled
 
