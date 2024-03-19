@@ -118,7 +118,6 @@ object AppModule {
                         runBlocking { clearDataStoreUseCase.invoke() }
                     }
 
-
                 }
             }
             return@addInterceptor response

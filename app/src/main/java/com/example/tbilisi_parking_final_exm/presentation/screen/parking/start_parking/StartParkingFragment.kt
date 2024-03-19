@@ -28,11 +28,13 @@ class StartParkingFragment :
 
     private val viewModel: StartParkingViewModel by viewModels()
     private val args: StartParkingFragmentArgs by navArgs()
+    private var zoneValue: Zone = Zone.A
 
-    enum class Zone(val cost: Int, val color: Int, val icon: Int) {
-        A(1, R.color.dark_blue, R.drawable.ic_letter_a),
-        B(2, R.color.yellow, R.drawable.ic_letter_b),
-        C(3, R.color.green, R.drawable.ic_letter_c)
+
+    enum class Zone(val cost: Int, val color: Int, val icon: Int, val value: String) {
+        A(1, R.color.dark_blue, R.drawable.ic_letter_a, "A"),
+        B(2, R.color.yellow, R.drawable.ic_letter_b,"B"),
+        C(3, R.color.green, R.drawable.ic_letter_c,"C")
     }
 
     override fun bind() {
@@ -92,10 +94,12 @@ class StartParkingFragment :
 
         btnZoneB.setOnClickListener {
             viewModel.onEvent(StartParkingEvent.SetZoneState(Zone.B))
+
         }
 
         btnZoneC.setOnClickListener {
             viewModel.onEvent(StartParkingEvent.SetZoneState(Zone.C))
+
         }
     }
 
@@ -123,6 +127,7 @@ class StartParkingFragment :
         zone.apply {
             setStartIcon(icon, color)
             binding.costLayout.tvCost.text = cost.toString()
+            zoneValue = this
         }
 
         data?.let {
@@ -152,9 +157,11 @@ class StartParkingFragment :
     private fun startParking() {
         val stationId = binding.etLotNumber.editText?.text.toString()
         val carId = args.carId
+        val zone = zoneValue
+        println(zone.value)
 
         viewModel.onEvent(StartParkingEvent.StartParking(
-            stationExternalId = "A$stationId",
+            stationExternalId = "${zone.value}$stationId",
             carId = carId
         ))
 
