@@ -148,7 +148,7 @@ class StartParkingFragment :
         val carId = args.carId
 
         findNavController().navigate(StartParkingFragmentDirections.actionStartParkingFragmentToParkingIsStartedFragment(
-            stationExternalId = stationId, carId =carId
+            stationExternalId = "A$stationId", carId =carId
         ))
 
     }

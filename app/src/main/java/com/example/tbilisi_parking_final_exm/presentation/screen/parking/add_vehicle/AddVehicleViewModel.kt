@@ -6,10 +6,10 @@ import com.example.tbilisi_parking_final_exm.data.common.Resource
 import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.GetUserIdUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.PlateNumberValidatorUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.FieldsAreNotBlankUseCase
-import com.example.tbilisi_parking_final_exm.domain.usecase.vehicle.add_vehicle.AddVehicleUseCase
+import com.example.tbilisi_parking_final_exm.domain.usecase.parking.vehicle.add_vehicle.AddVehicleUseCase
 import com.example.tbilisi_parking_final_exm.presentation.event.parking.add_vehicle.AddVehicleEvent
-import com.example.tbilisi_parking_final_exm.presentation.mapper.vehicle.toDomain
-import com.example.tbilisi_parking_final_exm.presentation.model.vehicle.add_vehicle.AddVehicle
+import com.example.tbilisi_parking_final_exm.presentation.mapper.parking.vehicle.toDomain
+import com.example.tbilisi_parking_final_exm.presentation.model.parking.vehicle.add_vehicle.AddVehicle
 import com.example.tbilisi_parking_final_exm.presentation.state.parking.add_vehicle.AddVehicleState
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.lifecycle.HiltViewModel

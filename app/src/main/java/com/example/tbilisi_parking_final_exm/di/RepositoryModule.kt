@@ -11,6 +11,7 @@ import com.example.tbilisi_parking_final_exm.data.repository.map.MarkerLocations
 import com.example.tbilisi_parking_final_exm.data.repository.parking.add_vehicle.AddVehicleRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.parking.edit_vehicle.EditVehicleRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.parking.get_vehicles.GetAllVehicleRepositoryImpl
+import com.example.tbilisi_parking_final_exm.data.repository.parking.start_parking.StartParkingRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.refresh_token.RefreshTokenRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.sign_up.SignUpRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.user_panel.profile.ProfileRepositoryImpl
@@ -24,6 +25,7 @@ import com.example.tbilisi_parking_final_exm.data.service.map.LatLngService
 import com.example.tbilisi_parking_final_exm.data.service.parking.add_vehicle.AddVehicleService
 import com.example.tbilisi_parking_final_exm.data.service.parking.edit_vehicle.EditVehicleService
 import com.example.tbilisi_parking_final_exm.data.service.parking.get_vehicle.GetAllVehicleService
+import com.example.tbilisi_parking_final_exm.data.service.parking.start_parking.StartParkingService
 import com.example.tbilisi_parking_final_exm.data.service.refresh_token.RefreshTokenService
 import com.example.tbilisi_parking_final_exm.data.service.sign_up.SignUpService
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.profile.ProfileService
@@ -39,6 +41,7 @@ import com.example.tbilisi_parking_final_exm.domain.repository.map.MarkerLocatio
 import com.example.tbilisi_parking_final_exm.domain.repository.parking.add_vehicle.AddVehicleRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.parking.edit_vehicle.EditVehicleRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.parking.get_vehicles.GetAllVehicleRepository
+import com.example.tbilisi_parking_final_exm.domain.repository.parking.start_parking.StartParkingRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.refresh_token.RefreshTokenRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.sign_up.SignUpRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.user_panel.profile.ProfileRepository
@@ -220,7 +223,6 @@ object RepositoryModule {
         )
     }
 
-
     @Singleton
     @Provides
     fun provideCardsRepository(
@@ -230,7 +232,18 @@ object RepositoryModule {
         return CardsRepositoryImpl(
             handleResponse = handleResponse,
             cardsService = cardsService
+        )
+    }
 
+    @Singleton
+    @Provides
+    fun provideStartParkingRepository(
+        handleResponse: HandleResponse,
+        startParkingService: StartParkingService
+    ): StartParkingRepository {
+        return StartParkingRepositoryImpl(
+            handleResponse = handleResponse,
+            startParkingService = startParkingService
         )
     }
 }

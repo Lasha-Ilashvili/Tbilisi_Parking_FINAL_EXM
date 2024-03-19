@@ -3,23 +3,24 @@ package com.example.tbilisi_parking_final_exm.di
 
 import com.example.tbilisi_parking_final_exm.BuildConfig
 import com.example.tbilisi_parking_final_exm.data.common.HandleResponse
-import com.example.tbilisi_parking_final_exm.data.service.parking.add_vehicle.AddVehicleService
-import com.example.tbilisi_parking_final_exm.data.service.parking.edit_vehicle.EditVehicleService
-import com.example.tbilisi_parking_final_exm.data.service.parking.get_vehicle.GetAllVehicleService
 import com.example.tbilisi_parking_final_exm.data.service.cards.CardsService
 import com.example.tbilisi_parking_final_exm.data.service.log_in.LogInService
 import com.example.tbilisi_parking_final_exm.data.service.map.LatLngService
+import com.example.tbilisi_parking_final_exm.data.service.parking.add_vehicle.AddVehicleService
+import com.example.tbilisi_parking_final_exm.data.service.parking.edit_vehicle.EditVehicleService
+import com.example.tbilisi_parking_final_exm.data.service.parking.get_vehicle.GetAllVehicleService
+import com.example.tbilisi_parking_final_exm.data.service.parking.start_parking.StartParkingService
 import com.example.tbilisi_parking_final_exm.data.service.refresh_token.RefreshTokenService
 import com.example.tbilisi_parking_final_exm.data.service.sign_up.SignUpService
-import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.ClearDataStoreUseCase
-import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.GetRefreshTokenUseCase
-import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.SaveAccessTokenUseCase
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.profile.ProfileService
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.balance.AddToBalanceService
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.balance.GetBalanceService
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.cards.DeleteUserCardService
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.cards.GetUserCardsService
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.cards.SaveCardService
+import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.ClearDataStoreUseCase
+import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.GetRefreshTokenUseCase
+import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.SaveAccessTokenUseCase
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -294,5 +295,11 @@ object AppModule {
     fun provideCardsService(retrofit: Retrofit): CardsService {
         return retrofit.create(CardsService::class.java)
 
+    }
+
+    @Singleton
+    @Provides
+    fun provideStartParkingService(retrofit: Retrofit) : StartParkingService{
+        return retrofit.create(StartParkingService::class.java)
     }
 }

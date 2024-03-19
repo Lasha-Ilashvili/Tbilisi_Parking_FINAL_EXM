@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbilisi_parking_final_exm.data.common.Resource
 import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.GetUserIdUseCase
-import com.example.tbilisi_parking_final_exm.domain.usecase.vehicle.get_vehicles.GetAllVehicleUseCase
+import com.example.tbilisi_parking_final_exm.domain.usecase.parking.vehicle.get_vehicles.GetAllVehicleUseCase
 import com.example.tbilisi_parking_final_exm.presentation.event.parking.ParkingEvent
-import com.example.tbilisi_parking_final_exm.presentation.mapper.vehicle.toPresenter
+import com.example.tbilisi_parking_final_exm.presentation.mapper.parking.vehicle.toPresenter
 import com.example.tbilisi_parking_final_exm.presentation.state.parking.ParkingState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

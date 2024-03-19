@@ -3,11 +3,11 @@ package com.example.tbilisi_parking_final_exm.presentation.screen.parking.edit_v
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbilisi_parking_final_exm.data.common.Resource
-import com.example.tbilisi_parking_final_exm.domain.usecase.vehicle.edit_vehicle.EditVehicleUseCase
+import com.example.tbilisi_parking_final_exm.domain.usecase.parking.vehicle.edit_vehicle.EditVehicleUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.FieldsAreNotBlankUseCase
 import com.example.tbilisi_parking_final_exm.presentation.event.parking.edit_vehicle.EditVehicleEvent
-import com.example.tbilisi_parking_final_exm.presentation.mapper.vehicle.toDomain
-import com.example.tbilisi_parking_final_exm.presentation.model.vehicle.edit_vehicle.EditVehicle
+import com.example.tbilisi_parking_final_exm.presentation.mapper.parking.vehicle.toDomain
+import com.example.tbilisi_parking_final_exm.presentation.model.parking.vehicle.edit_vehicle.EditVehicle
 import com.example.tbilisi_parking_final_exm.presentation.state.parking.edit_vehicle.EditVehicleState
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -40,7 +40,7 @@ class EditVehicleViewModel @Inject constructor(
 
     private fun editVehicle(vehicleId: Int, name: String){
         viewModelScope.launch {
-            val car =EditVehicle(carId = vehicleId, name = name).toDomain()
+            val car = EditVehicle(carId = vehicleId, name = name).toDomain()
             editVehicleUseCase(car).collect{
                 when (it) {
                     is Resource.Success -> {
