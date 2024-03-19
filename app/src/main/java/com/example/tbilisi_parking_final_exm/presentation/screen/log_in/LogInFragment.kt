@@ -8,7 +8,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.example.tbilisi_parking_final_exm.R
 import com.example.tbilisi_parking_final_exm.databinding.FragmentLogInBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.log_in.LogInEvent
@@ -108,7 +107,7 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
         binding.btnLogIn.isEnabled = isButtonEnabled
 
         errorTextInputLayout?.let {
-            it.error = getString(R.string.invalid_input)
+            it.error = getString(inputErrorMessage)
             it.isErrorEnabled = isErrorEnabled
         }
 
@@ -124,7 +123,7 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
                 etPassword.visibility = View.GONE
                 btnLogIn.visibility = View.GONE
                 checkBox.visibility = View.GONE
-                tvSaveSession.visibility =View.GONE
+                tvSaveSession.visibility = View.GONE
 
             } else {
                 progressBar.root.visibility = View.GONE
@@ -132,7 +131,7 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
                 etPassword.visibility = View.VISIBLE
                 btnLogIn.visibility = View.VISIBLE
                 checkBox.visibility = View.VISIBLE
-                tvSaveSession.visibility =View.VISIBLE
+                tvSaveSession.visibility = View.VISIBLE
 
             }
         }

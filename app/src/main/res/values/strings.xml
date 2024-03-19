@@ -85,4 +85,6 @@
     <string name="pay_from_your_balance">Pay from Your Balance</string>
     <string name="pay_with_plastic_card">Pay with Plastic Card</string>
     <string name="choose_a_payment_method">Choose a Payment Method</string>
+    <string name="password_error">Password must be at least 8 characters long</string>
+    <string name="matching_password_error">Passwords do not match</string>
 </resources>

@@ -2,13 +2,14 @@ package com.example.tbilisi_parking_final_exm.presentation.screen.log_in
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.tbilisi_parking_final_exm.R
 import com.example.tbilisi_parking_final_exm.data.common.Resource
 import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.DataStoreUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.log_in.LogInUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.user_panel.profile.GetProfileUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.EmailValidatorUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.FieldsAreNotBlankUseCase
-import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.LogInPasswordValidatorUseCase
+import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.PasswordValidatorUseCase
 import com.example.tbilisi_parking_final_exm.presentation.event.log_in.LogInEvent
 import com.example.tbilisi_parking_final_exm.presentation.state.log_in.LogInState
 import com.google.android.material.textfield.TextInputLayout
@@ -24,7 +25,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LogInViewModel @Inject constructor(
     private val emailValidator: EmailValidatorUseCase,
-    private val passwordValidator: LogInPasswordValidatorUseCase,
+    private val passwordValidator: PasswordValidatorUseCase,
     private val logInUseCase: LogInUseCase,
     private val fieldsAreNotBlank: FieldsAreNotBlankUseCase,
     private val getProfile: GetProfileUseCase,
@@ -58,22 +59,24 @@ class LogInViewModel @Inject constructor(
         val isPasswordValid = passwordValidator(password = passwordInput)
 
         updateErrorTextInputLayout(email, isEmailValid)
-        updateErrorTextInputLayout(password, isPasswordValid)
+        updateErrorTextInputLayout(password, isPasswordValid.first, isPasswordValid.second)
 
 
-        if (isEmailValid && isPasswordValid) {
+        if (isEmailValid && isPasswordValid.first) {
             logIn(email = emailInput, password = passwordInput)
         }
     }
 
     private fun updateErrorTextInputLayout(
         errorTextInputLayout: TextInputLayout,
-        isFieldValid: Boolean
+        isFieldValid: Boolean,
+        inputErrorMessage: Int = R.string.invalid_input
     ) {
         _logInState.update { currentState ->
             currentState.copy(
                 errorTextInputLayout = errorTextInputLayout,
-                isErrorEnabled = !isFieldValid
+                isErrorEnabled = !isFieldValid,
+                inputErrorMessage = inputErrorMessage
             )
         }
     }
@@ -83,7 +86,7 @@ class LogInViewModel @Inject constructor(
             logInUseCase(email = email, password = password).collect {
                 when (it) {
                     is Resource.Success -> {
-                       dataStoreUseCase.saveAccessToken(it.data.accessToken)
+                        dataStoreUseCase.saveAccessToken(it.data.accessToken)
                         dataStoreUseCase.saveRefreshToken(it.data.refreshToken)
                         if (isSessionSaved) dataStoreUseCase.saveSession.invoke()
 

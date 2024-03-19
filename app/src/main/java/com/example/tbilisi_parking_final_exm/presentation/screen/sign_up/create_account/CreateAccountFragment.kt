@@ -10,7 +10,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.tbilisi_parking_final_exm.R
 import com.example.tbilisi_parking_final_exm.databinding.FragmentCreateAccountBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.sign_up.create_account.CreateAccountEvent
@@ -118,7 +117,7 @@ class CreateAccountFragment :
             binding.btnNext.isEnabled = isButtonEnabled
 
             errorTextInputLayout?.let {
-                it.error = getString(R.string.invalid_input)
+                it.error = getString(inputErrorMessage)
                 it.isErrorEnabled = isErrorEnabled
             }
         }
