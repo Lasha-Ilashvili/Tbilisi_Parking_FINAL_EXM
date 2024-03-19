@@ -8,6 +8,7 @@ import com.example.tbilisi_parking_final_exm.data.service.log_in.LogInService
 import com.example.tbilisi_parking_final_exm.data.service.map.LatLngService
 import com.example.tbilisi_parking_final_exm.data.service.parking.add_vehicle.AddVehicleService
 import com.example.tbilisi_parking_final_exm.data.service.parking.edit_vehicle.EditVehicleService
+import com.example.tbilisi_parking_final_exm.data.service.parking.finish_parking.FinishParkingService
 import com.example.tbilisi_parking_final_exm.data.service.parking.get_vehicle.GetAllVehicleService
 import com.example.tbilisi_parking_final_exm.data.service.parking.start_parking.StartParkingService
 import com.example.tbilisi_parking_final_exm.data.service.refresh_token.RefreshTokenService
@@ -301,5 +302,11 @@ object AppModule {
     @Provides
     fun provideStartParkingService(retrofit: Retrofit) : StartParkingService{
         return retrofit.create(StartParkingService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideFinishParkingService(retrofit: Retrofit): FinishParkingService {
+        return retrofit.create(FinishParkingService::class.java)
     }
 }

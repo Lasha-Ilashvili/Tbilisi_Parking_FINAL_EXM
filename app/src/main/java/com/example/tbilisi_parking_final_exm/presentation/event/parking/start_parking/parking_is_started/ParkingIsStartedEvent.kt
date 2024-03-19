@@ -2,4 +2,7 @@ package com.example.tbilisi_parking_final_exm.presentation.event.parking.start_p
 
 sealed class ParkingIsStartedEvent {
     data class StartParking(val stationExternalId: String, val carId: Int) : ParkingIsStartedEvent()
+
+    data class FinishParking(val stationExternalId: String, val carId: Int) : ParkingIsStartedEvent()
+
 }
