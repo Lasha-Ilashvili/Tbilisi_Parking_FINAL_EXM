@@ -22,6 +22,36 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvBalanceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_large"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:text="@string/balance"
+        android:textSize="@dimen/text_size_large"
+        app:layout_constraintTop_toTopOf="@id/tvTitle"
+        app:layout_constraintEnd_toStartOf="@id/tvBalance"
+          />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvBalance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_large"
+        app:layout_constraintEnd_toStartOf="@+id/tvCurrency"
+        app:layout_constraintTop_toTopOf="@+id/tvBalanceText"
+        tools:text="125.35" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvCurrency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/gel"
+        android:textSize="@dimen/text_size_large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvBalanceText" />
+
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvAddVehicle"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -35,7 +65,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+        app:layout_constraintTop_toBottomOf="@id/tvBalance" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerVehicle"

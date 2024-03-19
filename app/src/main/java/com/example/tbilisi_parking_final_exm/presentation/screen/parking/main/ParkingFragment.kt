@@ -24,6 +24,7 @@ class ParkingFragment : BaseFragment<FragmentParkingBinding>(FragmentParkingBind
 
 
     override fun bind() {
+        viewModel.onEvent(ParkingEvent.GetUserBalance)
         viewModel.onEvent(ParkingEvent.FetchAllVehicle)
         setUpRecycler()
     }
@@ -89,19 +90,27 @@ class ParkingFragment : BaseFragment<FragmentParkingBinding>(FragmentParkingBind
             viewModel.onEvent(ParkingEvent.ResetErrorMessage)
         }
 
+        balance?.let {
+            binding.tvBalance.text = it.balance.toString()
+        }
+
         with(binding) {
             if (isLoading) {
                 parkingProgressBar.root.visibility = View.VISIBLE
                 tvAddVehicle.visibility = View.GONE
                 recyclerVehicle.visibility = View.GONE
+                tvBalanceText.visibility = View.GONE
+                tvBalance.visibility = View.GONE
+                tvCurrency.visibility = View.GONE
 
             } else {
                 parkingProgressBar.root.visibility = View.GONE
                 tvAddVehicle.visibility = View.VISIBLE
                 recyclerVehicle.visibility = View.VISIBLE
+                tvBalanceText.visibility = View.VISIBLE
+                tvBalance.visibility = View.VISIBLE
+                tvCurrency.visibility = View.VISIBLE
             }
         }
-
-
     }
 }
