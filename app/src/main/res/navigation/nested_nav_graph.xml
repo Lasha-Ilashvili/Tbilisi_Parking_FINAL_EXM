@@ -27,7 +27,7 @@
         tools:layout="@layout/fragment_map" />
     <fragment
         android:id="@+id/licensesFragment"
-        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.licenses.all_licenses.LicensesFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.license_cards.all_licenses.LicensesFragment"
         android:label="fragment_cards"
         tools:layout="@layout/fragment_licenses">
         <action
@@ -56,17 +56,23 @@
 
     <fragment
         android:id="@+id/buyLicenseFragment"
-        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.licenses.buy_license.BuyLicenseFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.license_cards.buy_license.BuyLicenseFragment"
         android:label="fragment_buy_card"
         tools:layout="@layout/fragment_buy_license">
         <argument
-            android:name="period"
+            android:name="validity"
             app:argType="string" />
         <argument
             android:name="price"
             app:argType="integer" />
         <argument
             android:name="backgroundColor"
+            app:argType="string" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
+        <argument
+            android:name="type"
             app:argType="string" />
     </fragment>
     <argument

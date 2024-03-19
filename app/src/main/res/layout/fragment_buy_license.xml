@@ -12,6 +12,10 @@
         tools:context=".presentation.screen.sign_up.personal_information.PersonalInformationFragment">
 
         <include
+            android:id="@+id/progressBar"
+            layout="@layout/loading_layout" />
+
+        <include
             android:id="@+id/card_layout"
             layout="@layout/license_item"
             android:layout_width="match_parent"
@@ -51,7 +55,8 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@font/open_sans_regular"
                 android:hint="@string/plate_number"
-                android:inputType="text" />
+                android:inputType="textCapCharacters"
+                android:maxLength="7" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout

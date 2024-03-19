@@ -8,16 +8,29 @@
     android:elevation="20dp">
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvLicenseTitle"
+        android:id="@+id/tvLicenseTitleStatic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/open_sans_regular"
+        android:text="@string/one_text"
         android:textAllCaps="true"
         android:textSize="@dimen/text_size_large"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="one day" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvLicenseTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_small"
+        android:fontFamily="@font/open_sans_regular"
+        android:textAllCaps="true"
+        android:textSize="@dimen/text_size_large"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/tvLicenseTitleStatic"
+        app:layout_constraintTop_toTopOf="@+id/tvLicenseTitleStatic"
+        tools:text="day" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivLicenseBackground"
@@ -30,7 +43,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvLicenseTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvLicenseTitleStatic"
         app:srcCompat="@drawable/parking_background" />
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -42,40 +55,46 @@
         app:srcCompat="@drawable/parking_background" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPeriodStatic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_large"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:fontFamily="@font/open_sans_regular"
+        android:text="@string/one_num"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_mega_large"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/tvPeriod"
+        app:layout_constraintStart_toStartOf="@+id/tvLicenseType"
+        app:layout_constraintTop_toTopOf="@+id/ivLicenseBackground" />
+
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvPeriod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_medium"
         android:fontFamily="@font/open_sans_regular"
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_mega_large"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/ivLicenseBackground"
-        app:layout_constraintStart_toStartOf="@+id/ivLicenseBackground"
-        app:layout_constraintTop_toTopOf="@+id/ivLicenseBackground"
-        tools:text="1 day" />
+        app:layout_constraintEnd_toEndOf="@id/tvLicenseType"
+        app:layout_constraintStart_toEndOf="@+id/tvPeriodStatic"
+        app:layout_constraintTop_toTopOf="@+id/tvPeriodStatic"
+        tools:text="day" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvZonalCard"
+        android:id="@+id/tvLicenseType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_medium"
         android:fontFamily="@font/open_sans_regular"
-        android:text="@string/zonal_card"
         android:textAllCaps="true"
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_mega_large"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/ivLicenseBackground"
         app:layout_constraintStart_toStartOf="@+id/ivLicenseBackground"
-        app:layout_constraintTop_toBottomOf="@+id/tvPeriod" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPeriodStatic" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvPrice"
@@ -88,8 +107,9 @@
         android:textSize="@dimen/text_size_mega_large"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/ivLicenseBackground"
-        app:layout_constraintEnd_toEndOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/tvZonalCard"
+        app:layout_constraintEnd_toEndOf="@id/tvPriceCurrency"
+        app:layout_constraintStart_toStartOf="@+id/tvLicenseType"
+        app:layout_constraintTop_toBottomOf="@+id/tvLicenseType"
         tools:text="20" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -102,7 +122,8 @@
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_mega_large"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/tvPrice"
+        app:layout_constraintEnd_toEndOf="@id/tvLicenseType"
+        app:layout_constraintStart_toStartOf="@+id/tvPrice"
         app:layout_constraintTop_toTopOf="@+id/tvPrice" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

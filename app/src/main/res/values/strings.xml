@@ -73,5 +73,13 @@
     <string name="are_you_sure_want_to_delete">Are you sure want to delete?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="zonal_card">Zonal card</string>
+    <string name="zonal_license">Zonal card</string>
+    <string name="parking_license">Parking card</string>
+    <string name="day">day</string>
+    <string name="week">week</string>
+    <string name="month">month</string>
+    <string name="months">months</string>
+    <string name="year">year</string>
+    <string name="one_num">1</string>
+    <string name="one_text">one</string>
 </resources>

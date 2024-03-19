@@ -3,7 +3,8 @@ package com.example.tbilisi_parking_final_exm.di
 
 import com.example.tbilisi_parking_final_exm.BuildConfig
 import com.example.tbilisi_parking_final_exm.data.common.HandleResponse
-import com.example.tbilisi_parking_final_exm.data.service.licenses.LicensesService
+import com.example.tbilisi_parking_final_exm.data.service.license_cards.all_licenses.LicensesService
+import com.example.tbilisi_parking_final_exm.data.service.license_cards.buy_license.BuyLicenseService
 import com.example.tbilisi_parking_final_exm.data.service.log_in.LogInService
 import com.example.tbilisi_parking_final_exm.data.service.map.LatLngService
 import com.example.tbilisi_parking_final_exm.data.service.parking.add_vehicle.AddVehicleService
@@ -293,6 +294,13 @@ object AppModule {
     @Provides
     fun provideLicensesService(retrofit: Retrofit): LicensesService {
         return retrofit.create(LicensesService::class.java)
+
+    }
+
+    @Singleton
+    @Provides
+    fun provideBuyLicenseService(retrofit: Retrofit): BuyLicenseService {
+        return retrofit.create(BuyLicenseService::class.java)
 
     }
 }

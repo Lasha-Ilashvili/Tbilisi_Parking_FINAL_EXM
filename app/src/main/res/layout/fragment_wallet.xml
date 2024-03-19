@@ -38,6 +38,7 @@
         android:layout_marginTop="@dimen/margin_large"
         android:layout_marginEnd="@dimen/margin_small"
         android:text="@string/balance"
+        android:fontFamily="@font/open_sans_regular"
         android:textSize="@dimen/text_size_large"
         app:layout_constraintEnd_toStartOf="@id/tvBalance"
         app:layout_constraintTop_toBottomOf="@+id/btnBack" />
@@ -46,6 +47,7 @@
         android:id="@+id/tvBalance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans_regular"
         android:textSize="@dimen/text_size_large"
         app:layout_constraintEnd_toStartOf="@+id/tvCurrency"
         app:layout_constraintTop_toTopOf="@+id/tvBalanceText"
@@ -55,6 +57,7 @@
         android:id="@+id/tvCurrency"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans_regular"
         android:text="@string/gel"
         android:textSize="@dimen/text_size_large"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,6 +76,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etAmountInput"
             android:layout_width="match_parent"
+            android:fontFamily="@font/open_sans_regular"
             android:layout_height="match_parent"
             android:hint="@string/enter_amount"
             android:imeOptions="actionDone"
