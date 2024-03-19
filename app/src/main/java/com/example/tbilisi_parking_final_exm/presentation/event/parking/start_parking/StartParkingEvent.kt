@@ -11,4 +11,6 @@ sealed class StartParkingEvent {
         StartParkingEvent()
 
     data object ResetErrorMessage : StartParkingEvent()
+
+    data class StartParking(val stationExternalId: String, val carId: Int): StartParkingEvent()
 }

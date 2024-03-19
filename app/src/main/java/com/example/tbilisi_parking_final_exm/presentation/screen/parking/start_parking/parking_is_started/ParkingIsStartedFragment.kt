@@ -19,7 +19,6 @@ class ParkingIsStartedFragment : BaseFragment<FragmentParkingIsStartedBinding>(F
     private val viewModel: ParkingIsStartedViewModel by viewModels()
     private val args: ParkingIsStartedFragmentArgs by navArgs()
     override fun bind() {
-        startParking()
     }
 
     override fun bindViewActionListeners() {
@@ -37,12 +36,6 @@ class ParkingIsStartedFragment : BaseFragment<FragmentParkingIsStartedBinding>(F
             }
         }
     }
-
-
-    private fun startParking() {
-        viewModel.onEvent(ParkingIsStartedEvent.StartParking(stationExternalId = args.stationExternalId, carId = args.carId))
-    }
-
     private fun finishParking() {
         viewModel.onEvent(ParkingIsStartedEvent.FinishParking(stationExternalId = args.stationExternalId, carId = args.carId))
     }
@@ -53,7 +46,6 @@ class ParkingIsStartedFragment : BaseFragment<FragmentParkingIsStartedBinding>(F
 
         }
     }
-
     private fun navigateToParkingFragment() {
         findNavController().navigate(ParkingIsStartedFragmentDirections.actionParkingIsStartedFragmentToParkingFragment())
     }

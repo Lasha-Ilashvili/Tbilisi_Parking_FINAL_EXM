@@ -124,6 +124,12 @@ class StartParkingFragment :
             setStartIcon(icon, color)
             binding.costLayout.tvCost.text = cost.toString()
         }
+
+        data?.let {
+            findNavController().navigate(StartParkingFragmentDirections.actionStartParkingFragmentToParkingIsStartedFragment(
+                stationExternalId = it.stationExternalId, carId = it.carId
+            ))
+        }
     }
 
     private fun setStartIcon(drawableResId: Int, colorResId: Int) = with(binding) {
@@ -147,9 +153,14 @@ class StartParkingFragment :
         val stationId = binding.etLotNumber.editText?.text.toString()
         val carId = args.carId
 
-        findNavController().navigate(StartParkingFragmentDirections.actionStartParkingFragmentToParkingIsStartedFragment(
-            stationExternalId = "A$stationId", carId =carId
+        viewModel.onEvent(StartParkingEvent.StartParking(
+            stationExternalId = "A$stationId",
+            carId = carId
         ))
+
+//        findNavController().navigate(StartParkingFragmentDirections.actionStartParkingFragmentToParkingIsStartedFragment(
+//            stationExternalId = "A$stationId", carId =carId
+//        ))
 
     }
 }
