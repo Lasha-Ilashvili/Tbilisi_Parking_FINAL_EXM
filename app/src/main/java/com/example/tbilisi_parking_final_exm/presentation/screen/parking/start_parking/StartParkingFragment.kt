@@ -132,7 +132,7 @@ class StartParkingFragment :
 
         data?.let {
             findNavController().navigate(StartParkingFragmentDirections.actionStartParkingFragmentToParkingIsStartedFragment(
-                stationExternalId = it.stationExternalId, carId = it.carId, startDate = it.startDate, zone = zoneValue
+                stationExternalId = it.stationExternalId, carId = it.carId, startDate = it.startDate, zone = zoneValue.value
             ))
         }
     }

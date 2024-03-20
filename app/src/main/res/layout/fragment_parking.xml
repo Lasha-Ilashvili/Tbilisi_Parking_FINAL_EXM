@@ -29,9 +29,8 @@
         android:layout_marginEnd="@dimen/margin_small"
         android:text="@string/balance"
         android:textSize="@dimen/text_size_large"
-        app:layout_constraintTop_toTopOf="@id/tvTitle"
         app:layout_constraintEnd_toStartOf="@id/tvBalance"
-          />
+        app:layout_constraintTop_toTopOf="@id/tvTitle" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvBalance"

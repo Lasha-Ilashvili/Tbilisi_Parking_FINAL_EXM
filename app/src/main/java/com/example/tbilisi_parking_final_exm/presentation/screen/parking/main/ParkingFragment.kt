@@ -24,6 +24,7 @@ class ParkingFragment : BaseFragment<FragmentParkingBinding>(FragmentParkingBind
 
 
     override fun bind() {
+        viewModel.onEvent(ParkingEvent.CheckActiveParking)
         viewModel.onEvent(ParkingEvent.GetUserBalance)
         viewModel.onEvent(ParkingEvent.FetchAllVehicle)
         setUpRecycler()
@@ -33,6 +34,9 @@ class ParkingFragment : BaseFragment<FragmentParkingBinding>(FragmentParkingBind
         binding.tvAddVehicle.setOnClickListener {
             findNavController().navigate(ParkingFragmentDirections.actionParkingFragmentToAddVehicleFragment())
         }
+
+        vehicleClickListener()
+        vehicleDotsClickListener()
     }
 
     override fun bindObserves() {
@@ -44,8 +48,41 @@ class ParkingFragment : BaseFragment<FragmentParkingBinding>(FragmentParkingBind
             }
         }
 
-        vehicleClickListener()
-        vehicleDotsClickListener()
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.parkingUiEvent.collect {
+                    handleUiEvent(it)
+                }
+            }
+        }
+    }
+
+    private fun handleUiEvent(event: ParkingViewModel.ParkingUiEvent) {
+        when (event) {
+            is ParkingViewModel.ParkingUiEvent.NavigateToTimer -> navigationEvent(
+                event.stationExternalId,
+                event.carId,
+                event.startDate,
+                event.zone
+
+            )
+        }
+    }
+
+    private fun navigationEvent(
+        stationExternalId: String,
+        carId: Int,
+        startDate: String,
+        zone: String
+    ) {
+        findNavController().navigate(
+            ParkingFragmentDirections.actionParkingFragmentToParkingIsStartedFragment(
+                stationExternalId = stationExternalId,
+                carId = carId,
+                startDate = startDate,
+                zone = zone
+            )
+        )
     }
 
     private fun vehicleClickListener() {
@@ -79,7 +116,9 @@ class ParkingFragment : BaseFragment<FragmentParkingBinding>(FragmentParkingBind
         }
     }
 
+
     private fun handleState(state: ParkingState) = with(state) {
+
 
         vehicles?.let {
             parkingVehiclesListAdapter.submitList(it)

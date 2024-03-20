@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_parkingFragment_to_vehicleBottomSheetFragment"
             app:destination="@id/vehicleBottomSheetFragment" />
+        <action
+            android:id="@+id/action_parkingFragment_to_parkingIsStartedFragment"
+            app:destination="@id/parkingIsStartedFragment" />
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
@@ -185,8 +188,8 @@
         <action
             android:id="@+id/action_parkingIsStartedFragment_to_parkingFragment"
             app:destination="@id/parkingFragment"
-            app:popUpTo="@id/nested_nav_graph"
-            app:popUpToInclusive="false" />
+            app:popUpTo="@id/parkingFragment"
+            app:popUpToInclusive="true" />
         <argument android:name="stationExternalId"
             app:argType="string" />
         <argument
@@ -197,6 +200,6 @@
             app:argType="string" />
         <argument
             android:name="zone"
-            app:argType="com.example.tbilisi_parking_final_exm.presentation.screen.parking.start_parking.StartParkingFragment$Zone" />
+            app:argType="string" />
     </fragment>
 </navigation>

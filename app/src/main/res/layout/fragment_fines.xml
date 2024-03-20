@@ -7,25 +7,9 @@
     tools:context=".presentation.screen.fines.FinesFragment">
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-       android:layout_gravity="center"
-        android:text="@string/fines"
-        android:textSize="40sp" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnStartTimer"
-        android:layout_width="match_parent"
-        android:text="start Timer"
-        android:layout_marginTop="150dp"
-        android:layout_height="wrap_content"/>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnEndTimer"
-        android:layout_width="match_parent"
-        android:text="end Timer"
-        android:layout_marginTop="50dp"
+        android:text="Fines"
+        android:textSize="40sp"
         android:layout_height="wrap_content"/>
 
 
