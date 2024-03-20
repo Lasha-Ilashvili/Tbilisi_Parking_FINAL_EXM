@@ -12,6 +12,7 @@ import com.example.tbilisi_parking_final_exm.data.service.parking.edit_vehicle.E
 import com.example.tbilisi_parking_final_exm.data.service.parking.get_vehicle.GetAllVehicleService
 import com.example.tbilisi_parking_final_exm.data.service.refresh_token.RefreshTokenService
 import com.example.tbilisi_parking_final_exm.data.service.sign_up.SignUpService
+import com.example.tbilisi_parking_final_exm.data.service.transactions.TransactionsService
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.profile.ProfileService
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.balance.AddToBalanceService
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.balance.GetBalanceService
@@ -302,5 +303,11 @@ object AppModule {
     fun provideBuyLicenseService(retrofit: Retrofit): BuyLicenseService {
         return retrofit.create(BuyLicenseService::class.java)
 
+    }
+
+    @Singleton
+    @Provides
+    fun provideTransactionsService(retrofit: Retrofit): TransactionsService {
+        return retrofit.create(TransactionsService::class.java)
     }
 }

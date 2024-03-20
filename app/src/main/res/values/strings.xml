@@ -17,7 +17,6 @@
     <string name="terms_and_agreements_url">https://static.municipal.gov.ge/terms-and-agreements/en.html</string>
     <string name="map">Map</string>
     <string name="licenses">Licenses</string>
-    <string name="fines">Fines</string>
     <string name="parking">Parking</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="permissions_denied">Permissions denied - unable to use current location</string>
@@ -87,4 +86,5 @@
     <string name="choose_a_payment_method">Choose a Payment Method</string>
     <string name="password_error">Password must be at least 8 characters long</string>
     <string name="matching_password_error">Passwords do not match</string>
+    <string name="transactions">Transactions</string>
 </resources>

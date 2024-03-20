@@ -17,9 +17,9 @@
         android:title="@string/licenses" />
 
     <item
-        android:id="@+id/finesFragment"
-        android:icon="@drawable/ic_fines"
-        android:title="@string/fines" />
+        android:id="@+id/transactionsFragment"
+        android:icon="@drawable/ic_transactions"
+        android:title="@string/transactions" />
 
     <item
         android:icon="@drawable/ic_hamburger_menu"
