@@ -104,6 +104,11 @@
         <action
             android:id="@+id/action_vehicleBottomSheetFragment_to_editVehicleFragment"
             app:destination="@id/editVehicleFragment" />
+        <action
+            android:id="@+id/action_vehicleBottomSheetFragment_to_parkingFragment"
+            app:destination="@id/parkingFragment"
+            app:popUpTo="@id/parkingFragment"
+            app:popUpToInclusive="true" />
     </dialog>
     <fragment
         android:id="@+id/editVehicleFragment"

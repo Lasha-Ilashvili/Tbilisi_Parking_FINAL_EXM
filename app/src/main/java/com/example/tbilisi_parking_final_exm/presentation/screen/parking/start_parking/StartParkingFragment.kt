@@ -157,17 +157,10 @@ class StartParkingFragment :
     private fun startParking() {
         val stationId = binding.etLotNumber.editText?.text.toString()
         val carId = args.carId
-        val zone = zoneValue
-        println(zone.value)
 
         viewModel.onEvent(StartParkingEvent.StartParking(
-            stationExternalId = "${zone.value}$stationId",
+            stationExternalId = "$zoneValue$stationId",
             carId = carId
         ))
-
-//        findNavController().navigate(StartParkingFragmentDirections.actionStartParkingFragmentToParkingIsStartedFragment(
-//            stationExternalId = "A$stationId", carId =carId
-//        ))
-
     }
 }

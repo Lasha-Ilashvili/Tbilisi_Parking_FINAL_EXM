@@ -54,7 +54,6 @@ class StartParkingViewModel @Inject constructor(
     }
 
     private fun startParking(stationExternalId: String, carId: Int) {
-        println("stationExternalId -> $stationExternalId")
         viewModelScope.launch {
             startParkingUseCase(
                 startParking = StartParking(

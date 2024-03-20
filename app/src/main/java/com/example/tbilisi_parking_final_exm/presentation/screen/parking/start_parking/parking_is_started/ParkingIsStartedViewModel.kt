@@ -109,7 +109,6 @@ class ParkingIsStartedViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
         timerJob?.cancel()
-        println("job canceled")
     }
 
 }
