@@ -1,8 +1,8 @@
 package com.example.tbilisi_parking_final_exm.presentation.screen.license_cards.buy_license
 
-import android.graphics.Color
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -79,27 +79,34 @@ class BuyLicenseFragment :
     /* IMPLEMENTATION DETAILS */
 
     private fun setLayout() = with(binding.licenseLayout) {
-        ivLicenseBackground.apply {
-            background.setTint(Color.parseColor(args.backgroundColor))
-            background.alpha = 99
-            setColorFilter(Color.parseColor(args.backgroundColor))
-        }
-
+        ivLicenseBackground.background.setTint(
+            ContextCompat.getColor(
+                requireContext(),
+                args.backgroundColor
+            )
+        )
         tvLicenseTitleStatic.visibility = GONE
         tvPeriod.text = args.validity
         tvLicenseType.text = args.type
         tvPrice.text = args.price.toString()
+        ivLicense.setColorFilter(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.license_icon_tint
+            )
+        )
     }
 
-    private fun handleCheckedState(isChecked: Boolean, fields: List<TextInputLayout>) = with(binding) {
-        if (isChecked)
-            setCardLayout(cardLayout)
-        else {
-            cardLayout.root.visibility = GONE
-            viewModel.onEvent(BuyLicenseEvent.SetButtonState(fields))
-            addTextListeners(fields)
+    private fun handleCheckedState(isChecked: Boolean, fields: List<TextInputLayout>) =
+        with(binding) {
+            if (isChecked)
+                setCardLayout(cardLayout)
+            else {
+                cardLayout.root.visibility = GONE
+                viewModel.onEvent(BuyLicenseEvent.SetButtonState(fields))
+                addTextListeners(fields)
+            }
         }
-    }
 
     private fun setCardLayout(cardLayout: CardDetailsBinding) = with(cardLayout) {
         setVisibilities(cardLayout)

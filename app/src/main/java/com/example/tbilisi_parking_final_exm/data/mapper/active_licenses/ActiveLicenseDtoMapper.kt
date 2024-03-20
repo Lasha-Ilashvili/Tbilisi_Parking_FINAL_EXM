@@ -7,7 +7,6 @@ import com.example.tbilisi_parking_final_exm.domain.model.active_licenses.GetAct
 
 fun ActiveLicenseDto.toDomain() = GetActiveLicense(
     id = id,
-    status = status,
     recDate = recDate,
     getLicense = licenseDto.toDomain()
 )

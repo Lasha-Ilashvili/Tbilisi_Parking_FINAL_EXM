@@ -7,7 +7,6 @@ import com.example.tbilisi_parking_final_exm.presentation.model.active_licenses.
 
 fun GetActiveLicense.toPresentation() = ActiveLicense(
     id = id,
-    status = status,
     recDate = recDate,
     license = getLicense.toPresentation()
 )

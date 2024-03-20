@@ -5,7 +5,7 @@ import com.squareup.moshi.Json
 
 data class ActiveLicenseDto(
     val id: Int,
-    val status: String,
+    @Json(name = "recDate")
     val recDate: String,
     @Json(name = "licenseDescriptionResponse")
     val licenseDto: LicenseDto

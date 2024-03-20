@@ -21,12 +21,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivLicense"
         android:layout_width="?android:attr/actionBarSize"
         android:layout_height="?android:attr/actionBarSize"
         android:layout_margin="@dimen/margin_medium"
+        app:srcCompat="@drawable/ic_license"
         app:layout_constraintStart_toStartOf="@+id/ivLicenseBackground"
-        app:layout_constraintTop_toTopOf="@+id/ivLicenseBackground"
-        app:srcCompat="@drawable/parking_background" />
+        app:layout_constraintTop_toTopOf="@+id/ivLicenseBackground" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvPeriodStatic"
@@ -119,25 +120,6 @@
         app:layout_constraintEnd_toEndOf="@id/tvLicenseType"
         app:layout_constraintStart_toStartOf="@+id/tvPrice"
         app:layout_constraintTop_toTopOf="@+id/tvPrice" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_small"
-        android:layout_marginEnd="@dimen/margin_small"
-        android:fontFamily="@font/open_sans_regular"
-        android:shadowColor="#80000000"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="2"
-        android:textAllCaps="true"
-        android:textColor="@color/light_green"
-        android:textSize="@dimen/text_size_mega_large"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/ivLicenseBackground"
-        app:layout_constraintTop_toTopOf="@+id/ivLicenseBackground"
-        tools:text="ACTIVE" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvRecDate"

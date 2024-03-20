@@ -4,7 +4,6 @@ import com.example.tbilisi_parking_final_exm.presentation.model.license_cards.al
 
 data class ActiveLicense(
     val id: Int,
-    val status: String,
     val recDate: String,
     val license: License
 )

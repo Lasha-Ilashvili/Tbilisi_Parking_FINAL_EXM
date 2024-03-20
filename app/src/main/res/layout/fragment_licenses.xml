@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:padding="16dp"
         tools:context=".presentation.screen.license_cards.all_licenses.LicensesFragment">
 
         <include
@@ -29,7 +30,6 @@
             layout="@layout/license_item"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_medium"
             android:layout_marginVertical="@dimen/margin_large"
             app:layout_constraintBottom_toTopOf="@+id/btnFreeParkingLicense"
             app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +41,6 @@
             layout="@layout/license_item"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_medium"
             android:layout_marginVertical="@dimen/margin_large"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

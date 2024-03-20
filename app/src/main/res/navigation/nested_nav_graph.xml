@@ -67,7 +67,7 @@
             app:argType="integer" />
         <argument
             android:name="backgroundColor"
-            app:argType="string" />
+            app:argType="integer" />
         <argument
             android:name="id"
             app:argType="integer" />

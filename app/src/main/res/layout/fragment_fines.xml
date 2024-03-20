@@ -1,15 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.screen.fines.FinesFragment">
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:elevation="20dp">
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvLicenseTitleStatic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/fines"
-        android:textSize="40sp" />
+        android:fontFamily="@font/open_sans_regular"
+        android:text="@string/one_text"
+        android:textAllCaps="true"
+        android:textSize="@dimen/text_size_large"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvLicenseTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_small"
+        android:fontFamily="@font/open_sans_regular"
+        android:textAllCaps="true"
+        android:textSize="@dimen/text_size_large"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/tvLicenseTitleStatic"
+        app:layout_constraintTop_toTopOf="@+id/tvLicenseTitleStatic"
+        tools:text="day" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivLicenseBackground"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_large"
+        android:layout_marginBottom="@dimen/margin_large"
+        android:background="@drawable/license_item_background"
+        android:backgroundTint="@color/parking_license"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLicenseTitleStatic" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="?android:attr/actionBarSize"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_margin="@dimen/margin_medium"
+        app:layout_constraintStart_toStartOf="@+id/ivLicenseBackground"
+        app:layout_constraintTop_toTopOf="@+id/ivLicenseBackground" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPeriodStatic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_large"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:fontFamily="@font/open_sans_regular"
+        android:shadowColor="#80000000"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:text="@string/one_num"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_mega_large"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/tvPeriod"
+        app:layout_constraintStart_toStartOf="@+id/tvLicenseType"
+        app:layout_constraintTop_toTopOf="@+id/ivLicenseBackground" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPeriod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans_regular"
+        android:shadowColor="#80000000"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_mega_large"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/tvLicenseType"
+        app:layout_constraintStart_toEndOf="@+id/tvPeriodStatic"
+        app:layout_constraintTop_toTopOf="@+id/tvPeriodStatic"
+        tools:text="day" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvLicenseType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:fontFamily="@font/open_sans_regular"
+        android:shadowColor="#80000000"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_mega_large"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/ivLicenseBackground"
+        app:layout_constraintStart_toStartOf="@+id/ivLicenseBackground"
+        app:layout_constraintTop_toBottomOf="@+id/tvPeriodStatic" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:fontFamily="@font/open_sans_regular"
+        android:shadowColor="#80000000"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_mega_large"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/ivLicenseBackground"
+        app:layout_constraintEnd_toEndOf="@id/tvPriceCurrency"
+        app:layout_constraintStart_toStartOf="@+id/tvLicenseType"
+        app:layout_constraintTop_toBottomOf="@+id/tvLicenseType"
+        tools:text="20" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPriceCurrency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans_regular"
+        android:shadowColor="#80000000"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:text="@string/gel"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_mega_large"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/tvLicenseType"
+        app:layout_constraintStart_toStartOf="@+id/tvPrice"
+        app:layout_constraintTop_toTopOf="@+id/tvPrice" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

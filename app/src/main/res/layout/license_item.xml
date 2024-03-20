@@ -39,19 +39,19 @@
         android:layout_marginTop="@dimen/margin_large"
         android:layout_marginBottom="@dimen/margin_large"
         android:background="@drawable/license_item_background"
-        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvLicenseTitleStatic" />
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivLicense"
         android:layout_width="?android:attr/actionBarSize"
         android:layout_height="?android:attr/actionBarSize"
         android:layout_margin="@dimen/margin_medium"
+        app:srcCompat="@drawable/ic_license"
         app:layout_constraintStart_toStartOf="@+id/ivLicenseBackground"
-        app:layout_constraintTop_toTopOf="@+id/ivLicenseBackground"
-        app:srcCompat="@drawable/parking_background" />
+        app:layout_constraintTop_toTopOf="@+id/ivLicenseBackground" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvPeriodStatic"
