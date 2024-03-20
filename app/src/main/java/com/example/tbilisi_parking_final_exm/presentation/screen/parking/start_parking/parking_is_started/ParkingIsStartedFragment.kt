@@ -19,6 +19,7 @@ class ParkingIsStartedFragment : BaseFragment<FragmentParkingIsStartedBinding>(F
     private val viewModel: ParkingIsStartedViewModel by viewModels()
     private val args: ParkingIsStartedFragmentArgs by navArgs()
     override fun bind() {
+        viewModel.onEvent(ParkingIsStartedEvent.StartTimer(args.startDate))
     }
 
     override fun bindViewActionListeners() {
@@ -32,6 +33,14 @@ class ParkingIsStartedFragment : BaseFragment<FragmentParkingIsStartedBinding>(F
             repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.parkingIsStartedUiEvent.collect{
                     handleUiState(it)
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.timerState.collect{
+                    binding.tvTimer.text = it
                 }
             }
         }

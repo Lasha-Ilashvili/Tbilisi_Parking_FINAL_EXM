@@ -101,6 +101,16 @@
             app:layout_constraintTop_toBottomOf="@id/btnZone" />
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00"
+            android:textSize="60sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvActiveParking" />
+
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvActiveParkingDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -108,7 +118,7 @@
             android:text="@string/_19_march_tuesday_01_30"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvActiveParking" />
+            app:layout_constraintTop_toBottomOf="@id/tvTimer" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnFinishParking"
@@ -116,10 +126,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_large"
+            android:backgroundTint="@color/orange"
             android:text="@string/finish_parking"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:backgroundTint="@color/orange"
             app:layout_constraintTop_toBottomOf="@id/tvActiveParkingDate" />
 
 

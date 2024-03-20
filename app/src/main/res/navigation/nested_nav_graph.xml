@@ -192,5 +192,11 @@
         <argument
             android:name="carId"
             app:argType="integer" />
+        <argument
+            android:name="startDate"
+            app:argType="string" />
+        <argument
+            android:name="zone"
+            app:argType="com.example.tbilisi_parking_final_exm.presentation.screen.parking.start_parking.StartParkingFragment$Zone" />
     </fragment>
 </navigation>
