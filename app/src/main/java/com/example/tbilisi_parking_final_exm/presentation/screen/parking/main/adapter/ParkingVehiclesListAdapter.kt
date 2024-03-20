@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tbilisi_parking_final_exm.databinding.ItemParkingVehicleLayoutBinding
-import com.example.tbilisi_parking_final_exm.presentation.model.vehicle.vehicle.Vehicle
+import com.example.tbilisi_parking_final_exm.presentation.model.parking.vehicle.vehicle.Vehicle
 
 class ParkingVehiclesListAdapter :
     ListAdapter<Vehicle, ParkingVehiclesListAdapter.VehicleViewHolder>(VehiclesDiffUtil()) {

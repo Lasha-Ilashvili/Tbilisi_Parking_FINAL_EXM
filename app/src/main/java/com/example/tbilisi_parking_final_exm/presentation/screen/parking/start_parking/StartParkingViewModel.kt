@@ -4,10 +4,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbilisi_parking_final_exm.data.common.Resource
 import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.GetUserIdUseCase
+import com.example.tbilisi_parking_final_exm.domain.usecase.parking.start_parking.StartParkingUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.user_panel.wallet.balance.GetBalanceUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.FieldsAreNotBlankUseCase
 import com.example.tbilisi_parking_final_exm.presentation.event.parking.start_parking.StartParkingEvent
+import com.example.tbilisi_parking_final_exm.presentation.mapper.parking.start_parking.toDomain
+import com.example.tbilisi_parking_final_exm.presentation.mapper.parking.start_parking.toPresenter
 import com.example.tbilisi_parking_final_exm.presentation.mapper.user_panel.wallet.cards.toPresentation
+import com.example.tbilisi_parking_final_exm.presentation.model.parking.start_parking.StartParking
 import com.example.tbilisi_parking_final_exm.presentation.state.parking.start_parking.StartParkingState
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,29 +26,59 @@ import javax.inject.Inject
 class StartParkingViewModel @Inject constructor(
     private val fieldsAreNotBlank: FieldsAreNotBlankUseCase,
     private val getUserId: GetUserIdUseCase,
-    private val getBalanceUseCase: GetBalanceUseCase
+    private val getBalanceUseCase: GetBalanceUseCase,
+    private val startParkingUseCase: StartParkingUseCase,
 ) : ViewModel() {
 
     private val _startParkingState = MutableStateFlow(StartParkingState())
     val startParkingState get() = _startParkingState.asStateFlow()
 
+
     fun onEvent(event: StartParkingEvent) = with(event) {
         when (this) {
             is StartParkingEvent.SetButtonState -> setButtonState(field = field)
 
-            StartParkingEvent.GetBalance -> getBalance()
+            is StartParkingEvent.GetBalance -> getBalance()
 
             is StartParkingEvent.SetCostLayoutState -> setCostLayoutState(isCostLayoutEnabled = isCostLayoutEnabled)
 
             is StartParkingEvent.SetZoneState -> setZoneState(zone = zone)
 
-            StartParkingEvent.ResetErrorMessage -> updateErrorMessage()
+            is StartParkingEvent.ResetErrorMessage -> updateErrorMessage()
+
+            is StartParkingEvent.StartParking -> startParking(
+                stationExternalId = stationExternalId,
+                carId = carId
+            )
         }
     }
 
-    private fun getBalance(){
+    private fun startParking(stationExternalId: String, carId: Int) {
         viewModelScope.launch {
-            getBalanceUseCase(getUserId()).collect{
+            startParkingUseCase(
+                startParking = StartParking(
+                    stationExternalId = stationExternalId,
+                    carId = carId
+                ).toDomain()
+            ).collect {
+                when(it) {
+                    is Resource.Error -> {}
+                    is Resource.Loading -> {}
+                    is Resource.Success -> {
+                        _startParkingState.update {currentState ->
+                            currentState.copy(
+                                data = it.data.toPresenter()
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getBalance() {
+        viewModelScope.launch {
+            getBalanceUseCase(getUserId()).collect {
                 when (it) {
                     is Resource.Success -> _startParkingState.update { currentState ->
                         currentState.copy(balance = it.data.toPresentation())

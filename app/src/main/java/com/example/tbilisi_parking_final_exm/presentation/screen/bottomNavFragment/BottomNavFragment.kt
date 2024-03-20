@@ -64,7 +64,8 @@ class BottomNavFragment :
                         R.id.startParkingFragment,
                         R.id.addVehicleFragment,
                         R.id.balanceFragment,
-                        R.id.buyLicenseFragment
+                        R.id.buyLicenseFragment,
+                        R.id.parkingIsStartedFragment
                     )
 
                 if (destination.id in destinationsToHideBottomNav) {

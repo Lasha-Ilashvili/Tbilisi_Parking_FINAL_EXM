@@ -7,9 +7,13 @@ import com.example.tbilisi_parking_final_exm.data.service.license_cards.all_lice
 import com.example.tbilisi_parking_final_exm.data.service.license_cards.buy_license.BuyLicenseService
 import com.example.tbilisi_parking_final_exm.data.service.log_in.LogInService
 import com.example.tbilisi_parking_final_exm.data.service.map.LatLngService
+import com.example.tbilisi_parking_final_exm.data.service.parking.active_parking.GetActiveParkingService
 import com.example.tbilisi_parking_final_exm.data.service.parking.add_vehicle.AddVehicleService
+import com.example.tbilisi_parking_final_exm.data.service.parking.delete_vehicle.DeleteVehicleService
 import com.example.tbilisi_parking_final_exm.data.service.parking.edit_vehicle.EditVehicleService
+import com.example.tbilisi_parking_final_exm.data.service.parking.finish_parking.FinishParkingService
 import com.example.tbilisi_parking_final_exm.data.service.parking.get_vehicle.GetAllVehicleService
+import com.example.tbilisi_parking_final_exm.data.service.parking.start_parking.StartParkingService
 import com.example.tbilisi_parking_final_exm.data.service.refresh_token.RefreshTokenService
 import com.example.tbilisi_parking_final_exm.data.service.sign_up.SignUpService
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.profile.ProfileService
@@ -116,7 +120,6 @@ object AppModule {
                     } else {
                         runBlocking { clearDataStoreUseCase.invoke() }
                     }
-
 
                 }
             }
@@ -302,5 +305,29 @@ object AppModule {
     fun provideBuyLicenseService(retrofit: Retrofit): BuyLicenseService {
         return retrofit.create(BuyLicenseService::class.java)
 
+    }
+
+    @Singleton
+    @Provides
+    fun provideStartParkingService(retrofit: Retrofit): StartParkingService {
+        return retrofit.create(StartParkingService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideFinishParkingService(retrofit: Retrofit): FinishParkingService {
+        return retrofit.create(FinishParkingService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGetActiveParkingService(retrofit: Retrofit): GetActiveParkingService {
+        return retrofit.create(GetActiveParkingService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideDeleteVehicleService(retrofit: Retrofit): DeleteVehicleService {
+        return retrofit.create(DeleteVehicleService::class.java)
     }
 }

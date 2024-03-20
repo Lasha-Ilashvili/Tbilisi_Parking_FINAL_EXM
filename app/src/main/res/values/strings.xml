@@ -87,4 +87,8 @@
     <string name="choose_a_payment_method">Choose a Payment Method</string>
     <string name="password_error">Password must be at least 8 characters long</string>
     <string name="matching_password_error">Passwords do not match</string>
+    <string name="zonal_card">Zonal card</string>
+    <string name="active_parking">Active Parking</string>
+    <string name="_19_march_tuesday_01_30">19 march, Tuesday, 01:30</string>
+    <string name="finish_parking">Finish Parking</string>
 </resources>

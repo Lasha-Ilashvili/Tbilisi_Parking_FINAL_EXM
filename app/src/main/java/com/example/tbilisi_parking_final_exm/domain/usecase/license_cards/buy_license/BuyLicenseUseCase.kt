@@ -2,8 +2,8 @@ package com.example.tbilisi_parking_final_exm.domain.usecase.license_cards.buy_l
 
 import com.example.tbilisi_parking_final_exm.data.common.Resource
 import com.example.tbilisi_parking_final_exm.domain.model.license_cards.buy_license.GetBuyLicenseRequest
+import com.example.tbilisi_parking_final_exm.domain.model.parking.vehicle.vehicle.GetVehicle
 import com.example.tbilisi_parking_final_exm.domain.model.user_panel.wallet.cards.GetCardDetails
-import com.example.tbilisi_parking_final_exm.domain.model.vehicle.vehicle.GetVehicle
 import com.example.tbilisi_parking_final_exm.domain.repository.license_cards.buy_license.BuyLicenseRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

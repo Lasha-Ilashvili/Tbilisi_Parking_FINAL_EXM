@@ -24,6 +24,8 @@ class ParkingFragment : BaseFragment<FragmentParkingBinding>(FragmentParkingBind
 
 
     override fun bind() {
+        viewModel.onEvent(ParkingEvent.CheckActiveParking)
+        viewModel.onEvent(ParkingEvent.GetUserBalance)
         viewModel.onEvent(ParkingEvent.FetchAllVehicle)
         setUpRecycler()
     }
@@ -32,6 +34,9 @@ class ParkingFragment : BaseFragment<FragmentParkingBinding>(FragmentParkingBind
         binding.tvAddVehicle.setOnClickListener {
             findNavController().navigate(ParkingFragmentDirections.actionParkingFragmentToAddVehicleFragment())
         }
+
+        vehicleClickListener()
+        vehicleDotsClickListener()
     }
 
     override fun bindObserves() {
@@ -43,15 +48,48 @@ class ParkingFragment : BaseFragment<FragmentParkingBinding>(FragmentParkingBind
             }
         }
 
-        vehicleClickListener()
-        vehicleDotsClickListener()
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.parkingUiEvent.collect {
+                    handleUiEvent(it)
+                }
+            }
+        }
+    }
+
+    private fun handleUiEvent(event: ParkingViewModel.ParkingUiEvent) {
+        when (event) {
+            is ParkingViewModel.ParkingUiEvent.NavigateToTimer -> navigationEvent(
+                event.stationExternalId,
+                event.carId,
+                event.startDate,
+                event.zone
+
+            )
+        }
+    }
+
+    private fun navigationEvent(
+        stationExternalId: String,
+        carId: Int,
+        startDate: String,
+        zone: String
+    ) {
+        findNavController().navigate(
+            ParkingFragmentDirections.actionParkingFragmentToParkingIsStartedFragment(
+                stationExternalId = stationExternalId,
+                carId = carId,
+                startDate = startDate,
+                zone = zone
+            )
+        )
     }
 
     private fun vehicleClickListener() {
-        parkingVehiclesListAdapter.setOnItemClickListener { id, name, plateNumber ->
+        parkingVehiclesListAdapter.setOnItemClickListener { id, _, plateNumber ->
             findNavController().navigate(
                 ParkingFragmentDirections.actionParkingFragmentToStartParkingFragment(
-                    plateNumber
+                    plateNumber = plateNumber, carId = id
                 )
             )
         }
@@ -62,13 +100,12 @@ class ParkingFragment : BaseFragment<FragmentParkingBinding>(FragmentParkingBind
             findNavController().navigate(
                 ParkingFragmentDirections.actionParkingFragmentToVehicleBottomSheetFragment(
                     vehicleName = name,
-                    vehiclePlateNumber  = plateNumber,
+                    vehiclePlateNumber = plateNumber,
                     vehicleId = id
                 )
             )
         }
     }
-
 
 
     private fun setUpRecycler() {
@@ -79,7 +116,9 @@ class ParkingFragment : BaseFragment<FragmentParkingBinding>(FragmentParkingBind
         }
     }
 
+
     private fun handleState(state: ParkingState) = with(state) {
+
 
         vehicles?.let {
             parkingVehiclesListAdapter.submitList(it)
@@ -90,19 +129,27 @@ class ParkingFragment : BaseFragment<FragmentParkingBinding>(FragmentParkingBind
             viewModel.onEvent(ParkingEvent.ResetErrorMessage)
         }
 
+        balance?.let {
+            binding.tvBalance.text = it.balance.toString()
+        }
+
         with(binding) {
             if (isLoading) {
                 parkingProgressBar.root.visibility = View.VISIBLE
                 tvAddVehicle.visibility = View.GONE
                 recyclerVehicle.visibility = View.GONE
+                tvBalanceText.visibility = View.GONE
+                tvBalance.visibility = View.GONE
+                tvCurrency.visibility = View.GONE
 
             } else {
                 parkingProgressBar.root.visibility = View.GONE
                 tvAddVehicle.visibility = View.VISIBLE
                 recyclerVehicle.visibility = View.VISIBLE
+                tvBalanceText.visibility = View.VISIBLE
+                tvBalance.visibility = View.VISIBLE
+                tvCurrency.visibility = View.VISIBLE
             }
         }
-
-
     }
 }
