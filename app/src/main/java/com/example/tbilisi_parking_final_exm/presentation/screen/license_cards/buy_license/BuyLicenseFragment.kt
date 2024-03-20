@@ -97,6 +97,7 @@ class BuyLicenseFragment :
         else {
             cardLayout.root.visibility = GONE
             viewModel.onEvent(BuyLicenseEvent.SetButtonState(fields))
+            addTextListeners(fields)
         }
     }
 

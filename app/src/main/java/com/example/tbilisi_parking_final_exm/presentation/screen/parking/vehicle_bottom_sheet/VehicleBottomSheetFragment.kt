@@ -35,19 +35,27 @@ class VehicleBottomSheetFragment :
         }
     }
 
-    private fun recyclerItemClickListener(vehicleBottomSheetListAdapter: VehicleBottomSheetListAdapter) {
+    private fun recyclerItemClickListener(vehicleBottomSheetListAdapter: VehicleBottomSheetListAdapter) = with(args) {
         vehicleBottomSheetListAdapter.setOnItemClickListener {
             when (it) {
                 VehicleBottomSheetState.EDIT.id -> {
                     findNavController().navigate(
                         VehicleBottomSheetFragmentDirections.actionVehicleBottomSheetFragmentToEditVehicleFragment(
-                            args.vehicleName, args.vehicleId, args.vehiclePlateNumber,
+                            vehicleName, vehicleId, vehiclePlateNumber,
                         )
                     )
                 }
 
                 VehicleBottomSheetState.DELETE.id -> {
                     setUpDialog()
+                }
+
+                VehicleBottomSheetState.ACTIVE_LICENSES.id -> {
+                    findNavController().navigate(
+                        VehicleBottomSheetFragmentDirections.actionVehicleBottomSheetFragmentToActiveLicensesFragment(
+                            name = vehicleName, carId = vehicleId, plateNumber = vehiclePlateNumber
+                        )
+                    )
                 }
             }
         }

@@ -30,7 +30,7 @@ class LicensesFragment : BaseFragment<FragmentLicensesBinding>(FragmentLicensesB
     override fun bindObserves() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.cardsState.collect {
+                viewModel.licensesState.collect {
                     handleState(it)
                 }
             }
@@ -73,7 +73,8 @@ class LicensesFragment : BaseFragment<FragmentLicensesBinding>(FragmentLicensesB
                 }
 
                 background.setTint(Color.parseColor(license.licenseType.backgroundColor))
-                background.alpha = 99
+                background.alpha = 100
+
                 setColorFilter(Color.parseColor(license.licenseType.backgroundColor))
             }
 

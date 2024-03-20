@@ -10,7 +10,7 @@ data class License(
     val licenseType: LicenseType
 ) {
     enum class LicenseType(val type: Int, val backgroundColor: String) {
-        ZONAL_LICENSE(R.string.zonal_license, "#68E387"),
-        PARKING_LICENSE(R.string.parking_license, "#E38568")
+        ZONAL_LICENSE(R.string.zonal_license, "#302081"),
+        PARKING_LICENSE(R.string.parking_license, "#CD302081")
     }
 }

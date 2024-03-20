@@ -99,6 +99,9 @@
         <action
             android:id="@+id/action_vehicleBottomSheetFragment_to_editVehicleFragment"
             app:destination="@id/editVehicleFragment" />
+        <action
+            android:id="@+id/action_vehicleBottomSheetFragment_to_activeLicensesFragment"
+            app:destination="@id/activeLicensesFragment" />
     </dialog>
     <fragment
         android:id="@+id/editVehicleFragment"
@@ -176,5 +179,20 @@
             android:defaultValue="null"
             app:argType="string"
             app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/activeLicensesFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.parking.active_licenses.ActiveLicensesFragment"
+        android:label="fragment_active_licenses"
+        tools:layout="@layout/fragment_active_licenses" >
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="carId"
+            app:argType="integer" />
+        <argument
+            android:name="plateNumber"
+            app:argType="string" />
     </fragment>
 </navigation>
