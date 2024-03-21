@@ -37,7 +37,7 @@ class TransactionsViewModel @Inject constructor(
             getTransactionsUseCase(
                 userId = getUserId(),
                 fromDate = "2024-03-19T19:45:49.919Z",
-                toDate = "2024-03-20T23:56:26Z"
+                toDate = "2024-03-22T23:56:26Z"
             ).collect {
                 when (it) {
                     is Resource.Loading -> _transactionsState.update { currentState ->

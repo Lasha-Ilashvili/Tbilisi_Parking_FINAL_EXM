@@ -42,7 +42,16 @@ class LicensesFragment : BaseFragment<FragmentLicensesBinding>(FragmentLicensesB
     override fun bindViewActionListeners() {}
 
     private fun handleState(licensesState: LicensesState) = with(binding) {
-        progressBar.root.visibility = if (licensesState.isLoading) VISIBLE else GONE
+
+        if (licensesState.isLoading) {
+            progressBar.root.visibility = VISIBLE
+            btnPaidParkingLicense.root.visibility = GONE
+            btnFreeParkingLicense.root.visibility = GONE
+        } else {
+            progressBar.root.visibility = GONE
+            btnPaidParkingLicense.root.visibility = VISIBLE
+            btnFreeParkingLicense.root.visibility = VISIBLE
+        }
 
         licensesState.errorMessage?.let {
             root.showToast(it)

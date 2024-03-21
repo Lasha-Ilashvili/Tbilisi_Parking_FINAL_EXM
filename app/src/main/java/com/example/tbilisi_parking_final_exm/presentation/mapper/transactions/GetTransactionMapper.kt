@@ -6,7 +6,6 @@ import com.example.tbilisi_parking_final_exm.presentation.model.transactions.Tra
 
 fun GetTransaction.toPresentation() = Transaction(
     amount = amount,
-    userId = userId,
     car = car?.toPresentation(),
     cardNumber = getMaskedCardNumber(cardNumber),
     license = getLicense(licensePrice),
@@ -32,10 +31,7 @@ private fun getMaskedCardNumber(cardNumber: String?): String? = cardNumber?.let 
 
 private fun getLicense(licensePrice: Int?): Transaction.License? {
     return licensePrice?.let {
-        Transaction.License(
-            price = it,
-            licenseType = getLicenseType(licensePrice)
-        )
+        Transaction.License(licenseType = getLicenseType(licensePrice))
     }
 }
 

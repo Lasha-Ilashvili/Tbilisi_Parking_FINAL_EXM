@@ -5,7 +5,6 @@ import com.example.tbilisi_parking_final_exm.R
 
 data class Transaction(
     val amount: Double,
-    val userId: Int,
     val car: Vehicle?,
     val cardNumber: String?,
     val license: License?,
@@ -21,7 +20,6 @@ data class Transaction(
     )
 
     data class License(
-        val price: Int,
         val licenseType: LicenseType
     ) {
         enum class LicenseType(val type: Int) {

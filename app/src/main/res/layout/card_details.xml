@@ -17,6 +17,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_small"
+        app:layout_constraintEnd_toStartOf="@+id/ivVisa"
+        app:layout_constraintTop_toTopOf="@+id/tvCardDetails"
+        app:srcCompat="@drawable/ic_mastercard" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivVisa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvCardDetails"
+        app:srcCompat="@drawable/ic_visa" />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,6 +59,7 @@
             android:id="@+id/etCardNumberInput"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:drawableEnd="@drawable/ic_card_number"
             android:fontFamily="@font/open_sans_regular"
             android:hint="@string/card_number_hint"
             android:imeOptions="actionNext"
@@ -122,8 +139,8 @@
         android:id="@+id/tvRememberCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
         android:layout_marginEnd="@dimen/margin_small"
+        android:fontFamily="sans-serif-light"
         android:text="@string/save_card"
         app:layout_constraintEnd_toStartOf="@+id/chkRememberCard"
         app:layout_constraintTop_toBottomOf="@+id/etCVV" />

@@ -1,5 +1,7 @@
 package com.example.tbilisi_parking_final_exm.presentation.screen.transactions
 
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -8,6 +10,7 @@ import com.example.tbilisi_parking_final_exm.databinding.FragmentTransactionsBin
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.transactions.TransactionsEvent
 import com.example.tbilisi_parking_final_exm.presentation.extension.showToast
+import com.example.tbilisi_parking_final_exm.presentation.screen.transactions.adapter.TransactionsListAdapter
 import com.example.tbilisi_parking_final_exm.presentation.state.transactions.TransactionsState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -38,16 +41,18 @@ class TransactionsFragment :
     override fun bindViewActionListeners() {}
 
     private fun handleState(transactionsState: TransactionsState) = with(binding) {
-//        progressBar.root.visibility = if (licensesState.isLoading) View.VISIBLE else View.GONE
+        progressBar.root.visibility = if (transactionsState.isLoading) VISIBLE else GONE
 
         transactionsState.errorMessage?.let {
-            println(it)
             root.showToast(it)
             viewModel.onEvent(TransactionsEvent.ResetErrorMessage)
         }
 
         transactionsState.data?.let {
             println(it)
+            rvTransactions.adapter = TransactionsListAdapter().apply {
+                submitList(it)
+            }
         }
     }
 }

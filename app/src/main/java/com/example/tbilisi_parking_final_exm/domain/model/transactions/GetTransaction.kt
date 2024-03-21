@@ -3,7 +3,6 @@ package com.example.tbilisi_parking_final_exm.domain.model.transactions
 
 data class GetTransaction(
     val amount: Double,
-    val userId: Int,
     val car: GetVehicle?,
     val cardNumber: String?,
     val licensePrice: Int?,

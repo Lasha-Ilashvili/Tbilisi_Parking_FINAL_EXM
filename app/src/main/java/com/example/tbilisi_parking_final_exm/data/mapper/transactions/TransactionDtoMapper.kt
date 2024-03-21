@@ -6,7 +6,6 @@ import com.example.tbilisi_parking_final_exm.domain.model.transactions.GetTransa
 
 fun TransactionDto.toDomain() = GetTransaction(
     amount = amount,
-    userId = userId,
     car = car.toDomain(),
     cardNumber = card.cardNumber,
     licensePrice = licenseDescription.price,

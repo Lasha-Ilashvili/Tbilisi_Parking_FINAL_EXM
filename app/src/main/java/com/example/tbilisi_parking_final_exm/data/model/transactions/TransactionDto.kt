@@ -3,7 +3,6 @@ package com.example.tbilisi_parking_final_exm.data.model.transactions
 
 data class TransactionDto(
     val amount: Double,
-    val userId: Int,
     val car: VehicleDto,
     val card: CardDto,
     val licenseDescription: LicenseDescriptionDto,
