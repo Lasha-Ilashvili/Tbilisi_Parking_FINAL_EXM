@@ -5,4 +5,6 @@ sealed class ParkingIsStartedEvent {
     data class StartTimer(val parkingStartedAt: String) :ParkingIsStartedEvent()
     data class FinishParking(val stationExternalId: String, val carId: Int) : ParkingIsStartedEvent()
 
+    data object GetUserBalance: ParkingIsStartedEvent()
+
 }

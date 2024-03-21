@@ -3,15 +3,23 @@ package com.example.tbilisi_parking_final_exm.presentation.screen.parking.start_
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbilisi_parking_final_exm.data.common.Resource
+import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.GetUserIdUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.parking.finish_parking.FinishParkingUseCase
+import com.example.tbilisi_parking_final_exm.domain.usecase.user_panel.wallet.balance.GetBalanceUseCase
 import com.example.tbilisi_parking_final_exm.presentation.event.parking.start_parking.parking_is_started.ParkingIsStartedEvent
 import com.example.tbilisi_parking_final_exm.presentation.mapper.parking.finish_parking.toDomain
+import com.example.tbilisi_parking_final_exm.presentation.mapper.user_panel.wallet.cards.toPresentation
 import com.example.tbilisi_parking_final_exm.presentation.model.parking.finish_parking.FinishParking
+import com.example.tbilisi_parking_final_exm.presentation.state.parking.start_parking.ParkingIsStartedState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -20,11 +28,17 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ParkingIsStartedViewModel @Inject constructor(
-    private val finishParkingUseCase: FinishParkingUseCase
+    private val finishParkingUseCase: FinishParkingUseCase,
+    private val getUserBalanceUseCase: GetBalanceUseCase,
+    private val getUserIdUseCase: GetUserIdUseCase
 ) : ViewModel() {
 
     private lateinit var startDate: Date
     private var timerJob: Job? = null
+
+    private val _parkingIsStartedState = MutableStateFlow(ParkingIsStartedState())
+    val parkingIsStartedState: SharedFlow<ParkingIsStartedState> =
+        _parkingIsStartedState.asStateFlow()
 
 
     private val _parkingIsStartedUiEvent = MutableSharedFlow<ParkingIsStartedUiEvent>()
@@ -42,6 +56,8 @@ class ParkingIsStartedViewModel @Inject constructor(
                 stationExternalId = event.stationExternalId,
                 carId = event.carId
             )
+
+            is ParkingIsStartedEvent.GetUserBalance -> getUserBalance()
         }
     }
 
@@ -79,8 +95,6 @@ class ParkingIsStartedViewModel @Inject constructor(
     }
 
 
-
-
     private fun finishParking(stationExternalId: String, carId: Int) {
         viewModelScope.launch {
             finishParkingUseCase(
@@ -102,8 +116,34 @@ class ParkingIsStartedViewModel @Inject constructor(
         }
     }
 
-    sealed interface ParkingIsStartedUiEvent{
-        data object NavigateToParkingFragment:ParkingIsStartedUiEvent
+    private fun getUserBalance() {
+        viewModelScope.launch {
+            getUserBalanceUseCase(getUserIdUseCase()).collect {
+                when (it) {
+                    is Resource.Success -> _parkingIsStartedState.update { currentState ->
+                        currentState.copy(balance = it.data.toPresentation())
+                    }
+
+                    is Resource.Loading -> _parkingIsStartedState.update { currentState ->
+                        currentState.copy(isLoading = it.loading)
+                    }
+
+                    is Resource.Error -> updateErrorMessage(message = it.errorMessage)
+                }
+            }
+        }
+    }
+
+    private fun updateErrorMessage(message: String?) {
+        _parkingIsStartedState.update { currentState ->
+            currentState.copy(
+                errorMessage = message
+            )
+        }
+    }
+
+    sealed interface ParkingIsStartedUiEvent {
+        data object NavigateToParkingFragment : ParkingIsStartedUiEvent
     }
 
     override fun onCleared() {

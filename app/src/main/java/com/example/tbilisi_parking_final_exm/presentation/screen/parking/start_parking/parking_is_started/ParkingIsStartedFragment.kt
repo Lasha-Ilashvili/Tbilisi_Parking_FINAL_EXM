@@ -9,6 +9,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.tbilisi_parking_final_exm.databinding.FragmentParkingIsStartedBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.parking.start_parking.parking_is_started.ParkingIsStartedEvent
+import com.example.tbilisi_parking_final_exm.presentation.state.parking.start_parking.ParkingIsStartedState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -20,6 +21,8 @@ class ParkingIsStartedFragment : BaseFragment<FragmentParkingIsStartedBinding>(F
     private val args: ParkingIsStartedFragmentArgs by navArgs()
     override fun bind() {
         viewModel.onEvent(ParkingIsStartedEvent.StartTimer(args.startDate))
+        viewModel.onEvent(ParkingIsStartedEvent.GetUserBalance)
+
     }
 
     override fun bindViewActionListeners() {
@@ -29,6 +32,13 @@ class ParkingIsStartedFragment : BaseFragment<FragmentParkingIsStartedBinding>(F
     }
 
     override fun bindObserves() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.parkingIsStartedState.collect{
+                    handleState(it)
+                }
+            }
+        }
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.parkingIsStartedUiEvent.collect{
@@ -43,6 +53,13 @@ class ParkingIsStartedFragment : BaseFragment<FragmentParkingIsStartedBinding>(F
                     binding.tvTimer.text = it
                 }
             }
+        }
+    }
+
+
+    private fun handleState(state: ParkingIsStartedState) {
+        state.balance?.let {
+            binding.tvBalance.text = it.balance.toString()
         }
     }
     private fun finishParking() {
