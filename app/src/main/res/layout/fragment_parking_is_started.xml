@@ -49,41 +49,23 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tvBalanceText" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvPlateNumberText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_large"
-            android:fontFamily="@font/open_sans_regular"
-            android:text="@string/plate_number"
-            android:textSize="@dimen/text_size_large"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvBalance" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvPlateNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_large"
-            android:fontFamily="@font/open_sans_regular"
-            android:textSize="@dimen/text_size_mega_large"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/tvPlateNumberText"
-            app:layout_constraintEnd_toEndOf="parent" />
+
+
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnZone"
             style="@style/customOutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginTop="70dp"
             android:layout_marginEnd="8dp"
             android:text="@string/zone"
             android:textColor="@color/dark_blue"
             app:icon="@drawable/ic_letter_a"
             app:iconTint="@color/dark_blue"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvPlateNumberText"
+            app:layout_constraintTop_toBottomOf="@id/tvBalance"
             app:strokeColor="@color/dark_blue" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -104,20 +86,35 @@
             android:id="@+id/tvTimer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans_regular"
             android:text="@string/_00_00_00_00"
             android:textSize="50sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvActiveParking" />
 
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvParkingStarted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium_plus"
+            android:textStyle="bold"
+            android:fontFamily="@font/open_sans_regular"
+            android:text="@string/parking_started"
+            app:layout_constraintEnd_toStartOf="@id/tvActiveParkingDate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTimer" />
+
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvActiveParkingDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_medium_plus"
+            android:fontFamily="@font/open_sans_regular"
             android:text="@string/_19_march_tuesday_01_30"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvParkingStarted"
             app:layout_constraintTop_toBottomOf="@id/tvTimer" />
 
         <com.google.android.material.button.MaterialButton

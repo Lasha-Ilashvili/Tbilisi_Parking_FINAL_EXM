@@ -9,6 +9,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.tbilisi_parking_final_exm.databinding.FragmentParkingIsStartedBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.parking.start_parking.parking_is_started.ParkingIsStartedEvent
+import com.example.tbilisi_parking_final_exm.presentation.extension.formatDate
 import com.example.tbilisi_parking_final_exm.presentation.state.parking.start_parking.ParkingIsStartedState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -23,6 +24,7 @@ class ParkingIsStartedFragment : BaseFragment<FragmentParkingIsStartedBinding>(F
         viewModel.onEvent(ParkingIsStartedEvent.StartTimer(args.startDate))
         viewModel.onEvent(ParkingIsStartedEvent.GetUserBalance)
 
+        binding.tvActiveParkingDate.text = formatDate(args.startDate)
     }
 
     override fun bindViewActionListeners() {

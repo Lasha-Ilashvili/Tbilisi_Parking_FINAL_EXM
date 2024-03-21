@@ -92,4 +92,5 @@
     <string name="plate_number_">plate number:</string>
     <string name="name">name:</string>
     <string name="_00_00_00_00">00:00:00:00</string>
+    <string name="parking_started">Parking Started:</string>
 </resources>
