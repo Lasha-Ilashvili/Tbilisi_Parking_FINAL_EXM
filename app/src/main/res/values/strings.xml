@@ -77,9 +77,6 @@
     <string name="parking_license">Parking card</string>
     <string name="day">day</string>
     <string name="week">week</string>
-    <string name="month">month</string>
-    <string name="months">months</string>
-    <string name="year">year</string>
     <string name="one_num">1</string>
     <string name="one_text">one</string>
     <string name="pay_from_your_balance">Pay from Your Balance</string>
@@ -91,4 +88,7 @@
     <string name="active_parking">Active Parking</string>
     <string name="_19_march_tuesday_01_30">19 march, Tuesday, 01:30</string>
     <string name="finish_parking">Finish Parking</string>
+    <string name="active_licenses">active licenses</string>
+    <string name="plate_number_">plate number:</string>
+    <string name="name">name:</string>
 </resources>

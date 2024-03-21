@@ -7,31 +7,6 @@
     android:background="?attr/selectableItemBackground"
     android:elevation="20dp">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvLicenseTitleStatic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/open_sans_regular"
-        android:text="@string/one_text"
-        android:textAllCaps="true"
-        android:textSize="@dimen/text_size_large"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvLicenseTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_small"
-        android:fontFamily="@font/open_sans_regular"
-        android:textAllCaps="true"
-        android:textSize="@dimen/text_size_large"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/tvLicenseTitleStatic"
-        app:layout_constraintTop_toTopOf="@+id/tvLicenseTitleStatic"
-        tools:text="day" />
-
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivLicenseBackground"
         android:layout_width="match_parent"
@@ -39,10 +14,11 @@
         android:layout_marginTop="@dimen/margin_large"
         android:layout_marginBottom="@dimen/margin_large"
         android:background="@drawable/license_item_background"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvLicenseTitleStatic" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivLicense"
@@ -144,5 +120,22 @@
         app:layout_constraintEnd_toEndOf="@id/tvLicenseType"
         app:layout_constraintStart_toStartOf="@+id/tvPrice"
         app:layout_constraintTop_toTopOf="@+id/tvPrice" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvRecDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:fontFamily="@font/open_sans_regular"
+        android:shadowColor="#80000000"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivLicenseBackground"
+        app:layout_constraintEnd_toEndOf="@+id/ivLicenseBackground"
+        tools:text="2024-03-20 00:53:39" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

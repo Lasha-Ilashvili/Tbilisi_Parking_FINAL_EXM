@@ -21,7 +21,7 @@ class LicensesViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _licensesState = MutableStateFlow(LicensesState())
-    val cardsState get() = _licensesState.asStateFlow()
+    val licensesState get() = _licensesState.asStateFlow()
 
     fun onEvent(event: LicensesEvent) {
         when (event) {

@@ -46,7 +46,7 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/open_sans_regular"
             android:hint="@string/name_of_the_vehicle"
-            android:inputType="textEmailAddress" />
+            android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -65,7 +65,8 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/open_sans_regular"
             android:hint="@string/plate_number"
-            android:inputType="textEmailAddress" />
+            android:inputType="textCapCharacters"
+            android:maxLength="7" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

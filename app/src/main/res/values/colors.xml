@@ -12,5 +12,7 @@
     <color name="yellow">#d9a820</color>
     <color name="dark_blue">#0b25a8</color>
     <color name="orange">#E06A44</color>
-
+    <color name="license_icon_tint">#2E802C</color>
+    <color name="zonal_license">#DA7751</color>
+    <color name="parking_license">#CD021850</color>
 </resources>

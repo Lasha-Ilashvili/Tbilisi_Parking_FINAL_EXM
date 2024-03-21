@@ -8,6 +8,7 @@ import com.example.tbilisi_parking_final_exm.data.service.license_cards.buy_lice
 import com.example.tbilisi_parking_final_exm.data.service.log_in.LogInService
 import com.example.tbilisi_parking_final_exm.data.service.map.LatLngService
 import com.example.tbilisi_parking_final_exm.data.service.parking.active_parking.GetActiveParkingService
+import com.example.tbilisi_parking_final_exm.data.service.parking.active_licenses.ActiveLicensesService
 import com.example.tbilisi_parking_final_exm.data.service.parking.add_vehicle.AddVehicleService
 import com.example.tbilisi_parking_final_exm.data.service.parking.delete_vehicle.DeleteVehicleService
 import com.example.tbilisi_parking_final_exm.data.service.parking.edit_vehicle.EditVehicleService
@@ -290,21 +291,18 @@ object AppModule {
     @Provides
     fun provideGetBalanceService(retrofit: Retrofit): GetBalanceService {
         return retrofit.create(GetBalanceService::class.java)
-
     }
 
     @Singleton
     @Provides
     fun provideLicensesService(retrofit: Retrofit): LicensesService {
         return retrofit.create(LicensesService::class.java)
-
     }
 
     @Singleton
     @Provides
     fun provideBuyLicenseService(retrofit: Retrofit): BuyLicenseService {
         return retrofit.create(BuyLicenseService::class.java)
-
     }
 
     @Singleton
@@ -329,5 +327,12 @@ object AppModule {
     @Provides
     fun provideDeleteVehicleService(retrofit: Retrofit): DeleteVehicleService {
         return retrofit.create(DeleteVehicleService::class.java)
+    }
+
+
+    @Singleton
+    @Provides
+    fun provideActiveLicensesService(retrofit: Retrofit): ActiveLicensesService {
+        return retrofit.create(ActiveLicensesService::class.java)
     }
 }

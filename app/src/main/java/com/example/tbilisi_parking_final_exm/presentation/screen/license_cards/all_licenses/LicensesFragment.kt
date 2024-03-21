@@ -1,13 +1,14 @@
 package com.example.tbilisi_parking_final_exm.presentation.screen.license_cards.all_licenses
 
-import android.graphics.Color
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.example.tbilisi_parking_final_exm.R
 import com.example.tbilisi_parking_final_exm.databinding.FragmentLicensesBinding
 import com.example.tbilisi_parking_final_exm.databinding.LicenseItemBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
@@ -30,7 +31,7 @@ class LicensesFragment : BaseFragment<FragmentLicensesBinding>(FragmentLicensesB
     override fun bindObserves() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.cardsState.collect {
+                viewModel.licensesState.collect {
                     handleState(it)
                 }
             }
@@ -72,15 +73,24 @@ class LicensesFragment : BaseFragment<FragmentLicensesBinding>(FragmentLicensesB
                     navigateToBuyCard(license = license)
                 }
 
-                background.setTint(Color.parseColor(license.licenseType.backgroundColor))
-                background.alpha = 99
-                setColorFilter(Color.parseColor(license.licenseType.backgroundColor))
+                background.setTint(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        license.licenseType.backgroundColor
+                    )
+                )
             }
 
             tvLicenseTitle.text = license.validity
             tvPeriod.text = license.validity
             tvLicenseType.text = getString(license.licenseType.type)
             tvPrice.text = license.price.toString()
+            ivLicense.setColorFilter(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.license_icon_tint
+                )
+            )
         }
     }
 

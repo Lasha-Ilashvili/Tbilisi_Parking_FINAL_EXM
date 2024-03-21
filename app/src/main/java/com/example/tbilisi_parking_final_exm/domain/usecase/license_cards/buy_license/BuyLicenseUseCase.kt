@@ -5,8 +5,10 @@ import com.example.tbilisi_parking_final_exm.domain.model.license_cards.buy_lice
 import com.example.tbilisi_parking_final_exm.domain.model.parking.vehicle.vehicle.GetVehicle
 import com.example.tbilisi_parking_final_exm.domain.model.user_panel.wallet.cards.GetCardDetails
 import com.example.tbilisi_parking_final_exm.domain.repository.license_cards.buy_license.BuyLicenseRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
@@ -39,6 +41,8 @@ class BuyLicenseUseCase @Inject constructor(
         }
     }
 
-    private fun getVehicleId(vehicles: List<GetVehicle>, plateNumber: String) =
-        vehicles.find { it.plateNumber == plateNumber }?.id
+    private suspend fun getVehicleId(vehicles: List<GetVehicle>, plateNumber: String) =
+        withContext(Dispatchers.Default) {
+            vehicles.find { it.plateNumber == plateNumber }?.id
+        }
 }

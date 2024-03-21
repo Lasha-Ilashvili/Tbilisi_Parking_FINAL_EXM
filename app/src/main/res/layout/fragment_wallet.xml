@@ -147,7 +147,7 @@
         app:layout_constraintTop_toBottomOf="@+id/topDivider" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_user_cards"
+        android:id="@+id/rvUserCards"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

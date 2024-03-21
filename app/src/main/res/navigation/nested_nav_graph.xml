@@ -78,7 +78,7 @@
             app:argType="integer" />
         <argument
             android:name="backgroundColor"
-            app:argType="string" />
+            app:argType="integer" />
         <argument
             android:name="id"
             app:argType="integer" />
@@ -115,6 +115,9 @@
             app:destination="@id/parkingFragment"
             app:popUpTo="@id/parkingFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_vehicleBottomSheetFragment_to_activeLicensesFragment"
+            app:destination="@id/activeLicensesFragment" />
     </dialog>
     <fragment
         android:id="@+id/editVehicleFragment"
@@ -197,13 +200,14 @@
         android:id="@+id/parkingIsStartedFragment"
         android:name="com.example.tbilisi_parking_final_exm.presentation.screen.parking.start_parking.parking_is_started.ParkingIsStartedFragment"
         android:label="fragment_parking_is_started"
-        tools:layout="@layout/fragment_parking_is_started" >
+        tools:layout="@layout/fragment_parking_is_started">
         <action
             android:id="@+id/action_parkingIsStartedFragment_to_parkingFragment"
             app:destination="@id/parkingFragment"
             app:popUpTo="@id/parkingFragment"
             app:popUpToInclusive="true" />
-        <argument android:name="stationExternalId"
+        <argument
+            android:name="stationExternalId"
             app:argType="string" />
         <argument
             android:name="carId"
@@ -213,6 +217,23 @@
             app:argType="string" />
         <argument
             android:name="zone"
+            app:argType="string" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/activeLicensesFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.parking.active_licenses.ActiveLicensesFragment"
+        android:label="fragment_active_licenses"
+        tools:layout="@layout/fragment_active_licenses">
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="carId"
+            app:argType="integer" />
+        <argument
+            android:name="plateNumber"
             app:argType="string" />
     </fragment>
 </navigation>
