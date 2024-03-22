@@ -15,7 +15,9 @@ import com.example.tbilisi_parking_final_exm.databinding.FragmentStartParkingBin
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.parking.start_parking.StartParkingEvent
 import com.example.tbilisi_parking_final_exm.presentation.extension.hideKeyboard
+import com.example.tbilisi_parking_final_exm.presentation.extension.restartApp
 import com.example.tbilisi_parking_final_exm.presentation.extension.showAlertDialog
+import com.example.tbilisi_parking_final_exm.presentation.extension.showAlertForLogout
 import com.example.tbilisi_parking_final_exm.presentation.extension.showToast
 import com.example.tbilisi_parking_final_exm.presentation.state.parking.start_parking.StartParkingState
 import com.google.android.material.textfield.TextInputLayout
@@ -107,6 +109,10 @@ class StartParkingFragment :
         binding.progressBar.root.visibility = if (isLoading) View.VISIBLE else View.GONE
 
         binding.btnNext.isEnabled = isButtonEnabled
+
+        if(sessionCompleted){
+            requireContext().showAlertForLogout { restartApp(requireActivity()) }
+        }
 
         errorMessage?.let {
             binding.root.showToast(errorMessage)
