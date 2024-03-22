@@ -8,4 +8,5 @@ data class AddVehicleState(
     val errorMessage: String? = null,
     val isButtonEnabled: Boolean = false,
     val isErrorEnabled: Boolean = false,
-    )
+    val sessionCompleted: Boolean = false
+)

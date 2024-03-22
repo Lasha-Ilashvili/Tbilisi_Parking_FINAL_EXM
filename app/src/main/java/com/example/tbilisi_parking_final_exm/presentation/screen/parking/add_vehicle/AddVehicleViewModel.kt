@@ -58,7 +58,6 @@ class AddVehicleViewModel @Inject constructor(
 
         if (isPlateNumberValid) {
             registerVehicle(nameInput, plateNumberInput)
-
         }
 
     }
@@ -66,7 +65,7 @@ class AddVehicleViewModel @Inject constructor(
     private fun registerVehicle(name: String, plateNumber: String) {
         viewModelScope.launch {
             val vehicle = AddVehicle(userId = getUserId(), name = name, plateNumber = plateNumber)
-            addVehicleUseCase(vehicle.toDomain()).collect{
+            addVehicleUseCase(vehicle.toDomain()).collect {
                 when (it) {
                     is Resource.Loading -> _addVehicleState.update { currentState ->
                         currentState.copy(
@@ -77,7 +76,12 @@ class AddVehicleViewModel @Inject constructor(
                     is Resource.Error -> updateErrorMessage(it.errorMessage)
 
                     is Resource.Success -> _uiEvent.emit(AddVehicleUiEvent.NavigateToParking)
-                    else -> {}
+
+                    is Resource.SessionCompleted -> _addVehicleState.update { currentState ->
+                        currentState.copy(
+                            sessionCompleted = it.sessionIsCompleted
+                        )
+                    }
 
                 }
             }
@@ -112,7 +116,7 @@ class AddVehicleViewModel @Inject constructor(
         }
     }
 
-    sealed interface AddVehicleUiEvent{
+    sealed interface AddVehicleUiEvent {
         data object NavigateToParking : AddVehicleUiEvent
     }
 
