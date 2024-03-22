@@ -44,7 +44,8 @@ class TransactionsListAdapter :
             with(binding) {
                 tvRecDate.text = transaction.recDate
                 tvTransactionStatus.text = transaction.transactionStatus
-                tvTransactionType.text = transaction.transactionType
+                tvTransactionType.text =
+                    itemView.context.getString(transaction.transactionType.typeName)
                 tvAmount.text = transaction.amount.toString()
             }
         }

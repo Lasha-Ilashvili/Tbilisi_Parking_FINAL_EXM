@@ -17,7 +17,7 @@ import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.license_cards.buy_license.BuyLicenseEvent
 import com.example.tbilisi_parking_final_exm.presentation.extension.applyFormatting
 import com.example.tbilisi_parking_final_exm.presentation.extension.hideKeyboard
-import com.example.tbilisi_parking_final_exm.presentation.extension.showToast
+import com.example.tbilisi_parking_final_exm.presentation.extension.showSnackBar
 import com.example.tbilisi_parking_final_exm.presentation.state.license_cards.buy_license.BuyLicenseState
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -165,7 +165,7 @@ class BuyLicenseFragment :
         binding.btnBuyLicense.isEnabled = isButtonEnabled
 
         errorMessage?.let {
-            binding.root.showToast(errorMessage)
+            binding.root.showSnackBar(errorMessage)
             viewModel.onEvent(BuyLicenseEvent.ResetErrorMessage)
         }
 

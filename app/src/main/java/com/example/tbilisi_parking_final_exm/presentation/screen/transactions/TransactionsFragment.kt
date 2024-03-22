@@ -9,11 +9,14 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.tbilisi_parking_final_exm.databinding.FragmentTransactionsBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.transactions.TransactionsEvent
-import com.example.tbilisi_parking_final_exm.presentation.extension.showToast
+import com.example.tbilisi_parking_final_exm.presentation.extension.showSnackBar
 import com.example.tbilisi_parking_final_exm.presentation.screen.transactions.adapter.TransactionsListAdapter
 import com.example.tbilisi_parking_final_exm.presentation.state.transactions.TransactionsState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 
 @AndroidEntryPoint
@@ -23,7 +26,20 @@ class TransactionsFragment :
     private val viewModel: TransactionsViewModel by viewModels()
 
     override fun bind() {
-        viewModel.onEvent(TransactionsEvent.GetTransactions)
+
+        val toDate = Calendar.getInstance().run {
+            add(Calendar.DAY_OF_YEAR, 1)
+            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(time)
+        }
+
+        println(toDate)
+
+        viewModel.onEvent(
+            TransactionsEvent.GetTransactions(
+                fromDate = "2024-03-18",
+                toDate = toDate
+            )
+        )
     }
 
     override fun bindObserves() {
@@ -44,12 +60,12 @@ class TransactionsFragment :
         progressBar.root.visibility = if (transactionsState.isLoading) VISIBLE else GONE
 
         transactionsState.errorMessage?.let {
-            root.showToast(it)
+            root.showSnackBar(it)
             viewModel.onEvent(TransactionsEvent.ResetErrorMessage)
         }
 
         transactionsState.data?.let {
-            println(it)
+//            it.forEach { item -> println(item) }
             rvTransactions.adapter = TransactionsListAdapter().apply {
                 submitList(it)
             }

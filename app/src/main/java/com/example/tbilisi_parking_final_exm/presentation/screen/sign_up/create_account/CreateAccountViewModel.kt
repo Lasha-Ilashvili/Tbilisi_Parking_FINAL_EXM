@@ -8,7 +8,7 @@ import com.example.tbilisi_parking_final_exm.domain.usecase.sign_up.SignUpUseCas
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.EmailValidatorUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.FieldsAreNotBlankUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.MatchingPasswordValidatorUseCase
-import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.PasswordValidatorUseCase
+import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.PasswordStrengthMeterUseCase
 import com.example.tbilisi_parking_final_exm.presentation.event.sign_up.create_account.CreateAccountEvent
 import com.example.tbilisi_parking_final_exm.presentation.mapper.sign_up.toDomain
 import com.example.tbilisi_parking_final_exm.presentation.mapper.sign_up.toPresentation
@@ -30,8 +30,8 @@ class CreateAccountViewModel @Inject constructor(
     private val signUpUseCase: SignUpUseCase,
     private val fieldsAreNotBlank: FieldsAreNotBlankUseCase,
     private val emailValidator: EmailValidatorUseCase,
-    private val passwordValidator: PasswordValidatorUseCase,
-    private val matchingPasswordValidator: MatchingPasswordValidatorUseCase
+    private val matchingPasswordValidator: MatchingPasswordValidatorUseCase,
+    private val passwordStrengthMeter: PasswordStrengthMeterUseCase
 ) : ViewModel() {
 
     private val _createAccountState = MutableStateFlow(CreateAccountState())
@@ -55,6 +55,10 @@ class CreateAccountViewModel @Inject constructor(
             )
 
             CreateAccountEvent.ResetErrorMessage -> updateErrorMessage()
+
+            is CreateAccountEvent.SetPasswordStrengthState -> setPasswordStrengthState(password = password)
+
+            is CreateAccountEvent.ResetErrorTextInputLayout -> validateField(textInputLayout = field)
         }
     }
 
@@ -72,17 +76,18 @@ class CreateAccountViewModel @Inject constructor(
         val matchingPasswordInput = matchingPassword.editText?.text.toString()
 
         val isEmailValid = emailValidator(emailInput)
-        val isPasswordValid = passwordValidator(passwordInput)
+        val isPasswordValid = passwordStrengthMeter(passwordInput).first == R.string.password_strong
         val isMatchingPasswordValid =
             matchingPasswordValidator(passwordInput, matchingPasswordInput)
 
         val areFieldsValid =
-            listOf(isEmailValid, isPasswordValid.first, isMatchingPasswordValid.first)
-                .all { it }
+            listOf(isEmailValid, isPasswordValid, isMatchingPasswordValid.first).all { it }
 
         validateField(isEmailValid, email)
-        validateField(isPasswordValid.first, password, isPasswordValid.second)
-        validateField(isMatchingPasswordValid.first, matchingPassword,isMatchingPasswordValid.second)
+        validateField(isPasswordValid, password)
+        validateField(
+            isMatchingPasswordValid.first, matchingPassword, isMatchingPasswordValid.second
+        )
 
         if (!areFieldsValid) {
             return
@@ -102,7 +107,7 @@ class CreateAccountViewModel @Inject constructor(
     }
 
     private fun validateField(
-        isFieldValid: Boolean,
+        isFieldValid: Boolean = true,
         textInputLayout: TextInputLayout,
         inputErrorMessage: Int = R.string.invalid_input
     ) {
@@ -153,12 +158,19 @@ class CreateAccountViewModel @Inject constructor(
         _createAccountState.update { currentState ->
             currentState.copy(isButtonEnabled = fieldsAreNotBlank(fields))
         }
+
     }
 
 
     private fun updateErrorMessage(message: String? = null) {
         _createAccountState.update { currentState ->
             currentState.copy(errorMessage = message)
+        }
+    }
+
+    private fun setPasswordStrengthState(password: String) {
+        _createAccountState.update { currentState ->
+            currentState.copy(passwordStrength = passwordStrengthMeter(password))
         }
     }
 

@@ -25,19 +25,19 @@ class TransactionsViewModel @Inject constructor(
     private val _transactionsState = MutableStateFlow(TransactionsState())
     val transactionsState get() = _transactionsState.asStateFlow()
 
-    fun onEvent(event: TransactionsEvent) {
-        when (event) {
-            is TransactionsEvent.GetTransactions -> getCards()
+    fun onEvent(event: TransactionsEvent) = with(event) {
+        when (this) {
+            is TransactionsEvent.GetTransactions -> getCards(fromDate = fromDate, toDate = toDate)
             TransactionsEvent.ResetErrorMessage -> updateErrorMessage()
         }
     }
 
-    private fun getCards() {
+    private fun getCards(fromDate: String, toDate: String) {
         viewModelScope.launch {
             getTransactionsUseCase(
                 userId = getUserId(),
-                fromDate = "2024-03-19T19:45:49.919Z",
-                toDate = "2024-03-22T23:56:26Z"
+                fromDate = fromDate,
+                toDate = toDate
             ).collect {
                 when (it) {
                     is Resource.Loading -> _transactionsState.update { currentState ->

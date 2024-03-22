@@ -8,5 +8,5 @@ private const val EXPECTED_LENGTH = 8
 
 class PasswordValidatorUseCase @Inject constructor() {
     operator fun invoke(password: String): Pair<Boolean, Int> =
-        Pair(password.length >= EXPECTED_LENGTH, R.string.password_error)
+        (password.length >= EXPECTED_LENGTH) to R.string.password_error
 }

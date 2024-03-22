@@ -67,6 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_large"
             app:endIconMode="password_toggle"
+            app:helperTextTextAppearance="@style/customPageTitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etEmail">
@@ -80,15 +81,27 @@
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvExample"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans_regular"
+            android:text="@string/password_requirement"
+            android:textColor="@color/gray"
+            app:layout_constraintBottom_toTopOf="@id/etRepeatPassword"
+            app:layout_constraintStart_toStartOf="@+id/etPassword"
+            app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etRepeatPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginTop="@dimen/margin_medium"
             app:endIconMode="password_toggle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etPassword">
+            app:layout_constraintTop_toBottomOf="@+id/tvExample">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etRepeatPasswordInput"

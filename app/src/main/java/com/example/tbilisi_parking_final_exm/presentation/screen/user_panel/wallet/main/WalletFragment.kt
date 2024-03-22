@@ -12,7 +12,7 @@ import com.example.tbilisi_parking_final_exm.databinding.FragmentWalletBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.user_panel.wallet.WalletEvent
 import com.example.tbilisi_parking_final_exm.presentation.extension.hideKeyboard
-import com.example.tbilisi_parking_final_exm.presentation.extension.showToast
+import com.example.tbilisi_parking_final_exm.presentation.extension.showSnackBar
 import com.example.tbilisi_parking_final_exm.presentation.model.user_panel.wallet.cards.UserCard
 import com.example.tbilisi_parking_final_exm.presentation.screen.user_panel.wallet.main.adapter.UserCardsListAdapter
 import com.example.tbilisi_parking_final_exm.presentation.state.user_panel.wallet.WalletState
@@ -73,7 +73,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(FragmentWalletBinding
         btnPayNow.isEnabled = walletState.isButtonEnabled
 
         walletState.errorMessage?.let {
-            root.showToast(walletState.errorMessage)
+            root.showSnackBar(walletState.errorMessage)
             viewModel.onEvent(WalletEvent.ResetErrorMessage)
         }
 

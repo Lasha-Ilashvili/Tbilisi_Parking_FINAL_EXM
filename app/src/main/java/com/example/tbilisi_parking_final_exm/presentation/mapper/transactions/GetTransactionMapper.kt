@@ -10,7 +10,7 @@ fun GetTransaction.toPresentation() = Transaction(
     cardNumber = getMaskedCardNumber(cardNumber),
     license = getLicense(licensePrice),
     transactionStatus = transactionStatus,
-    transactionType = transactionType,
+    transactionType = getTransactionType(transactionType),
     recDate = recDate,
     id = id
 )
@@ -29,15 +29,17 @@ private fun getMaskedCardNumber(cardNumber: String?): String? = cardNumber?.let 
     "$maskedPart $lastFourDigits"
 }
 
-private fun getLicense(licensePrice: Int?): Transaction.License? {
+private fun getLicense(licensePrice: Int?): Transaction.LicenseType? {
     return licensePrice?.let {
-        Transaction.License(licenseType = getLicenseType(licensePrice))
+        if (licensePrice == 20)
+            Transaction.LicenseType.ZONAL_LICENSE
+        else
+            Transaction.LicenseType.PARKING_LICENSE
     }
 }
 
-private fun getLicenseType(licensePrice: Int?): Transaction.License.LicenseType {
-    return if (licensePrice == 20)
-        Transaction.License.LicenseType.ZONAL_LICENSE
-    else
-        Transaction.License.LicenseType.PARKING_LICENSE
+private fun getTransactionType(transactionType: String): Transaction.TransactionType {
+    return Transaction.TransactionType.entries.find {
+        it.name == transactionType
+    }!!
 }

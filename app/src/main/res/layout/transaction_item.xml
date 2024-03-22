@@ -30,10 +30,10 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvTransactionType"
+        style="@style/customBottomNavPageTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_small"
-        android:fontFamily="@font/open_sans_regular"
+        android:layout_marginStart="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvRecDate"
         tools:text="BUY_LICENSE_FROM_BALANCE" />
@@ -43,6 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/open_sans_regular"
+        android:textSize="@dimen/text_size_medium"
         app:layout_constraintEnd_toStartOf="@+id/tvCurrency"
         app:layout_constraintTop_toTopOf="@+id/tvTransactionType"
         tools:text="20" />
@@ -53,6 +54,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/open_sans_regular"
         android:text="@string/gel"
+        android:textSize="@dimen/text_size_medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvAmount" />
 

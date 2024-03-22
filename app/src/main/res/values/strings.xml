@@ -87,4 +87,12 @@
     <string name="password_error">Password must be at least 8 characters long</string>
     <string name="matching_password_error">Passwords do not match</string>
     <string name="transactions">Transactions</string>
+    <string name="password_requirement">Strong password: 7+ characters, 1 uppercase, 1 digit</string>
+    <string name="deposit_from_card">DEPOSIT FROM CARD</string>
+    <string name="end_parking">END PARKING</string>
+    <string name="buy_license_by_card">BUY LICENSE BY CARD</string>
+    <string name="buy_license_from_balance">BUY LICENSE FROM BALANCE</string>
+    <string name="password_weak">weak</string>
+    <string name="password_medium">medium</string>
+    <string name="password_strong">strong</string>
 </resources>
