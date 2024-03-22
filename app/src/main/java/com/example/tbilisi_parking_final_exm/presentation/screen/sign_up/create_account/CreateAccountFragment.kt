@@ -72,7 +72,6 @@ class CreateAccountFragment :
         fields.forEach { textInputLayout ->
             textInputLayout.editText?.doAfterTextChanged {
                 viewModel.onEvent(CreateAccountEvent.SetButtonState(fields))
-                viewModel.onEvent(CreateAccountEvent.ResetErrorTextInputLayout(textInputLayout))
 
                 if (textInputLayout == binding.etPassword) {
                     viewModel.onEvent(CreateAccountEvent.SetPasswordStrengthState(it.toString()))

@@ -1,9 +1,11 @@
 package com.example.tbilisi_parking_final_exm.data.repository.transactions
 
+//import com.example.tbilisi_parking_final_exm.domain.repository.transactions.TransactionsRepository
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.example.tbilisi_parking_final_exm.data.common.HandleResponse
-import com.example.tbilisi_parking_final_exm.data.common.Resource
-import com.example.tbilisi_parking_final_exm.data.mapper.base.asResource
-import com.example.tbilisi_parking_final_exm.data.mapper.transactions.toDomain
+import com.example.tbilisi_parking_final_exm.data.data_source.transactions.TransactionsPagingSource
 import com.example.tbilisi_parking_final_exm.data.service.transactions.TransactionsService
 import com.example.tbilisi_parking_final_exm.domain.model.transactions.GetTransaction
 import com.example.tbilisi_parking_final_exm.domain.repository.transactions.TransactionsRepository
@@ -19,17 +21,15 @@ class TransactionsRepositoryImpl @Inject constructor(
         userId: Int,
         fromDate: String,
         toDate: String
-    ): Flow<Resource<List<GetTransaction>>> {
-        return handleResponse.safeApiCall {
-            transactionsService.getTransactions(
+    ): Flow<PagingData<GetTransaction.GetTransactionItem>> {
+        return Pager(PagingConfig(pageSize = 6)) {
+            TransactionsPagingSource(
+                service = transactionsService,
                 userId = userId,
                 fromDate = fromDate,
-                toDate = toDate
+                toDate = toDate,
+                pageSize = 6
             )
-        }.asResource {
-            it.map { dto ->
-                dto.toDomain()
-            }
-        }
+        }.flow
     }
 }

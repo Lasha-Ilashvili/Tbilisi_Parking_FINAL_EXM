@@ -11,6 +11,8 @@ interface TransactionsService {
     suspend fun getTransactions(
         @Query("userId") userId: Int,
         @Query("fromDate") fromDate: String,
-        @Query("toDate") toDate: String
-    ): Response<List<TransactionDto>>
+        @Query("toDate") toDate: String,
+        @Query("page") page: Int,
+        @Query("size") pageSize: Int
+    ): Response<TransactionDto>
 }

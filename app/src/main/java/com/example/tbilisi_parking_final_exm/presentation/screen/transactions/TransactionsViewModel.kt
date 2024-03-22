@@ -1,8 +1,9 @@
 package com.example.tbilisi_parking_final_exm.presentation.screen.transactions
 
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tbilisi_parking_final_exm.data.common.Resource
+import androidx.paging.map
 import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.GetUserIdUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.transactions.GetTransactionsUseCase
 import com.example.tbilisi_parking_final_exm.presentation.event.transactions.TransactionsEvent
@@ -39,24 +40,47 @@ class TransactionsViewModel @Inject constructor(
                 fromDate = fromDate,
                 toDate = toDate
             ).collect {
-                when (it) {
-                    is Resource.Loading -> _transactionsState.update { currentState ->
-                        currentState.copy(isLoading = it.loading)
-                    }
-
-                    is Resource.Error -> {
-                        updateErrorMessage(message = it.errorMessage)
-                    }
-
-                    is Resource.Success -> _transactionsState.update { currentState ->
-                        currentState.copy(data = it.data.map { getTransaction ->
-                            getTransaction.toPresentation()
-                        })
-                    }
+                _transactionsState.update { currentState ->
+                    currentState.copy(data = it.map {
+                        it.toPresentation()
+                    })
                 }
             }
         }
     }
+
+//    private fun getCards(fromDate: String, toDate: String) {
+//        viewModelScope.launch {
+//            transactionsRepository.getTransactions(
+//                userId = 3,
+//                fromDate = fromDate,
+//                toDate = toDate
+//            ).collectLatest {
+//
+//
+//                _transactionsState.update { currentState ->
+//                    currentState.copy(data = it)
+//                }
+////                when (it) {
+////                    is Resource.Loading -> _transactionsState.update { currentState ->
+////                        currentState.copy(isLoading = it.loading)
+////                    }
+////
+////                    is Resource.Error -> {
+////                        println(it.errorMessage)
+////                        updateErrorMessage(message = it.errorMessage)
+////                    }
+////
+////                    is Resource.Success -> _transactionsState.update { currentState ->
+////                        currentState.copy(
+////                            data= it.data
+//////                            data = it.data.toPresentation()
+////                        )
+////                    }
+////                }
+//            }
+//        }
+//    }
 
     private fun updateErrorMessage(message: String? = null) {
         _transactionsState.update { currentState ->

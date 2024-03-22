@@ -25,6 +25,8 @@ class TransactionsFragment :
 
     private val viewModel: TransactionsViewModel by viewModels()
 
+    private lateinit var adapter: TransactionsListAdapter
+
     override fun bind() {
 
         val toDate = Calendar.getInstance().run {
@@ -32,12 +34,12 @@ class TransactionsFragment :
             SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(time)
         }
 
-        println(toDate)
+        setRecycler()
 
         viewModel.onEvent(
             TransactionsEvent.GetTransactions(
-                fromDate = "2024-03-18",
-                toDate = toDate
+                fromDate = "2024-03-20",
+                toDate = "2024-03-24"
             )
         )
     }
@@ -56,7 +58,12 @@ class TransactionsFragment :
 
     override fun bindViewActionListeners() {}
 
-    private fun handleState(transactionsState: TransactionsState) = with(binding) {
+    private fun setRecycler() {
+        adapter = TransactionsListAdapter()
+        binding.rvTransactions.adapter = adapter
+    }
+
+    private suspend fun handleState(transactionsState: TransactionsState) = with(binding) {
         progressBar.root.visibility = if (transactionsState.isLoading) VISIBLE else GONE
 
         transactionsState.errorMessage?.let {
@@ -65,10 +72,7 @@ class TransactionsFragment :
         }
 
         transactionsState.data?.let {
-//            it.forEach { item -> println(item) }
-            rvTransactions.adapter = TransactionsListAdapter().apply {
-                submitList(it)
-            }
+            adapter.submitData(it)
         }
     }
 }

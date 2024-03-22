@@ -2,21 +2,29 @@ package com.example.tbilisi_parking_final_exm.presentation.screen.transactions.a
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tbilisi_parking_final_exm.databinding.TransactionItemBinding
 import com.example.tbilisi_parking_final_exm.presentation.model.transactions.Transaction
 
 class TransactionsListAdapter :
-    ListAdapter<Transaction, TransactionsListAdapter.TransactionsViewHolder>(TransactionsDiffUtil) {
+    PagingDataAdapter<Transaction.TransactionItem, TransactionsListAdapter.TransactionsViewHolder>(
+        TransactionsDiffUtil
+    ) {
 
-    object TransactionsDiffUtil : DiffUtil.ItemCallback<Transaction>() {
-        override fun areItemsTheSame(oldItem: Transaction, newItem: Transaction): Boolean {
+    object TransactionsDiffUtil : DiffUtil.ItemCallback<Transaction.TransactionItem>() {
+        override fun areItemsTheSame(
+            oldItem: Transaction.TransactionItem,
+            newItem: Transaction.TransactionItem
+        ): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Transaction, newItem: Transaction): Boolean {
+        override fun areContentsTheSame(
+            oldItem: Transaction.TransactionItem,
+            newItem: Transaction.TransactionItem
+        ): Boolean {
             return oldItem == newItem
         }
     }
@@ -39,14 +47,14 @@ class TransactionsListAdapter :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind() {
-            val transaction = currentList[adapterPosition]
-
-            with(binding) {
-                tvRecDate.text = transaction.recDate
-                tvTransactionStatus.text = transaction.transactionStatus
-                tvTransactionType.text =
-                    itemView.context.getString(transaction.transactionType.typeName)
-                tvAmount.text = transaction.amount.toString()
+            getItem(bindingAdapterPosition)?.let { transaction ->
+                with(binding) {
+                    tvRecDate.text = transaction.recDate
+                    tvTransactionStatus.text = transaction.transactionStatus
+                    tvTransactionType.text =
+                        itemView.context.getString(transaction.transactionType.typeName)
+                    tvAmount.text = transaction.amount.toString()
+                }
             }
         }
     }

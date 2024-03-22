@@ -1,6 +1,6 @@
 package com.example.tbilisi_parking_final_exm.domain.repository.transactions
 
-import com.example.tbilisi_parking_final_exm.data.common.Resource
+import androidx.paging.PagingData
 import com.example.tbilisi_parking_final_exm.domain.model.transactions.GetTransaction
 import kotlinx.coroutines.flow.Flow
 
@@ -10,5 +10,5 @@ interface TransactionsRepository {
         userId: Int,
         fromDate: String,
         toDate: String
-    ): Flow<Resource<List<GetTransaction>>>
+    ): Flow<PagingData<GetTransaction.GetTransactionItem>>
 }

@@ -4,7 +4,11 @@ import com.example.tbilisi_parking_final_exm.data.model.transactions.Transaction
 import com.example.tbilisi_parking_final_exm.domain.model.transactions.GetTransaction
 
 
-fun TransactionDto.toDomain() = GetTransaction(
+fun TransactionDto.toDomain() = GetTransaction(getContent = contentDto.map { dto ->
+    dto.toDomain()
+})
+
+private fun TransactionDto.TransactionItemDto.toDomain() = GetTransaction.GetTransactionItem(
     amount = amount,
     car = car.toDomain(),
     cardNumber = card.cardNumber,
@@ -15,9 +19,9 @@ fun TransactionDto.toDomain() = GetTransaction(
     id = id
 )
 
-private fun TransactionDto.VehicleDto.toDomain(): GetTransaction.GetVehicle? {
+private fun TransactionDto.TransactionItemDto.VehicleDto.toDomain(): GetTransaction.GetTransactionItem.GetVehicle? {
     return id?.let {
-        GetTransaction.GetVehicle(
+        GetTransaction.GetTransactionItem.GetVehicle(
             id = it,
             name = name!!,
             plateNumber = plateNumber!!

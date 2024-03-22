@@ -57,8 +57,6 @@ class CreateAccountViewModel @Inject constructor(
             CreateAccountEvent.ResetErrorMessage -> updateErrorMessage()
 
             is CreateAccountEvent.SetPasswordStrengthState -> setPasswordStrengthState(password = password)
-
-            is CreateAccountEvent.ResetErrorTextInputLayout -> validateField(textInputLayout = field)
         }
     }
 
@@ -84,7 +82,6 @@ class CreateAccountViewModel @Inject constructor(
             listOf(isEmailValid, isPasswordValid, isMatchingPasswordValid.first).all { it }
 
         validateField(isEmailValid, email)
-        validateField(isPasswordValid, password)
         validateField(
             isMatchingPasswordValid.first, matchingPassword, isMatchingPasswordValid.second
         )
@@ -107,7 +104,7 @@ class CreateAccountViewModel @Inject constructor(
     }
 
     private fun validateField(
-        isFieldValid: Boolean = true,
+        isFieldValid: Boolean,
         textInputLayout: TextInputLayout,
         inputErrorMessage: Int = R.string.invalid_input
     ) {

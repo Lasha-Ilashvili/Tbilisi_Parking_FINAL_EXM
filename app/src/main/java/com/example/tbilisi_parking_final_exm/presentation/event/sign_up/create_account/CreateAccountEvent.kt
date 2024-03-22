@@ -15,6 +15,5 @@ sealed class CreateAccountEvent {
         val matchingPassword: TextInputLayout,
         val personalNumber: String
     ) : CreateAccountEvent()
-    data class ResetErrorTextInputLayout(val field: TextInputLayout) : CreateAccountEvent()
     data class SetPasswordStrengthState(val password: String) : CreateAccountEvent()
 }

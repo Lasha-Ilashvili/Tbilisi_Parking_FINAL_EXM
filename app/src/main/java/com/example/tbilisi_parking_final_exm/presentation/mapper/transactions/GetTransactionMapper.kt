@@ -4,7 +4,7 @@ import com.example.tbilisi_parking_final_exm.domain.model.transactions.GetTransa
 import com.example.tbilisi_parking_final_exm.presentation.model.transactions.Transaction
 
 
-fun GetTransaction.toPresentation() = Transaction(
+ fun GetTransaction.GetTransactionItem.toPresentation() = Transaction.TransactionItem(
     amount = amount,
     car = car?.toPresentation(),
     cardNumber = getMaskedCardNumber(cardNumber),
@@ -15,7 +15,7 @@ fun GetTransaction.toPresentation() = Transaction(
     id = id
 )
 
-private fun GetTransaction.GetVehicle.toPresentation() = Transaction.Vehicle(
+private fun GetTransaction.GetTransactionItem.GetVehicle.toPresentation() = Transaction.TransactionItem.Vehicle(
     id = id,
     name = name,
     plateNumber = plateNumber
@@ -29,17 +29,17 @@ private fun getMaskedCardNumber(cardNumber: String?): String? = cardNumber?.let 
     "$maskedPart $lastFourDigits"
 }
 
-private fun getLicense(licensePrice: Int?): Transaction.LicenseType? {
+private fun getLicense(licensePrice: Int?): Transaction.TransactionItem.LicenseType? {
     return licensePrice?.let {
         if (licensePrice == 20)
-            Transaction.LicenseType.ZONAL_LICENSE
+            Transaction.TransactionItem.LicenseType.ZONAL_LICENSE
         else
-            Transaction.LicenseType.PARKING_LICENSE
+            Transaction.TransactionItem.LicenseType.PARKING_LICENSE
     }
 }
 
-private fun getTransactionType(transactionType: String): Transaction.TransactionType {
-    return Transaction.TransactionType.entries.find {
+private fun getTransactionType(transactionType: String): Transaction.TransactionItem.TransactionType {
+    return Transaction.TransactionItem.TransactionType.entries.find {
         it.name == transactionType
     }!!
 }
