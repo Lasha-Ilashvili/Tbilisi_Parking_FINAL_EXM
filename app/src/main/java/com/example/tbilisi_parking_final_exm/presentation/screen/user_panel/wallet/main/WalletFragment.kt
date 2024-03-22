@@ -12,6 +12,8 @@ import com.example.tbilisi_parking_final_exm.databinding.FragmentWalletBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.user_panel.wallet.WalletEvent
 import com.example.tbilisi_parking_final_exm.presentation.extension.hideKeyboard
+import com.example.tbilisi_parking_final_exm.presentation.extension.restartApp
+import com.example.tbilisi_parking_final_exm.presentation.extension.showAlertForLogout
 import com.example.tbilisi_parking_final_exm.presentation.extension.showToast
 import com.example.tbilisi_parking_final_exm.presentation.model.user_panel.wallet.cards.UserCard
 import com.example.tbilisi_parking_final_exm.presentation.screen.user_panel.wallet.main.adapter.UserCardsListAdapter
@@ -71,6 +73,10 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(FragmentWalletBinding
         progressBar.root.visibility = if (walletState.isLoading) VISIBLE else GONE
 
         btnPayNow.isEnabled = walletState.isButtonEnabled
+
+        if(walletState.sessionCompleted){
+            requireContext().showAlertForLogout { restartApp(requireActivity()) }
+        }
 
         walletState.errorMessage?.let {
             root.showToast(walletState.errorMessage)

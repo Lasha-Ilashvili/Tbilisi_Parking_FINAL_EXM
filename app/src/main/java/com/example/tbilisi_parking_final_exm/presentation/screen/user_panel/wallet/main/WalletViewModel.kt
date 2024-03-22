@@ -61,7 +61,12 @@ class WalletViewModel @Inject constructor(
                     }
 
                     is Resource.Error -> updateErrorMessage(message = it.errorMessage)
-                    else -> {}
+
+                    is Resource.SessionCompleted -> _walletState.update { currentState ->
+                        currentState.copy(
+                            sessionCompleted = it.sessionIsCompleted
+                        )
+                    }
 
                 }
             }
@@ -81,7 +86,12 @@ class WalletViewModel @Inject constructor(
                     }
 
                     is Resource.Error -> updateErrorMessage(message = it.errorMessage)
-                    else -> {}
+
+                    is Resource.SessionCompleted -> _walletState.update { currentState ->
+                        currentState.copy(
+                            sessionCompleted = it.sessionIsCompleted
+                        )
+                    }
 
                 }
             }
@@ -99,7 +109,12 @@ class WalletViewModel @Inject constructor(
                     }
 
                     is Resource.Error -> updateErrorMessage(message = it.errorMessage)
-                    else -> {}
+
+                    is Resource.SessionCompleted -> _walletState.update { currentState ->
+                        currentState.copy(
+                            sessionCompleted = it.sessionIsCompleted
+                        )
+                    }
 
                 }
             }

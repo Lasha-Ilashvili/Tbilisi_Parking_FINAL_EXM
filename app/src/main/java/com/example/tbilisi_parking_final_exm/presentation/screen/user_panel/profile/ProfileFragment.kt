@@ -9,6 +9,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.tbilisi_parking_final_exm.databinding.FragmentProfileBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.user_panel.profile.ProfileEvent
+import com.example.tbilisi_parking_final_exm.presentation.extension.restartApp
+import com.example.tbilisi_parking_final_exm.presentation.extension.showAlertForLogout
 import com.example.tbilisi_parking_final_exm.presentation.extension.showToast
 import com.example.tbilisi_parking_final_exm.presentation.state.user_panel.profile.ProfileState
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,6 +42,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     }
 
     private fun handleState(state: ProfileState) = with(state) {
+
+        if(sessionCompleted){
+            requireContext().showAlertForLogout { restartApp(requireActivity()) }
+        }
+
         errorMessage?.let {
             binding.root.showToast(it)
             viewModel.onEvent(ProfileEvent.ResetErrorMessage)

@@ -47,7 +47,12 @@ class ProfileViewModel @Inject constructor(
                             profile = it.data.toPresenter()
                         )
                     }
-                    else -> {}
+
+                    is Resource.SessionCompleted -> _profileState.update { currentState ->
+                        currentState.copy(
+                            sessionCompleted = it.sessionIsCompleted
+                        )
+                    }
 
                 }
             }

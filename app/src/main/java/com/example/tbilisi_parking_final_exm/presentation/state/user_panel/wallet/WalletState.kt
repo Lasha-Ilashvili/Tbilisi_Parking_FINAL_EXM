@@ -9,5 +9,7 @@ data class WalletState(
     val data: List<UserCard>? = null,
     val balance: Balance? = null,
     val isButtonEnabled: Boolean = false,
-    val errorMessage: String? = null
+    val errorMessage: String? = null,
+    val sessionCompleted: Boolean = false
+
 )
