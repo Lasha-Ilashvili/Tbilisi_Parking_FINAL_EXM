@@ -110,8 +110,13 @@ class ParkingIsStartedViewModel @Inject constructor(
 
                     is Resource.Loading -> {}
 
-                    is Resource.Error -> {}
-                    else -> {}
+                    is Resource.Error -> updateErrorMessage(message = it.errorMessage)
+
+                    is Resource.SessionCompleted -> _parkingIsStartedState.update { currentState ->
+                        currentState.copy(
+                            sessionCompleted = it.sessionIsCompleted
+                        )
+                    }
 
                 }
             }
@@ -131,7 +136,12 @@ class ParkingIsStartedViewModel @Inject constructor(
                     }
 
                     is Resource.Error -> updateErrorMessage(message = it.errorMessage)
-                    else -> {}
+
+                    is Resource.SessionCompleted -> _parkingIsStartedState.update { currentState ->
+                        currentState.copy(
+                            sessionCompleted = it.sessionIsCompleted
+                        )
+                    }
 
                 }
             }

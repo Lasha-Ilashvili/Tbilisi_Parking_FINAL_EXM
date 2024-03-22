@@ -111,6 +111,8 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics-ktx:21.5.1")
     implementation("com.google.firebase:firebase-messaging-ktx:23.4.1")
 
+    implementation("androidx.paging:paging-runtime-ktx:3.2.1")
+
 }
 kapt {
     correctErrorTypes = false

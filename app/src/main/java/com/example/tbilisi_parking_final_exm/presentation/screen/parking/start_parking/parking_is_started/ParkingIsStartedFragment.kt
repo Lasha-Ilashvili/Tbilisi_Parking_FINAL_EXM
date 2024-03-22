@@ -10,6 +10,8 @@ import com.example.tbilisi_parking_final_exm.databinding.FragmentParkingIsStarte
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.parking.start_parking.parking_is_started.ParkingIsStartedEvent
 import com.example.tbilisi_parking_final_exm.presentation.extension.formatDate
+import com.example.tbilisi_parking_final_exm.presentation.extension.restartApp
+import com.example.tbilisi_parking_final_exm.presentation.extension.showAlertForLogout
 import com.example.tbilisi_parking_final_exm.presentation.state.parking.start_parking.ParkingIsStartedState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -60,6 +62,11 @@ class ParkingIsStartedFragment : BaseFragment<FragmentParkingIsStartedBinding>(F
 
 
     private fun handleState(state: ParkingIsStartedState) {
+
+        if(state.sessionCompleted) {
+            requireContext().showAlertForLogout { restartApp(requireActivity()) }
+        }
+
         state.balance?.let {
             binding.tvBalance.text = it.balance.toString()
         }

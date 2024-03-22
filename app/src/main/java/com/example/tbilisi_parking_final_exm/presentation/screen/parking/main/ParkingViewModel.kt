@@ -58,6 +58,7 @@ class ParkingViewModel @Inject constructor(
                     is Resource.Success -> {
                         if (it.data.isNotEmpty()) handleData(it.data)
                     }
+
                     is Resource.SessionCompleted -> _parkingState.update { currentState ->
                         currentState.copy(
                             sessionCompleted = it.sessionIsCompleted
