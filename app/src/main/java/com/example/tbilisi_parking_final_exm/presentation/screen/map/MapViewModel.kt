@@ -50,6 +50,8 @@ class MapViewModel @Inject constructor(
                     }
 
                     is Resource.Error -> updateErrorMessage(message = it.errorMessage)
+                    else -> {}
+
                 }
             }
         }

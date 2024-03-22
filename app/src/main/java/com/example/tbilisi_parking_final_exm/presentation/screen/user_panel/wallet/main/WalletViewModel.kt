@@ -61,6 +61,8 @@ class WalletViewModel @Inject constructor(
                     }
 
                     is Resource.Error -> updateErrorMessage(message = it.errorMessage)
+                    else -> {}
+
                 }
             }
         }
@@ -79,6 +81,8 @@ class WalletViewModel @Inject constructor(
                     }
 
                     is Resource.Error -> updateErrorMessage(message = it.errorMessage)
+                    else -> {}
+
                 }
             }
         }
@@ -95,6 +99,8 @@ class WalletViewModel @Inject constructor(
                     }
 
                     is Resource.Error -> updateErrorMessage(message = it.errorMessage)
+                    else -> {}
+
                 }
             }
         }

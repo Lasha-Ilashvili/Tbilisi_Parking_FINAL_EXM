@@ -56,6 +56,8 @@ class EditVehicleViewModel @Inject constructor(
                             isLoading = it.loading
                         )
                     }
+                    else -> {}
+
                 }
             }
 

@@ -134,6 +134,8 @@ class BalanceViewModel @Inject constructor(
                     }
 
                     is Resource.Success -> _uiEvent.emit(BalanceUiEvent.NavigateToMain)
+                    else -> {}
+
                 }
             }
         }

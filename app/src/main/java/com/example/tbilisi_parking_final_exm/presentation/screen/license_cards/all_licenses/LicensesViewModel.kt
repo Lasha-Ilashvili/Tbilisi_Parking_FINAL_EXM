@@ -47,6 +47,8 @@ class LicensesViewModel @Inject constructor(
                             getLicense.toPresentation()
                         })
                     }
+                    else -> {}
+
                 }
             }
         }

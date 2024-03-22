@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbilisi_parking_final_exm.data.common.Resource
 import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.GetUserIdUseCase
+import com.example.tbilisi_parking_final_exm.domain.usecase.parking.vehicle.add_vehicle.AddVehicleUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.PlateNumberValidatorUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.validator.auth.FieldsAreNotBlankUseCase
-import com.example.tbilisi_parking_final_exm.domain.usecase.parking.vehicle.add_vehicle.AddVehicleUseCase
 import com.example.tbilisi_parking_final_exm.presentation.event.parking.add_vehicle.AddVehicleEvent
 import com.example.tbilisi_parking_final_exm.presentation.mapper.parking.vehicle.toDomain
 import com.example.tbilisi_parking_final_exm.presentation.model.parking.vehicle.add_vehicle.AddVehicle
@@ -44,6 +44,7 @@ class AddVehicleViewModel @Inject constructor(
 
             is AddVehicleEvent.SetButtonState -> setButtonState(fields = fields)
             is AddVehicleEvent.ResetErrorMessage -> updateErrorMessage(message = null)
+
         }
     }
 
@@ -76,6 +77,8 @@ class AddVehicleViewModel @Inject constructor(
                     is Resource.Error -> updateErrorMessage(it.errorMessage)
 
                     is Resource.Success -> _uiEvent.emit(AddVehicleUiEvent.NavigateToParking)
+                    else -> {}
+
                 }
             }
         }

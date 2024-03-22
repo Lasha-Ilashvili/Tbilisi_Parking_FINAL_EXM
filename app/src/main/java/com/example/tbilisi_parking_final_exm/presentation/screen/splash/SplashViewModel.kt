@@ -28,6 +28,7 @@ class SplashViewModel @Inject constructor(
         viewModelScope.launch {
             getSessionUseCase.invoke().collect {
                 if (it.isEmpty()) {
+                    println("test1")
                     _uiEvent.emit(SplashUiEvent.NavigateToHomeFragment)
                 } else {
                     getProfileUseCase.invoke().collect {
@@ -41,6 +42,8 @@ class SplashViewModel @Inject constructor(
                             is Resource.Error -> {
                                 _uiEvent.emit(SplashUiEvent.NavigateToHomeFragment)
                             }
+                            else -> {}
+
                         }
                     }
                 }

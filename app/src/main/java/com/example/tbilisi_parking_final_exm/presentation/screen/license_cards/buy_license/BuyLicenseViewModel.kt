@@ -132,6 +132,8 @@ class BuyLicenseViewModel @Inject constructor(
                         date = date,
                         cvv = cvv
                     )
+                    else -> {}
+
                 }
             }
         }
@@ -163,6 +165,8 @@ class BuyLicenseViewModel @Inject constructor(
                     }
 
                     is Resource.Success -> _uiEvent.emit(BuyLicenseUiEvent.NavigateToLicenses)
+                    else -> {}
+
                 }
             }
         }

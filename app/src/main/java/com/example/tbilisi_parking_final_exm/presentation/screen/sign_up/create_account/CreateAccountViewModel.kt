@@ -144,6 +144,8 @@ class CreateAccountViewModel @Inject constructor(
                     }
 
                     is Resource.Error -> updateErrorMessage(message = it.errorMessage)
+                    else -> {}
+
                 }
             }
         }

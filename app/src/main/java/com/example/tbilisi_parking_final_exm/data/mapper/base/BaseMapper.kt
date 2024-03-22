@@ -12,6 +12,7 @@ suspend fun <Dto : Any, Domain : Any> Flow<Resource<Dto>>.asResource(
             is Resource.Success -> Resource.Success(data = onSuccess.invoke(it.data))
             is Resource.Error -> Resource.Error(errorMessage = it.errorMessage)
             is Resource.Loading -> Resource.Loading(loading = it.loading)
+            is Resource.SessionCompleted -> Resource.SessionCompleted(sessionIsCompleted = it.sessionIsCompleted)
         }
     }
 }

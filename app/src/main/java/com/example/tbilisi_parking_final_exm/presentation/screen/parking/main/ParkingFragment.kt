@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tbilisi_parking_final_exm.databinding.FragmentParkingBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.parking.ParkingEvent
+import com.example.tbilisi_parking_final_exm.presentation.extension.restartApp
+import com.example.tbilisi_parking_final_exm.presentation.extension.showAlertForLogout
 import com.example.tbilisi_parking_final_exm.presentation.extension.showToast
 import com.example.tbilisi_parking_final_exm.presentation.screen.parking.main.adapter.ParkingVehiclesListAdapter
 import com.example.tbilisi_parking_final_exm.presentation.state.parking.ParkingState
@@ -114,10 +116,17 @@ class ParkingFragment : BaseFragment<FragmentParkingBinding>(FragmentParkingBind
             recyclerVehicle.layoutManager = LinearLayoutManager(requireContext())
             recyclerVehicle.adapter = parkingVehiclesListAdapter
         }
+
+
     }
 
 
     private fun handleState(state: ParkingState) = with(state) {
+
+        if(sessionCompleted ) {
+            requireContext().showAlertForLogout { restartApp(requireActivity()) }
+
+        }
 
 
         vehicles?.let {

@@ -35,6 +35,8 @@ class VehicleBottomSheetViewModel @Inject constructor(
                     is Resource.Success -> {
                         _vehicleBottomSheetUiState.emit(VehicleBottomSheetUiEvent.NavigateToParkingFragment)
                     }
+                    else -> {}
+
                 }
             }
         }

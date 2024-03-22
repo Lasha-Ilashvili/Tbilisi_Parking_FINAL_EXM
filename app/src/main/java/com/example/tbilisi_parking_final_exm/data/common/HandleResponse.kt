@@ -16,7 +16,8 @@ class HandleResponse() {
             } else {
                 val errorCode = response.code()
                 if(errorCode == 401){
-                    emit(Resource.Error(errorMessage = "Unauthorized access"))
+                    emit(Resource.SessionCompleted(sessionIsCompleted = true))
+//                    emit(Resource.Error(errorMessage = "Unauthorized access"))
                 } else {
                     emit(Resource.Error(errorMessage = response.errorBody().parseErrorMessage()))
                 }

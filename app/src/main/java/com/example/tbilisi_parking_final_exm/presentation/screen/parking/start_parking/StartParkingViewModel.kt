@@ -71,6 +71,8 @@ class StartParkingViewModel @Inject constructor(
                             )
                         }
                     }
+                    else -> {}
+
                 }
             }
         }
@@ -89,6 +91,8 @@ class StartParkingViewModel @Inject constructor(
                     }
 
                     is Resource.Error -> updateErrorMessage(message = it.errorMessage)
+                    else -> {}
+
                 }
             }
         }

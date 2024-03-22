@@ -111,6 +111,8 @@ class ParkingIsStartedViewModel @Inject constructor(
                     is Resource.Loading -> {}
 
                     is Resource.Error -> {}
+                    else -> {}
+
                 }
             }
         }
@@ -129,6 +131,8 @@ class ParkingIsStartedViewModel @Inject constructor(
                     }
 
                     is Resource.Error -> updateErrorMessage(message = it.errorMessage)
+                    else -> {}
+
                 }
             }
         }

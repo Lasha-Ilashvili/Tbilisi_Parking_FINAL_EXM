@@ -9,5 +9,6 @@ data class ParkingState (
     val errorMessage: String? = null,
     val vehicles: List<Vehicle>? = null,
     val balance: Balance? = null,
-    val activeParking: List<ActiveParking>? = null
+    val activeParking: List<ActiveParking>? = null,
+    val sessionCompleted: Boolean = false
 )
