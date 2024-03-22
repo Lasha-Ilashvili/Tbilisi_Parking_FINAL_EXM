@@ -26,7 +26,7 @@ class LicensesViewModel @Inject constructor(
     fun onEvent(event: LicensesEvent) {
         when (event) {
             is LicensesEvent.GetLicenses -> getCards()
-            LicensesEvent.ResetErrorMessage -> updateErrorMessage()
+            is LicensesEvent.ResetErrorMessage -> updateErrorMessage()
         }
     }
 
@@ -47,7 +47,12 @@ class LicensesViewModel @Inject constructor(
                             getLicense.toPresentation()
                         })
                     }
-                    else -> {}
+
+                    is Resource.SessionCompleted -> _licensesState.update { currentState ->
+                        currentState.copy(
+                            sessionCompleted = it.sessionIsCompleted
+                        )
+                    }
 
                 }
             }

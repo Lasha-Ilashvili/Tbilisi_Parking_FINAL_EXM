@@ -132,7 +132,12 @@ class BuyLicenseViewModel @Inject constructor(
                         date = date,
                         cvv = cvv
                     )
-                    else -> {}
+
+                    is Resource.SessionCompleted -> _buyLicenseState.update {currentState ->
+                        currentState.copy(
+                            sessionCompleted = it.sessionIsCompleted
+                        )
+                    }
 
                 }
             }
@@ -165,7 +170,12 @@ class BuyLicenseViewModel @Inject constructor(
                     }
 
                     is Resource.Success -> _uiEvent.emit(BuyLicenseUiEvent.NavigateToLicenses)
-                    else -> {}
+
+                    is Resource.SessionCompleted -> _buyLicenseState.update {currentState ->
+                        currentState.copy(
+                            sessionCompleted = it.sessionIsCompleted
+                        )
+                    }
 
                 }
             }
