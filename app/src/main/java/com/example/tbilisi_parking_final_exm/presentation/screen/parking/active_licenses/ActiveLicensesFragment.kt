@@ -11,6 +11,8 @@ import androidx.navigation.fragment.navArgs
 import com.example.tbilisi_parking_final_exm.databinding.FragmentActiveLicensesBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.parking.active_licenses.ActiveLicensesEvent
+import com.example.tbilisi_parking_final_exm.presentation.extension.restartApp
+import com.example.tbilisi_parking_final_exm.presentation.extension.showAlertForLogout
 import com.example.tbilisi_parking_final_exm.presentation.extension.showToast
 import com.example.tbilisi_parking_final_exm.presentation.screen.parking.active_licenses.adapter.ActiveLicensesListAdapter
 import com.example.tbilisi_parking_final_exm.presentation.state.parking.active_licenses.ActiveLicensesState
@@ -55,6 +57,10 @@ class ActiveLicensesFragment :
 
     private fun handleState(activeLicensesState: ActiveLicensesState) = with(activeLicensesState) {
         binding.progressBar.root.visibility = if (isLoading) VISIBLE else GONE
+
+        if (sessionCompleted) {
+            requireContext().showAlertForLogout { restartApp(requireActivity()) }
+        }
 
         errorMessage?.let {
             binding.root.showToast(it)

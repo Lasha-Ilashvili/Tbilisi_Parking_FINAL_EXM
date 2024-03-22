@@ -6,5 +6,6 @@ import com.example.tbilisi_parking_final_exm.presentation.model.active_licenses.
 data class ActiveLicensesState(
     val isLoading: Boolean = false,
     val data: List<ActiveLicense>? = null,
-    val errorMessage: String? = null
+    val errorMessage: String? = null,
+    val sessionCompleted: Boolean = false
 )

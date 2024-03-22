@@ -26,7 +26,7 @@ class ActiveLicensesViewModel @Inject constructor(
     fun onEvent(event: ActiveLicensesEvent) = with(event) {
         when (this) {
             is ActiveLicensesEvent.GetActiveLicenses -> getCards(carId = carId)
-            ActiveLicensesEvent.ResetErrorMessage -> updateErrorMessage()
+            is ActiveLicensesEvent.ResetErrorMessage -> updateErrorMessage()
         }
     }
 
@@ -45,7 +45,12 @@ class ActiveLicensesViewModel @Inject constructor(
                             getActiveLicense.toPresentation()
                         })
                     }
-                    else -> {}
+
+                    is Resource.SessionCompleted -> _activeLicensesState.update { currentState ->
+                        currentState.copy(
+                            sessionCompleted = it.sessionIsCompleted
+                        )
+                    }
 
                 }
             }
