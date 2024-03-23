@@ -204,7 +204,7 @@
             app:argType="string" />
         <argument
             android:name="zone"
-            app:argType="string" />
+            app:argType="com.example.tbilisi_parking_final_exm.presentation.state.parking.start_parking.Zone" />
     </fragment>
 
 

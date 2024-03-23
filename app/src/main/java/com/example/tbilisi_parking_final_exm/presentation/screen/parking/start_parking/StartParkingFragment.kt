@@ -15,11 +15,12 @@ import com.example.tbilisi_parking_final_exm.databinding.FragmentStartParkingBin
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.parking.start_parking.StartParkingEvent
 import com.example.tbilisi_parking_final_exm.presentation.extension.hideKeyboard
-import com.example.tbilisi_parking_final_exm.presentation.extension.showSnackBar
-import com.example.tbilisi_parking_final_exm.presentation.extension.showAlertDialog
 import com.example.tbilisi_parking_final_exm.presentation.extension.restartApp
+import com.example.tbilisi_parking_final_exm.presentation.extension.showAlertDialog
 import com.example.tbilisi_parking_final_exm.presentation.extension.showAlertForLogout
+import com.example.tbilisi_parking_final_exm.presentation.extension.showSnackBar
 import com.example.tbilisi_parking_final_exm.presentation.state.parking.start_parking.StartParkingState
+import com.example.tbilisi_parking_final_exm.presentation.state.parking.start_parking.Zone
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -31,13 +32,6 @@ class StartParkingFragment :
     private val viewModel: StartParkingViewModel by viewModels()
     private val args: StartParkingFragmentArgs by navArgs()
     private var zoneValue: Zone = Zone.A
-
-
-    enum class Zone(val cost: Int, val color: Int, val icon: Int, val value: String) {
-        A(1, R.color.dark_blue, R.drawable.ic_letter_a, "A"),
-        B(2, R.color.yellow, R.drawable.ic_letter_b,"B"),
-        C(3, R.color.green, R.drawable.ic_letter_c,"C")
-    }
 
     override fun bind() {
         viewModel.onEvent(StartParkingEvent.GetBalance)
@@ -138,7 +132,7 @@ class StartParkingFragment :
 
         data?.let {
             findNavController().navigate(StartParkingFragmentDirections.actionStartParkingFragmentToParkingIsStartedFragment(
-                stationExternalId = it.stationExternalId, carId = it.carId, startDate = it.startDate, zone = zoneValue.value,
+                stationExternalId = it.stationExternalId, carId = it.carId, startDate = it.startDate, zone = zoneValue,
             ))
         }
     }

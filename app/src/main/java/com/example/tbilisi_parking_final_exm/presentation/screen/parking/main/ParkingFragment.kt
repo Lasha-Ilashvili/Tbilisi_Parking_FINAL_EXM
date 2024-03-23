@@ -10,11 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tbilisi_parking_final_exm.databinding.FragmentParkingBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.parking.ParkingEvent
-import com.example.tbilisi_parking_final_exm.presentation.extension.showSnackBar
 import com.example.tbilisi_parking_final_exm.presentation.extension.restartApp
 import com.example.tbilisi_parking_final_exm.presentation.extension.showAlertForLogout
+import com.example.tbilisi_parking_final_exm.presentation.extension.showSnackBar
 import com.example.tbilisi_parking_final_exm.presentation.screen.parking.main.adapter.ParkingVehiclesListAdapter
 import com.example.tbilisi_parking_final_exm.presentation.state.parking.ParkingState
+import com.example.tbilisi_parking_final_exm.presentation.state.parking.start_parking.Zone
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -84,7 +85,7 @@ class ParkingFragment : BaseFragment<FragmentParkingBinding>(FragmentParkingBind
         stationExternalId: String,
         carId: Int,
         startDate: String,
-        zone: String
+        zone: Zone
     ) {
         findNavController().navigate(
             ParkingFragmentDirections.actionParkingFragmentToParkingIsStartedFragment(
