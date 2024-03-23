@@ -15,4 +15,5 @@
     <color name="license_icon_tint">#2E802C</color>
     <color name="zonal_license">#DA7751</color>
     <color name="parking_license">#CD021850</color>
+    <color name="red">#CD2121</color>
 </resources>

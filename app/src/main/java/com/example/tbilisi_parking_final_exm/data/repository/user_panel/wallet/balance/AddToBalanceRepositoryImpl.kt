@@ -2,6 +2,7 @@ package com.example.tbilisi_parking_final_exm.data.repository.user_panel.wallet.
 
 import com.example.tbilisi_parking_final_exm.data.common.HandleResponse
 import com.example.tbilisi_parking_final_exm.data.common.Resource
+import com.example.tbilisi_parking_final_exm.data.extension.parseErrorMessage
 import com.example.tbilisi_parking_final_exm.data.mapper.user_panel.wallet.balance.toData
 import com.example.tbilisi_parking_final_exm.data.mapper.user_panel.wallet.cards.toData
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.balance.AddToBalanceService
@@ -33,7 +34,12 @@ class AddToBalanceRepositoryImpl @Inject constructor(
         return handleResponse.safeApiCall {
             val rememberCardResponse = saveCardService.saveCard(getCardDetails.toData())
 
-            val cardId = rememberCardResponse.body()?.cardId ?: throw IllegalStateException()
+            if (!rememberCardResponse.isSuccessful) {
+                val errorBody = rememberCardResponse.errorBody().parseErrorMessage()
+                throw Exception(errorBody)
+            }
+
+            val cardId = rememberCardResponse.body()?.cardId!!
 
             val newAddBalanceRequest = getAddBalanceRequest.copy(cardId = cardId)
 

@@ -15,8 +15,8 @@ import com.example.tbilisi_parking_final_exm.databinding.FragmentStartParkingBin
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.parking.start_parking.StartParkingEvent
 import com.example.tbilisi_parking_final_exm.presentation.extension.hideKeyboard
+import com.example.tbilisi_parking_final_exm.presentation.extension.showSnackBar
 import com.example.tbilisi_parking_final_exm.presentation.extension.showAlertDialog
-import com.example.tbilisi_parking_final_exm.presentation.extension.showToast
 import com.example.tbilisi_parking_final_exm.presentation.state.parking.start_parking.StartParkingState
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -109,7 +109,7 @@ class StartParkingFragment :
         binding.btnNext.isEnabled = isButtonEnabled
 
         errorMessage?.let {
-            binding.root.showToast(errorMessage)
+            binding.root.showSnackBar(errorMessage)
             viewModel.onEvent(StartParkingEvent.ResetErrorMessage)
         }
 

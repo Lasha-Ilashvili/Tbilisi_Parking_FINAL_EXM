@@ -8,5 +8,5 @@ import javax.inject.Inject
 class MatchingPasswordValidatorUseCase @Inject constructor() {
 
     operator fun invoke(password: String, matchingPassword: String): Pair<Boolean, Int> =
-        Pair(password == matchingPassword, R.string.matching_password_error)
+        (password == matchingPassword) to R.string.matching_password_error
 }

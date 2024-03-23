@@ -13,7 +13,7 @@ import com.example.tbilisi_parking_final_exm.databinding.FragmentLicensesBinding
 import com.example.tbilisi_parking_final_exm.databinding.LicenseItemBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.license_cards.all_licenses.LicensesEvent
-import com.example.tbilisi_parking_final_exm.presentation.extension.showToast
+import com.example.tbilisi_parking_final_exm.presentation.extension.showSnackBar
 import com.example.tbilisi_parking_final_exm.presentation.model.license_cards.all_licenses.License
 import com.example.tbilisi_parking_final_exm.presentation.state.license_cards.all_licenses.LicensesState
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,10 +43,19 @@ class LicensesFragment : BaseFragment<FragmentLicensesBinding>(FragmentLicensesB
     override fun bindViewActionListeners() {}
 
     private fun handleState(licensesState: LicensesState) = with(binding) {
-        progressBar.root.visibility = if (licensesState.isLoading) VISIBLE else GONE
+
+        if (licensesState.isLoading) {
+            progressBar.root.visibility = VISIBLE
+            btnPaidParkingLicense.root.visibility = GONE
+            btnFreeParkingLicense.root.visibility = GONE
+        } else {
+            progressBar.root.visibility = GONE
+            btnPaidParkingLicense.root.visibility = VISIBLE
+            btnFreeParkingLicense.root.visibility = VISIBLE
+        }
 
         licensesState.errorMessage?.let {
-            root.showToast(it)
+            root.showSnackBar(it)
             viewModel.onEvent(LicensesEvent.ResetErrorMessage)
         }
 

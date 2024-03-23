@@ -17,7 +17,6 @@
     <string name="terms_and_agreements_url">https://static.municipal.gov.ge/terms-and-agreements/en.html</string>
     <string name="map">Map</string>
     <string name="licenses">Licenses</string>
-    <string name="fines">Fines</string>
     <string name="parking">Parking</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="permissions_denied">Permissions denied - unable to use current location</string>
@@ -92,4 +91,13 @@
     <string name="plate_number_">plate number:</string>
     <string name="name">name:</string>
     <string name="_00_00_00_00">00:00:00:00</string>
+    <string name="transactions">Transactions</string>
+    <string name="password_requirement">Must have 7+ characters, 1 uppercase, 1 digit</string>
+    <string name="deposit_from_card">DEPOSIT FROM CARD</string>
+    <string name="end_parking">END PARKING</string>
+    <string name="buy_license_by_card">BUY LICENSE BY CARD</string>
+    <string name="buy_license_from_balance">BUY LICENSE FROM BALANCE</string>
+    <string name="password_weak">weak</string>
+    <string name="password_medium">medium</string>
+    <string name="password_strong">strong</string>
 </resources>

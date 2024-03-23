@@ -28,7 +28,6 @@
     </style>
 
     <style name="customBottomNavPageTitle" parent="customPageTitle">
-        <item name="fontFamily">@font/open_sans_regular</item>
         <item name="android:layout_marginTop">@dimen/margin_small</item>
         <item name="android:layout_marginBottom">@dimen/margin_medium</item>
     </style>

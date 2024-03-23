@@ -9,6 +9,7 @@ data class CreateAccountState(
     val errorTextInputLayout: TextInputLayout? = null,
     val isErrorEnabled: Boolean = false,
     val isButtonEnabled: Boolean = false,
+    val passwordStrength: Pair<Int, Int>? = null,
     val errorMessage: String? = null,
-    val inputErrorMessage:Int = R.string.invalid_input
+    val inputErrorMessage: Int = R.string.invalid_input
 )

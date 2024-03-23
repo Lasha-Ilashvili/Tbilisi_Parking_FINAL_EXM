@@ -104,6 +104,9 @@ dependencies {
     implementation("com.google.android.gms:play-services-maps:18.2.0")
     implementation("com.google.android.gms:play-services-location:21.2.0")
     implementation("com.google.maps.android:android-maps-utils:2.0.1")
+
+    // Paging
+    implementation("androidx.paging:paging-runtime-ktx:3.2.1")
 }
 kapt {
     correctErrorTypes = false

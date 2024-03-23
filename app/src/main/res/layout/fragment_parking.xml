@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:paddingHorizontal="@dimen/padding_large"
+    android:paddingTop="@dimen/padding_large"
     tools:context=".presentation.screen.parking.main.ParkingFragment">
 
     <include
@@ -53,11 +54,12 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvAddVehicle"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium_plus"
         android:background="@drawable/add_vehicle_style"
         android:fontFamily="@font/open_sans_regular"
         android:gravity="center"
+        android:paddingVertical="@dimen/padding_small"
         android:text="@string/add_vehicle"
         android:textColor="@color/green"
         android:textSize="@dimen/text_size_large"
@@ -68,13 +70,12 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerVehicle"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="@dimen/margin_medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvAddVehicle" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

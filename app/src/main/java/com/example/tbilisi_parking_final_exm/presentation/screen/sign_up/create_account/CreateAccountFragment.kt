@@ -3,6 +3,7 @@ package com.example.tbilisi_parking_final_exm.presentation.screen.sign_up.create
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -14,7 +15,7 @@ import com.example.tbilisi_parking_final_exm.databinding.FragmentCreateAccountBi
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.sign_up.create_account.CreateAccountEvent
 import com.example.tbilisi_parking_final_exm.presentation.extension.hideKeyboard
-import com.example.tbilisi_parking_final_exm.presentation.extension.showToast
+import com.example.tbilisi_parking_final_exm.presentation.extension.showSnackBar
 import com.example.tbilisi_parking_final_exm.presentation.state.sign_up.create_account.CreateAccountState
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -71,6 +72,10 @@ class CreateAccountFragment :
         fields.forEach { textInputLayout ->
             textInputLayout.editText?.doAfterTextChanged {
                 viewModel.onEvent(CreateAccountEvent.SetButtonState(fields))
+
+                if (textInputLayout == binding.etPassword) {
+                    viewModel.onEvent(CreateAccountEvent.SetPasswordStrengthState(it.toString()))
+                }
             }
         }
     }
@@ -110,7 +115,7 @@ class CreateAccountFragment :
             }
 
             errorMessage?.let {
-                binding.root.showToast(errorMessage)
+                binding.root.showSnackBar(errorMessage)
                 viewModel.onEvent(CreateAccountEvent.ResetErrorMessage)
             }
 
@@ -119,6 +124,13 @@ class CreateAccountFragment :
             errorTextInputLayout?.let {
                 it.error = getString(inputErrorMessage)
                 it.isErrorEnabled = isErrorEnabled
+            }
+
+            passwordStrength?.let {
+                binding.etPassword.helperText = getString(it.first)
+                binding.etPassword.setHelperTextColor(
+                    ContextCompat.getColorStateList(requireContext(), it.second)
+                )
             }
         }
 

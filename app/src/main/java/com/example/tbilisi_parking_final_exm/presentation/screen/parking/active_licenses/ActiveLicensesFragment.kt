@@ -11,7 +11,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.tbilisi_parking_final_exm.databinding.FragmentActiveLicensesBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.parking.active_licenses.ActiveLicensesEvent
-import com.example.tbilisi_parking_final_exm.presentation.extension.showToast
+import com.example.tbilisi_parking_final_exm.presentation.extension.showSnackBar
 import com.example.tbilisi_parking_final_exm.presentation.screen.parking.active_licenses.adapter.ActiveLicensesListAdapter
 import com.example.tbilisi_parking_final_exm.presentation.state.parking.active_licenses.ActiveLicensesState
 import dagger.hilt.android.AndroidEntryPoint
@@ -57,7 +57,7 @@ class ActiveLicensesFragment :
         binding.progressBar.root.visibility = if (isLoading) VISIBLE else GONE
 
         errorMessage?.let {
-            binding.root.showToast(it)
+            binding.root.showSnackBar(it)
             viewModel.onEvent(ActiveLicensesEvent.ResetErrorMessage)
         }
 

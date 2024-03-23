@@ -12,7 +12,7 @@ import com.example.tbilisi_parking_final_exm.databinding.FragmentLogInBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.log_in.LogInEvent
 import com.example.tbilisi_parking_final_exm.presentation.extension.hideKeyboard
-import com.example.tbilisi_parking_final_exm.presentation.extension.showToast
+import com.example.tbilisi_parking_final_exm.presentation.extension.showSnackBar
 import com.example.tbilisi_parking_final_exm.presentation.state.log_in.LogInState
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -112,7 +112,7 @@ class LogInFragment : BaseFragment<FragmentLogInBinding>(FragmentLogInBinding::i
         }
 
         errorMessage?.let {
-            binding.root.showToast(it)
+            binding.root.showSnackBar(it)
             viewModel.onEvent(LogInEvent.ResetErrorMessage)
         }
 

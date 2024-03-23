@@ -19,6 +19,7 @@ import com.example.tbilisi_parking_final_exm.data.repository.parking.get_vehicle
 import com.example.tbilisi_parking_final_exm.data.repository.parking.start_parking.StartParkingRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.refresh_token.RefreshTokenRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.sign_up.SignUpRepositoryImpl
+import com.example.tbilisi_parking_final_exm.data.repository.transactions.TransactionsRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.user_panel.profile.ProfileRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.user_panel.wallet.balance.AddToBalanceRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.user_panel.wallet.balance.GetBalanceRepositoryImpl
@@ -38,6 +39,7 @@ import com.example.tbilisi_parking_final_exm.data.service.parking.get_vehicle.Ge
 import com.example.tbilisi_parking_final_exm.data.service.parking.start_parking.StartParkingService
 import com.example.tbilisi_parking_final_exm.data.service.refresh_token.RefreshTokenService
 import com.example.tbilisi_parking_final_exm.data.service.sign_up.SignUpService
+import com.example.tbilisi_parking_final_exm.data.service.transactions.TransactionsService
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.profile.ProfileService
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.balance.AddToBalanceService
 import com.example.tbilisi_parking_final_exm.data.service.user_panel.wallet.balance.GetBalanceService
@@ -59,6 +61,7 @@ import com.example.tbilisi_parking_final_exm.domain.repository.parking.get_vehic
 import com.example.tbilisi_parking_final_exm.domain.repository.parking.start_parking.StartParkingRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.refresh_token.RefreshTokenRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.sign_up.SignUpRepository
+import com.example.tbilisi_parking_final_exm.domain.repository.transactions.TransactionsRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.user_panel.profile.ProfileRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.user_panel.wallet.balance.AddToBalanceRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.user_panel.wallet.cards.DeleteCardRepository
@@ -323,6 +326,18 @@ object RepositoryModule {
         return ActiveLicensesRepositoryImpl(
             handleResponse = handleResponse,
             activeLicensesService = activeLicensesService
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideTransactionsRepository(
+        handleResponse: HandleResponse,
+        transactionsService: TransactionsService
+    ): TransactionsRepository {
+        return TransactionsRepositoryImpl(
+            handleResponse = handleResponse,
+            transactionsService = transactionsService
         )
     }
 }

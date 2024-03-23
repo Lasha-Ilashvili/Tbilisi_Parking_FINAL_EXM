@@ -2,6 +2,7 @@ package com.example.tbilisi_parking_final_exm.data.repository.license_cards.buy_
 
 import com.example.tbilisi_parking_final_exm.data.common.HandleResponse
 import com.example.tbilisi_parking_final_exm.data.common.Resource
+import com.example.tbilisi_parking_final_exm.data.extension.parseErrorMessage
 import com.example.tbilisi_parking_final_exm.data.mapper.license_cards.buy_license.toData
 import com.example.tbilisi_parking_final_exm.data.mapper.user_panel.wallet.cards.toData
 import com.example.tbilisi_parking_final_exm.data.service.license_cards.buy_license.BuyLicenseService
@@ -32,6 +33,11 @@ class BuyLicenseRepositoryImpl @Inject constructor(
         return handleResponse.safeApiCall {
             val rememberCardResponse = getCardDetails.toData().let {
                 saveCardService.saveCard(it)
+            }
+
+            if (!rememberCardResponse.isSuccessful) {
+                val errorBody = rememberCardResponse.errorBody().parseErrorMessage()
+                throw Exception(errorBody)
             }
 
             val cardId = rememberCardResponse.body()?.cardId ?: throw IllegalStateException()

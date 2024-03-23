@@ -22,7 +22,7 @@ import com.example.tbilisi_parking_final_exm.databinding.FragmentMapBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.map.MapEvent
 import com.example.tbilisi_parking_final_exm.presentation.extension.jsonToString
-import com.example.tbilisi_parking_final_exm.presentation.extension.showToast
+import com.example.tbilisi_parking_final_exm.presentation.extension.showSnackBar
 import com.example.tbilisi_parking_final_exm.presentation.model.map.MarkerLocation
 import com.example.tbilisi_parking_final_exm.presentation.screen.map.adapter.MarkerLocationsRenderer
 import com.example.tbilisi_parking_final_exm.presentation.state.map.MapState
@@ -135,7 +135,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(FragmentMapBinding::inflate
         binding.loadingProgressBar.visibility = if (isLoading) VISIBLE else GONE
 
         errorMessage?.let {
-            binding.root.showToast(errorMessage)
+            binding.root.showSnackBar(errorMessage)
             viewModel.onEvent(MapEvent.ResetErrorMessage)
         }
 
@@ -181,7 +181,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(FragmentMapBinding::inflate
                 } ?: showEnableLocationDialog()
             }
         } else {
-            binding.root.showToast(getString(R.string.permissions_denied))
+            binding.root.showSnackBar(getString(R.string.permissions_denied))
         }
     }
 
