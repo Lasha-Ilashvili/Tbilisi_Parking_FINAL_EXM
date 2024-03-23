@@ -11,6 +11,8 @@ import com.example.tbilisi_parking_final_exm.databinding.FragmentEditVehicleBind
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.parking.edit_vehicle.EditVehicleEvent
 import com.example.tbilisi_parking_final_exm.presentation.extension.hideKeyboard
+import com.example.tbilisi_parking_final_exm.presentation.extension.restartApp
+import com.example.tbilisi_parking_final_exm.presentation.extension.showAlertForLogout
 import com.example.tbilisi_parking_final_exm.presentation.state.parking.edit_vehicle.EditVehicleState
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -67,6 +69,10 @@ class EditVehicleFragment :
 
     private fun handleState(state: EditVehicleState) = with(state) {
         binding.btnSave.isEnabled = isButtonEnabled
+
+        if (sessionCompleted) {
+            requireContext().showAlertForLogout { restartApp(requireActivity()) }
+        }
     }
 
     private fun editVehicle() {
@@ -87,6 +93,6 @@ class EditVehicleFragment :
     }
 
     private fun handleNavigationEvent(event: EditVehicleViewModel.EditVehicleUiEvent) {
-            findNavController().popBackStack()
+        findNavController().popBackStack()
     }
 }

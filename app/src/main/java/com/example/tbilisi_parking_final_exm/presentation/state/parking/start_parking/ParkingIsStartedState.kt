@@ -6,4 +6,5 @@ data class ParkingIsStartedState(
     val isLoading: Boolean = false,
     val balance: Balance? = null,
     val errorMessage: String? = null,
+    val sessionCompleted: Boolean = false
 )

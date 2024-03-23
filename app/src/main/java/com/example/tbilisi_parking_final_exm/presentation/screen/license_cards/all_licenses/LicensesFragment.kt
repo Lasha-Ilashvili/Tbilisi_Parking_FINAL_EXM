@@ -14,6 +14,8 @@ import com.example.tbilisi_parking_final_exm.databinding.LicenseItemBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.license_cards.all_licenses.LicensesEvent
 import com.example.tbilisi_parking_final_exm.presentation.extension.showSnackBar
+import com.example.tbilisi_parking_final_exm.presentation.extension.restartApp
+import com.example.tbilisi_parking_final_exm.presentation.extension.showAlertForLogout
 import com.example.tbilisi_parking_final_exm.presentation.model.license_cards.all_licenses.License
 import com.example.tbilisi_parking_final_exm.presentation.state.license_cards.all_licenses.LicensesState
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,6 +54,10 @@ class LicensesFragment : BaseFragment<FragmentLicensesBinding>(FragmentLicensesB
             progressBar.root.visibility = GONE
             btnPaidParkingLicense.root.visibility = VISIBLE
             btnFreeParkingLicense.root.visibility = VISIBLE
+        }
+
+        if(licensesState.sessionCompleted) {
+            requireContext().showAlertForLogout { restartApp(requireActivity()) }
         }
 
         licensesState.errorMessage?.let {

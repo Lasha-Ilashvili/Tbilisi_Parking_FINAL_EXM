@@ -6,5 +6,7 @@ data class EditVehicleState (
     val isLoading: Boolean = false,
     val errorTextInputLayout: TextInputLayout? = null,
     val errorMessage: String? = null,
-    val isButtonEnabled: Boolean = false
+    val isButtonEnabled: Boolean = false,
+    val sessionCompleted: Boolean = false
+
 )

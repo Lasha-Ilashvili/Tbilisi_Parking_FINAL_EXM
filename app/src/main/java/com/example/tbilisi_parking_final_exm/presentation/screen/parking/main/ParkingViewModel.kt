@@ -58,6 +58,12 @@ class ParkingViewModel @Inject constructor(
                     is Resource.Success -> {
                         if (it.data.isNotEmpty()) handleData(it.data)
                     }
+
+                    is Resource.SessionCompleted -> _parkingState.update { currentState ->
+                        currentState.copy(
+                            sessionCompleted = it.sessionIsCompleted
+                        )
+                    }
                 }
             }
         }
@@ -88,17 +94,19 @@ class ParkingViewModel @Inject constructor(
                         )
                     }
 
-                    is Resource.Error -> {
-//                        complete session while Unauthorized access occurs (refreshToken expired)
-                        if (it.errorMessage == "Unauthorized access")
-                            updateErrorMessage(it.errorMessage)
-                    }
+                    is Resource.Error -> updateErrorMessage(message = it.errorMessage)
 
                     is Resource.Success -> _parkingState.update { currentState ->
                         currentState.copy(
                             vehicles = it.data.map {
                                 it.toPresenter()
                             }
+                        )
+                    }
+
+                    is Resource.SessionCompleted -> _parkingState.update { currentState ->
+                        currentState.copy(
+                            sessionCompleted = it.sessionIsCompleted
                         )
                     }
                 }
@@ -120,12 +128,20 @@ class ParkingViewModel @Inject constructor(
                     }
 
                     is Resource.Error -> updateErrorMessage(message = it.errorMessage)
+
+                    is Resource.SessionCompleted -> _parkingState.update { currentState ->
+                        currentState.copy(
+                            sessionCompleted = it.sessionIsCompleted
+                        )
+                    }
+
                 }
             }
         }
     }
 
     private fun updateErrorMessage(message: String?) {
+
         _parkingState.update { currentState ->
             currentState.copy(
                 errorMessage = message

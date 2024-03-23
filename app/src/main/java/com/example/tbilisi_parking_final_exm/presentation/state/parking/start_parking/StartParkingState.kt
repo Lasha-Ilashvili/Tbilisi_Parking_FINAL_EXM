@@ -11,5 +11,6 @@ data class StartParkingState(
     val isCostLayoutEnabled: Boolean = false,
     val zone: StartParkingFragment.Zone = StartParkingFragment.Zone.A,
     val errorMessage: String? = null,
-    val data: ParkingIsStarted? =null
+    val data: ParkingIsStarted? =null,
+    val sessionCompleted: Boolean = false
 )

@@ -8,5 +8,7 @@ data class BuyLicenseState(
     val errorTextInputLayout: TextInputLayout? = null,
     val isErrorEnabled: Boolean = false,
     val isButtonEnabled: Boolean = false,
-    val errorMessage: String? = null
+    val errorMessage: String? = null,
+    val sessionCompleted: Boolean = false
+
 )

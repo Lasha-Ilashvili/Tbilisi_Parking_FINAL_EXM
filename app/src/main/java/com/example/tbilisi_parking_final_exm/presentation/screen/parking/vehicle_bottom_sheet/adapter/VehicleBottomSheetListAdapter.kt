@@ -24,7 +24,7 @@ class VehicleBottomSheetListAdapter :
         private lateinit var item: VehicleBottomSheetState
         fun bind() {
             with(binding) {
-                item = currentList[adapterPosition]
+                item = currentList[bindingAdapterPosition]
                 icon.setImageResource(item.icon)
                 tvTitle.text = item.title
                 root.setOnClickListener {

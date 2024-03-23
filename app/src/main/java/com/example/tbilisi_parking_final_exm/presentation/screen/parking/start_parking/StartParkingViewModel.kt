@@ -62,7 +62,7 @@ class StartParkingViewModel @Inject constructor(
                 ).toDomain()
             ).collect {
                 when(it) {
-                    is Resource.Error -> {}
+                    is Resource.Error -> updateErrorMessage(message = it.errorMessage)
                     is Resource.Loading -> {}
                     is Resource.Success -> {
                         _startParkingState.update {currentState ->
@@ -71,6 +71,13 @@ class StartParkingViewModel @Inject constructor(
                             )
                         }
                     }
+
+                    is Resource.SessionCompleted -> _startParkingState.update { currentState ->
+                        currentState.copy(
+                            sessionCompleted = it.sessionIsCompleted
+                        )
+                    }
+
                 }
             }
         }
@@ -89,6 +96,13 @@ class StartParkingViewModel @Inject constructor(
                     }
 
                     is Resource.Error -> updateErrorMessage(message = it.errorMessage)
+
+                    is Resource.SessionCompleted -> _startParkingState.update { currentState ->
+                        currentState.copy(
+                            sessionCompleted = it.sessionIsCompleted
+                        )
+                    }
+
                 }
             }
         }

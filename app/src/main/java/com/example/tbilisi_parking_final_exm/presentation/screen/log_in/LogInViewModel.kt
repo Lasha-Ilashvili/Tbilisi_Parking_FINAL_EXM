@@ -100,6 +100,8 @@ class LogInViewModel @Inject constructor(
                             isLoading = it.loading
                         )
                     }
+                    else -> {}
+
                 }
             }
         }
@@ -120,6 +122,8 @@ class LogInViewModel @Inject constructor(
                         isLoading = it.loading
                     )
                 }
+                else -> {}
+
             }
         }
     }

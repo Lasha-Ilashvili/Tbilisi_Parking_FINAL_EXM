@@ -51,12 +51,6 @@ class UserPanelBottomSheet  :
                     )
                 }
 
-                UserPanelBottomSheetState.SETTINGS.id -> {
-                    findNavController().navigate(
-                        UserPanelBottomSheetDirections.actionUserPanelBottomSheetToSettingsFragment()
-                    )
-                }
-
                 UserPanelBottomSheetState.SIGN_OUT.id -> {
                     setUpDialog()
                 }

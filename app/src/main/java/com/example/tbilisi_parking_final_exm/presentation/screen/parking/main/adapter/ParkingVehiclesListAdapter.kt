@@ -26,7 +26,7 @@ class ParkingVehiclesListAdapter :
         RecyclerView.ViewHolder(binding.root) {
             private lateinit var item: Vehicle
         fun bind() {
-            item = currentList[adapterPosition]
+            item = currentList[bindingAdapterPosition]
             with(binding){
                 tvVehicleName.text = item.name
                 tvVehiclePlateNumber.text = item.plateNumber

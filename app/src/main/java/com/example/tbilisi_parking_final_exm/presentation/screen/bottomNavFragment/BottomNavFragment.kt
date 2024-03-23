@@ -1,49 +1,29 @@
 package com.example.tbilisi_parking_final_exm.presentation.screen.bottomNavFragment
 
 import android.view.View
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.tbilisi_parking_final_exm.R
 import com.example.tbilisi_parking_final_exm.databinding.FragmentBottomNavBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class BottomNavFragment :
     BaseFragment<FragmentBottomNavBinding>(FragmentBottomNavBinding::inflate) {
 
-    private val viewModel: BottomNavViewModel by viewModels()
 
     override fun bind() {
         setBottomNavBar()
+        readPushToken()
     }
 
     override fun bindViewActionListeners() {
     }
 
-    override fun bindObserves() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiEvent.collect {
-                    handleNavigationEvents(event = it)
-                }
-            }
-        }
-    }
-
-    private fun handleNavigationEvents(event: BottomNavViewModel.BottomNavUiEvent) = with(event) {
-        when (event) {
-            is BottomNavViewModel.BottomNavUiEvent.NavigateToHomeFragment -> {
-                findNavController().navigate(BottomNavFragmentDirections.actionBottomNavFragmentToHomeFragment())
-            }
-        }
-    }
+    override fun bindObserves() {}
 
     private fun setBottomNavBar() {
         with(binding.bottomNav) {
@@ -59,7 +39,6 @@ class BottomNavFragment :
                 val destinationsToHideBottomNav =
                     setOf(
                         R.id.profileFragment,
-                        R.id.settingsFragment,
                         R.id.walletFragment,
                         R.id.startParkingFragment,
                         R.id.addVehicleFragment,
@@ -76,6 +55,21 @@ class BottomNavFragment :
                 }
             }
         }
+    }
+
+
+    private fun readPushToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                println(task.exception.toString())
+
+                return@OnCompleteListener
+            }
+
+//            val token = task.result
+//
+//            println(token)
+        })
     }
 }
 

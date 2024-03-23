@@ -56,6 +56,13 @@ class EditVehicleViewModel @Inject constructor(
                             isLoading = it.loading
                         )
                     }
+
+                    is Resource.SessionCompleted -> _editVehicleState.update { currentState ->
+                        currentState.copy(
+                            sessionCompleted = it.sessionIsCompleted
+                        )
+                    }
+
                 }
             }
 

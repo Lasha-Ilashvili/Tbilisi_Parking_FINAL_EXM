@@ -134,6 +134,13 @@ class BalanceViewModel @Inject constructor(
                     }
 
                     is Resource.Success -> _uiEvent.emit(BalanceUiEvent.NavigateToMain)
+
+                    is Resource.SessionCompleted -> _balanceState.update { currentState ->
+                        currentState.copy(
+                            sessionCompleted = it.sessionIsCompleted
+                        )
+                    }
+
                 }
             }
         }

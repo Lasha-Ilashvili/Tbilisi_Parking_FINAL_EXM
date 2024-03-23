@@ -43,7 +43,7 @@ class ActiveLicensesListAdapter :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind() {
-            val activeLicense = currentList[adapterPosition]
+            val activeLicense = currentList[bindingAdapterPosition]
 
             with(binding) {
                 ivLicenseBackground.background.setTint(

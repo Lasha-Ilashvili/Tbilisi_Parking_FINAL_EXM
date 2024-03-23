@@ -24,7 +24,7 @@ class BottomSheetListAdapter :
             private lateinit var item: UserPanelBottomSheetState
         fun bind() {
             with(binding) {
-                item = currentList[adapterPosition]
+                item = currentList[bindingAdapterPosition]
                 icon.setImageResource(item.icon)
                 tvTitle.text = item.title
                 root.setOnClickListener {

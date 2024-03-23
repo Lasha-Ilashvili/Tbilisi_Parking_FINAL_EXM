@@ -7,8 +7,8 @@ import com.example.tbilisi_parking_final_exm.data.service.license_cards.all_lice
 import com.example.tbilisi_parking_final_exm.data.service.license_cards.buy_license.BuyLicenseService
 import com.example.tbilisi_parking_final_exm.data.service.log_in.LogInService
 import com.example.tbilisi_parking_final_exm.data.service.map.LatLngService
-import com.example.tbilisi_parking_final_exm.data.service.parking.active_parking.GetActiveParkingService
 import com.example.tbilisi_parking_final_exm.data.service.parking.active_licenses.ActiveLicensesService
+import com.example.tbilisi_parking_final_exm.data.service.parking.active_parking.GetActiveParkingService
 import com.example.tbilisi_parking_final_exm.data.service.parking.add_vehicle.AddVehicleService
 import com.example.tbilisi_parking_final_exm.data.service.parking.delete_vehicle.DeleteVehicleService
 import com.example.tbilisi_parking_final_exm.data.service.parking.edit_vehicle.EditVehicleService
@@ -96,7 +96,6 @@ object AppModule {
 //            handle accessToken refreshing processes
             val response = chain.proceed(newRequest)
             if (response.code == 401) {
-
                 if (!authToken.isNullOrBlank()) {
                     val refreshToken = runBlocking { getRefreshTokenUseCase().first() }
                     val refreshedToken = runBlocking {

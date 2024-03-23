@@ -44,17 +44,17 @@ class UserCardsListAdapter :
         init {
             with(binding) {
                 root.setOnClickListener {
-                    onClick?.invoke(currentList[adapterPosition])
+                    onClick?.invoke(currentList[bindingAdapterPosition])
                 }
 
                 btnDelete.setOnClickListener {
-                    onDeleteClick?.invoke(currentList[adapterPosition].id)
+                    onDeleteClick?.invoke(currentList[bindingAdapterPosition].id)
                 }
             }
         }
 
         fun bind() {
-            binding.tvCardNumber.text = getMaskedCardNumber(currentList[adapterPosition])
+            binding.tvCardNumber.text = getMaskedCardNumber(currentList[bindingAdapterPosition])
         }
 
         private fun getMaskedCardNumber(card: UserCard): CharSequence = with(card) {

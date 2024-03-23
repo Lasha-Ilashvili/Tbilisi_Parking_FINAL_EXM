@@ -80,13 +80,7 @@
         android:id="@+id/bottomNavFragment"
         android:name="com.example.tbilisi_parking_final_exm.presentation.screen.bottomNavFragment.BottomNavFragment"
         android:label="fragment_bottom_nav"
-        tools:layout="@layout/fragment_bottom_nav" >
-        <action
-            android:id="@+id/action_bottomNavFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="true" />
-    </fragment>
+        tools:layout="@layout/fragment_bottom_nav" />
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.example.tbilisi_parking_final_exm.presentation.screen.splash.SplashFragment"

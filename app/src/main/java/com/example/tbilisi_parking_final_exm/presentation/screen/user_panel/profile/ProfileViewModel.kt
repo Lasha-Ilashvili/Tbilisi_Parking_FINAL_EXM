@@ -3,8 +3,8 @@ package com.example.tbilisi_parking_final_exm.presentation.screen.user_panel.pro
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbilisi_parking_final_exm.data.common.Resource
-import com.example.tbilisi_parking_final_exm.presentation.event.user_panel.profile.ProfileEvent
 import com.example.tbilisi_parking_final_exm.domain.usecase.user_panel.profile.GetProfileUseCase
+import com.example.tbilisi_parking_final_exm.presentation.event.user_panel.profile.ProfileEvent
 import com.example.tbilisi_parking_final_exm.presentation.mapper.user_panel.profile.toPresenter
 import com.example.tbilisi_parking_final_exm.presentation.state.user_panel.profile.ProfileState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -47,6 +47,13 @@ class ProfileViewModel @Inject constructor(
                             profile = it.data.toPresenter()
                         )
                     }
+
+                    is Resource.SessionCompleted -> _profileState.update { currentState ->
+                        currentState.copy(
+                            sessionCompleted = it.sessionIsCompleted
+                        )
+                    }
+
                 }
             }
         }

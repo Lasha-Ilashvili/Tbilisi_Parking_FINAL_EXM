@@ -140,9 +140,6 @@
         <action
             android:id="@+id/action_userPanelBottomSheet_to_walletFragment"
             app:destination="@id/walletFragment" />
-        <action
-            android:id="@+id/action_userPanelBottomSheet_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
     </dialog>
     <fragment
         android:id="@+id/profileFragment"
@@ -157,11 +154,6 @@
             android:id="@+id/action_walletFragment_to_balanceFragment"
             app:destination="@id/balanceFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.user_panel.settings.SettingsFragment"
-        android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/balanceFragment"
         android:name="com.example.tbilisi_parking_final_exm.presentation.screen.user_panel.wallet.balance.BalanceFragment"

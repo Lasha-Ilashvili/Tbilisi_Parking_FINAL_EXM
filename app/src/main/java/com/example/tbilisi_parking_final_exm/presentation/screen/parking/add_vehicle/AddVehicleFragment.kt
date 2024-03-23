@@ -13,6 +13,8 @@ import com.example.tbilisi_parking_final_exm.R
 import com.example.tbilisi_parking_final_exm.databinding.FragmentAddVehicleBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.parking.add_vehicle.AddVehicleEvent
+import com.example.tbilisi_parking_final_exm.presentation.extension.restartApp
+import com.example.tbilisi_parking_final_exm.presentation.extension.showAlertForLogout
 import com.example.tbilisi_parking_final_exm.presentation.extension.showSnackBar
 import com.example.tbilisi_parking_final_exm.presentation.state.parking.add_vehicle.AddVehicleState
 import com.google.android.material.textfield.TextInputLayout
@@ -69,6 +71,10 @@ class AddVehicleFragment :
 
     private fun handleState(state: AddVehicleState) = with(state) {
         binding.btnAddVehicle.isEnabled = isButtonEnabled
+
+        if (sessionCompleted) {
+            requireContext().showAlertForLogout { restartApp(requireActivity()) }
+        }
 
         errorTextInputLayout?.let {
             it.error = getString(R.string.invalid_input)
