@@ -111,6 +111,9 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics-ktx:21.5.1")
     implementation("com.google.firebase:firebase-messaging-ktx:23.4.1")
 
+    // refresh on swipe
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
+
 }
 kapt {
     correctErrorTypes = false

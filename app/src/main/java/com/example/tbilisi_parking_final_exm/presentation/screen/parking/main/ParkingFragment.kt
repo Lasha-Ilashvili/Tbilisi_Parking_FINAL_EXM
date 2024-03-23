@@ -30,11 +30,20 @@ class ParkingFragment : BaseFragment<FragmentParkingBinding>(FragmentParkingBind
         viewModel.onEvent(ParkingEvent.GetUserBalance)
         viewModel.onEvent(ParkingEvent.FetchAllVehicle)
         setUpRecycler()
+
+
     }
 
     override fun bindViewActionListeners() {
-        binding.tvAddVehicle.setOnClickListener {
-            findNavController().navigate(ParkingFragmentDirections.actionParkingFragmentToAddVehicleFragment())
+        with(binding){
+            tvAddVehicle.setOnClickListener {
+                findNavController().navigate(ParkingFragmentDirections.actionParkingFragmentToAddVehicleFragment())
+            }
+
+            swipeRefresh.setOnRefreshListener{
+                viewModel.onEvent(ParkingEvent.FetchAllVehicle)
+                swipeRefresh.isRefreshing = false
+            }
         }
 
         vehicleClickListener()
