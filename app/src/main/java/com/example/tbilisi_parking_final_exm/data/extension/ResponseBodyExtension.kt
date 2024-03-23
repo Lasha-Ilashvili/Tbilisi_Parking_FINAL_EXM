@@ -7,6 +7,7 @@ import org.json.JSONObject
 fun ResponseBody?.parseErrorMessage(): String {
     return this?.string()?.let {
         JSONObject(it).optString("message", it)
+        JSONObject(it).optString("error", it)
     } ?: ""
 }
 
