@@ -101,4 +101,6 @@
     <string name="password_medium">medium</string>
     <string name="password_strong">strong</string>
     <string name="parking_started">Parking Started:</string>
+    <string name="vehicle_name">Vehicle Name</string>
+    <string name="vehicle_plate_number">Vehicle Plate Number</string>
 </resources>

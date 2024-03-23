@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp"
+        android:padding="@dimen/padding_large"
         tools:context=".presentation.screen.license_cards.all_licenses.LicensesFragment">
 
         <include

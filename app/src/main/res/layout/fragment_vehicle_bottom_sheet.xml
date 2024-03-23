@@ -11,19 +11,19 @@
         android:id="@+id/tvVehicleName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_medium"
         android:fontFamily="@font/open_sans_regular"
-        android:text="Vehicle Name" />
+        android:text="@string/vehicle_name" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvVehiclePlateNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_small"
         android:fontFamily="@font/open_sans_regular"
-        android:text="Vehicle Plate Number"
+        android:text="@string/vehicle_plate_number"
         android:textSize="@dimen/text_size_medium"
         android:textStyle="bold" />
 
@@ -31,8 +31,8 @@
         android:id="@+id/vehicleBottomSheetRecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_medium"
         android:orientation="vertical"
         android:overScrollMode="never"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />

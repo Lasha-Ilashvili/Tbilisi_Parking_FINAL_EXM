@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/padding_small"
-        android:paddingBottom="10dp"
+        android:paddingBottom="@dimen/padding_small"
         app:itemActiveIndicatorStyle="?android:attr/selectableItemBackground"
         app:itemIconTint="@drawable/bottom_nav_item_tint_selector"
         app:itemTextColor="@drawable/bottom_nav_item_tint_selector"

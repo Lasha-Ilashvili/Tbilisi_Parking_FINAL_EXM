@@ -30,7 +30,7 @@
         style="@style/checkBoxStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="@dimen/margin_large"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnBack"
         app:useMaterialThemeColors="false" />
@@ -39,7 +39,7 @@
         android:id="@+id/tvTerms"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="@dimen/margin_medium"
         android:fontFamily="@font/open_sans_regular"
         app:layout_constraintBaseline_toBaselineOf="@id/checkBox"
         app:layout_constraintEnd_toEndOf="parent"
