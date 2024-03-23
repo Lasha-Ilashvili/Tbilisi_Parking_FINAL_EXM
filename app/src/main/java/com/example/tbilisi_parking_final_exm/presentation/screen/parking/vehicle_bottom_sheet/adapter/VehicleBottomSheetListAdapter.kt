@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tbilisi_parking_final_exm.databinding.ItemBottomSheetBinding
-import com.example.tbilisi_parking_final_exm.presentation.state.parking.vehicle_bottom_sheet.VehicleBottomSheetState
+import com.example.tbilisi_parking_final_exm.presentation.state.parking.vehicle_bottom_sheet.VehicleBottomSheetItems
 
 class VehicleBottomSheetListAdapter :
-    ListAdapter<VehicleBottomSheetState, VehicleBottomSheetListAdapter.BottomSheetItemViewHolder>(
+    ListAdapter<VehicleBottomSheetItems, VehicleBottomSheetListAdapter.BottomSheetItemViewHolder>(
         BottomSheetItemDiffUtil()
     ) {
 
@@ -21,7 +21,7 @@ class VehicleBottomSheetListAdapter :
 
     inner class BottomSheetItemViewHolder(private val binding: ItemBottomSheetBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        private lateinit var item: VehicleBottomSheetState
+        private lateinit var item: VehicleBottomSheetItems
         fun bind() {
             with(binding) {
                 item = currentList[bindingAdapterPosition]
@@ -46,17 +46,17 @@ class VehicleBottomSheetListAdapter :
         holder.bind()
     }
 
-    class BottomSheetItemDiffUtil : DiffUtil.ItemCallback<VehicleBottomSheetState>() {
+    class BottomSheetItemDiffUtil : DiffUtil.ItemCallback<VehicleBottomSheetItems>() {
         override fun areItemsTheSame(
-            oldItem: VehicleBottomSheetState,
-            newItem: VehicleBottomSheetState
+            oldItem: VehicleBottomSheetItems,
+            newItem: VehicleBottomSheetItems
         ): Boolean {
             return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: VehicleBottomSheetState,
-            newItem: VehicleBottomSheetState
+            oldItem: VehicleBottomSheetItems,
+            newItem: VehicleBottomSheetItems
         ): Boolean {
             return oldItem == newItem
         }

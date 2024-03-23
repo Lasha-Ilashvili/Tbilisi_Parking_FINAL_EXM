@@ -2,7 +2,11 @@ package com.example.tbilisi_parking_final_exm.presentation.state.parking.vehicle
 
 import com.example.tbilisi_parking_final_exm.R
 
-enum class VehicleBottomSheetState(val icon: Int, val title: String, val id: Int) {
+data class VehicleBottomSheetState(
+    val errorMessage: String? = null
+)
+
+enum class VehicleBottomSheetItems(val icon: Int, val title: String, val id: Int) {
 
     EDIT(R.drawable.ic_edit, "Edit", 0),
     ACTIVE_LICENSES(R.drawable.ic_parking_car, "Active Licenses", 1),
