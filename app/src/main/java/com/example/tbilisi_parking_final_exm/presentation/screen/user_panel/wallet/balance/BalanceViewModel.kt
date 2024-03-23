@@ -133,7 +133,7 @@ class BalanceViewModel @Inject constructor(
                         currentState.copy(isLoading = it.loading)
                     }
 
-                    is Resource.Success -> _uiEvent.emit(BalanceUiEvent.NavigateToMain)
+                    is Resource.Success -> _uiEvent.emit(BalanceUiEvent.NavigateToParking)
 
                     is Resource.SessionCompleted -> _balanceState.update { currentState ->
                         currentState.copy(
@@ -178,6 +178,6 @@ class BalanceViewModel @Inject constructor(
     }
 
     sealed interface BalanceUiEvent {
-        data object NavigateToMain : BalanceUiEvent
+        data object NavigateToParking : BalanceUiEvent
     }
 }

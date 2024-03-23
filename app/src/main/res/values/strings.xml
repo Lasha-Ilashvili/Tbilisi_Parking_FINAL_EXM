@@ -103,4 +103,5 @@
     <string name="parking_started">Parking Started:</string>
     <string name="vehicle_name">Vehicle Name</string>
     <string name="vehicle_plate_number">Vehicle Plate Number</string>
+    <string name="choose_license_to_buy">Choose License To Buy</string>
 </resources>
