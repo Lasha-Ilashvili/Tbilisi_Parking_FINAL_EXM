@@ -105,4 +105,9 @@
     <string name="update">Update</string>
     <string name="from_date">From Date</string>
     <string name="to_date">To Date</string>
+    <string name="car_name">car name:</string>
+    <string name="parking_station">parking station:</string>
+    <string name="address">address:</string>
+    <string name="card_number_">card number:</string>
+    <string name="license_type">license type:</string>
 </resources>

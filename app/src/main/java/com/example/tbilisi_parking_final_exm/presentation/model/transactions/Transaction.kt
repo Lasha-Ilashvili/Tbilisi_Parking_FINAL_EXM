@@ -11,13 +11,13 @@ data class Transaction(
         val car: Vehicle?,
         val cardNumber: String?,
         val license: LicenseType?,
+        val parkingStation: ParkingStation?,
         val transactionStatus: String,
         val transactionType: TransactionType,
         val recDate: String,
         val id: Int
     ) {
         data class Vehicle(
-            val id: Int,
             val name: String,
             val plateNumber: String
         )
@@ -26,6 +26,11 @@ data class Transaction(
             ZONAL_LICENSE(R.string.zonal_license),
             PARKING_LICENSE(R.string.parking_license)
         }
+
+        data class ParkingStation(
+            val externalId: String,
+            val address: String
+        )
 
         enum class TransactionType(val typeName: Int) {
             DEPOSIT_FROM_CARD(R.string.deposit_from_card),

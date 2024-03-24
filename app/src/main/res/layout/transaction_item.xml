@@ -8,6 +8,36 @@
     android:background="@drawable/parking_vehicle_style"
     android:padding="@dimen/padding_standard">
 
+    <include
+        android:id="@+id/endParkingLayout"
+        layout="@layout/end_parking_recycler_item"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTransactionType" />
+
+    <include
+        android:id="@+id/depositFromCardLayout"
+        layout="@layout/deposit_from_card_recycler_item"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTransactionType" />
+
+    <include
+        android:id="@+id/buy_license_layout"
+        layout="@layout/buy_license_recycler_item"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTransactionType" />
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvTransactionStatus"
         style="@style/customPageTitle"

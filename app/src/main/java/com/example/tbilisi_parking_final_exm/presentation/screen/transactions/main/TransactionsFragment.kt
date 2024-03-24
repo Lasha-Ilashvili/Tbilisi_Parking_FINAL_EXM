@@ -1,7 +1,5 @@
 package com.example.tbilisi_parking_final_exm.presentation.screen.transactions.main
 
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -12,7 +10,6 @@ import com.example.tbilisi_parking_final_exm.R
 import com.example.tbilisi_parking_final_exm.databinding.FragmentTransactionsBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.transactions.TransactionsEvent
-import com.example.tbilisi_parking_final_exm.presentation.extension.showSnackBar
 import com.example.tbilisi_parking_final_exm.presentation.model.transactions.DateType
 import com.example.tbilisi_parking_final_exm.presentation.screen.transactions.main.adapter.TransactionsListAdapter
 import com.example.tbilisi_parking_final_exm.presentation.state.transactions.TransactionsState
@@ -131,13 +128,6 @@ class TransactionsFragment :
     }
 
     private suspend fun handleState(transactionsState: TransactionsState) = with(binding) {
-        progressBar.root.visibility = if (transactionsState.isLoading) VISIBLE else GONE
-
-        transactionsState.errorMessage?.let {
-            root.showSnackBar(it)
-            viewModel.onEvent(TransactionsEvent.ResetErrorMessage)
-        }
-
         transactionsState.data?.let {
             adapter.submitData(it)
         }

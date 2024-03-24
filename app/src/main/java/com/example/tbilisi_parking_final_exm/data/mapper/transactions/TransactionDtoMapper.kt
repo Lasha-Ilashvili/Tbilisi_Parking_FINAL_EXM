@@ -12,7 +12,7 @@ private fun TransactionDto.TransactionItemDto.toDomain() = GetTransaction.GetTra
     amount = amount,
     car = car.toDomain(),
     cardNumber = card.cardNumber,
-    licensePrice = licenseDescription.price,
+    parkingStation = parkingStation.toDomain(),
     transactionStatus = transactionStatus,
     transactionType = transactionType,
     recDate = recDate,
@@ -20,11 +20,19 @@ private fun TransactionDto.TransactionItemDto.toDomain() = GetTransaction.GetTra
 )
 
 private fun TransactionDto.TransactionItemDto.VehicleDto.toDomain(): GetTransaction.GetTransactionItem.GetVehicle? {
-    return id?.let {
+    return name?.let {
         GetTransaction.GetTransactionItem.GetVehicle(
-            id = it,
-            name = name!!,
+            name = name,
             plateNumber = plateNumber!!
+        )
+    }
+}
+
+private fun TransactionDto.TransactionItemDto.ParkingStationDto.toDomain(): GetTransaction.GetTransactionItem.GetParkingStation? {
+    return externalId?.let {
+        GetTransaction.GetTransactionItem.GetParkingStation(
+            externalId = it,
+            address = address!!
         )
     }
 }

@@ -31,7 +31,6 @@ class TransactionsViewModel @Inject constructor(
     fun onEvent(event: TransactionsEvent) = with(event) {
         when (this) {
             is TransactionsEvent.GetTransactions -> getCards(fromDate = fromDate, toDate = toDate)
-            TransactionsEvent.ResetErrorMessage -> updateErrorMessage()
         }
     }
 
@@ -48,45 +47,6 @@ class TransactionsViewModel @Inject constructor(
                     })
                 }
             }
-        }
-    }
-
-//    private fun getCards(fromDate: String, toDate: String) {
-//        viewModelScope.launch {
-//            transactionsRepository.getTransactions(
-//                userId = 3,
-//                fromDate = fromDate,
-//                toDate = toDate
-//            ).collectLatest {
-//
-//
-//                _transactionsState.update { currentState ->
-//                    currentState.copy(data = it)
-//                }
-////                when (it) {
-////                    is Resource.Loading -> _transactionsState.update { currentState ->
-////                        currentState.copy(isLoading = it.loading)
-////                    }
-////
-////                    is Resource.Error -> {
-////                        println(it.errorMessage)
-////                        updateErrorMessage(message = it.errorMessage)
-////                    }
-////
-////                    is Resource.Success -> _transactionsState.update { currentState ->
-////                        currentState.copy(
-////                            data= it.data
-//////                            data = it.data.toPresentation()
-////                        )
-////                    }
-////                }
-//            }
-//        }
-//    }
-
-    private fun updateErrorMessage(message: String? = null) {
-        _transactionsState.update { currentState ->
-            currentState.copy(errorMessage = message)
         }
     }
 }
