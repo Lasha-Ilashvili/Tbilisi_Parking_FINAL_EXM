@@ -6,10 +6,10 @@
         android:icon="@drawable/ic_parking"
         android:title="@string/parking" />
 
-<!--    <item-->
-<!--        android:id="@+id/mapFragment"-->
-<!--        android:icon="@drawable/ic_map"-->
-<!--        android:title="@string/map" />-->
+    <item
+        android:id="@+id/mapFragment"
+        android:icon="@drawable/ic_map"
+        android:title="@string/map" />
 
     <item
         android:id="@+id/licensesFragment"
@@ -22,8 +22,8 @@
         android:title="@string/transactions" />
 
     <item
-        android:icon="@drawable/ic_hamburger_menu"
         android:id="@+id/userPanelBottomSheet"
+        android:icon="@drawable/ic_hamburger_menu"
         android:title="@string/user_panel" />
 
 </menu>
