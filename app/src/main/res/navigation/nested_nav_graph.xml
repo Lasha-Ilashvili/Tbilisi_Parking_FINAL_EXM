@@ -226,7 +226,32 @@
 
     <fragment
         android:id="@+id/transactionsFragment"
-        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.transactions.TransactionsFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.transactions.main.TransactionsFragment"
         android:label="fragment_transactions"
-        tools:layout="@layout/fragment_transactions" />
+        tools:layout="@layout/fragment_transactions" >
+        <action
+            android:id="@+id/action_transactionsFragment_to_datePickerBottomSheetFragment"
+            app:destination="@id/datePickerBottomSheetFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/datePickerBottomSheetFragment"
+        android:name="com.example.tbilisi_parking_final_exm.presentation.screen.transactions.date_picker_bottom_sheet.DatePickerBottomSheetFragment"
+        android:label="fragment_date_picker_bottom_sheet"
+        tools:layout="@layout/fragment_date_picker_bottom_sheet" >
+        <action
+            android:id="@+id/action_datePickerBottomSheetFragment_to_transactionsFragment"
+            app:destination="@id/transactionsFragment"
+            app:popUpToInclusive="false" />
+        <argument
+            android:name="dateType"
+            app:argType="com.example.tbilisi_parking_final_exm.presentation.model.transactions.DateType" />
+        <argument
+            android:name="currentDate"
+            app:argType="string" />
+        <argument
+            android:name="maxDate"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="null" />
+    </dialog>
 </navigation>

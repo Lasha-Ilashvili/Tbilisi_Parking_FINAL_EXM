@@ -1,163 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/customLayoutPadding"
+    android:id="@+id/walletSwipeRefresh"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingBottom="0dp"
-    tools:context=".presentation.screen.user_panel.wallet.main.WalletFragment">
+    android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/progressBar"
-        layout="@layout/loading_layout" />
-
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/btnBack"
-        style="@style/customButtonArrow"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/customLayoutPadding"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_back_arrow"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:paddingBottom="0dp"
+        tools:context=".presentation.screen.user_panel.wallet.main.WalletFragment">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvPageTitle"
-        style="@style/customPageTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/wallet"
-        app:layout_constraintBottom_toBottomOf="@+id/btnBack"
-        app:layout_constraintStart_toEndOf="@+id/btnBack"
-        app:layout_constraintTop_toTopOf="@+id/btnBack" />
+        <include
+            android:id="@+id/progressBar"
+            layout="@layout/loading_layout" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvBalanceText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_large"
-        android:layout_marginEnd="@dimen/margin_small"
-        android:text="@string/balance"
-        android:fontFamily="@font/open_sans_regular"
-        android:textSize="@dimen/text_size_large"
-        app:layout_constraintEnd_toStartOf="@id/tvBalance"
-        app:layout_constraintTop_toBottomOf="@+id/btnBack" />
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btnBack"
+            style="@style/customButtonArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back_arrow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvBalance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/open_sans_regular"
-        android:textSize="@dimen/text_size_large"
-        app:layout_constraintEnd_toStartOf="@+id/tvCurrency"
-        app:layout_constraintTop_toTopOf="@+id/tvBalanceText"
-        tools:text="125.35" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPageTitle"
+            style="@style/customPageTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wallet"
+            app:layout_constraintBottom_toBottomOf="@+id/btnBack"
+            app:layout_constraintStart_toEndOf="@+id/btnBack"
+            app:layout_constraintTop_toTopOf="@+id/btnBack" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvCurrency"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/open_sans_regular"
-        android:text="@string/gel"
-        android:textSize="@dimen/text_size_large"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvBalanceText" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/etAmount"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_large"
-        android:layout_marginEnd="@dimen/margin_small"
-        app:layout_constraintEnd_toStartOf="@+id/btnPayNow"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvBalance">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etAmountInput"
-            android:layout_width="match_parent"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvBalanceText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginEnd="@dimen/margin_small"
             android:fontFamily="@font/open_sans_regular"
-            android:layout_height="match_parent"
-            android:hint="@string/enter_amount"
-            android:imeOptions="actionDone"
-            android:inputType="numberDecimal" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:text="@string/balance"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintEnd_toStartOf="@id/tvBalance"
+            app:layout_constraintTop_toBottomOf="@+id/btnBack" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnPayNow"
-        style="@style/customButtonMaterial"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_small"
-        android:layout_marginTop="@dimen/margin_small"
-        android:text="@string/pay_now"
-        android:textAllCaps="true"
-        app:layout_constraintBottom_toBottomOf="@+id/etAmount"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/etAmount"
-        app:layout_constraintTop_toTopOf="@+id/etAmount" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans_regular"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintEnd_toStartOf="@+id/tvCurrency"
+            app:layout_constraintTop_toTopOf="@+id/tvBalanceText"
+            tools:text="125.35" />
 
-    <View
-        android:id="@+id/topDivider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="@dimen/margin_large"
-        android:background="@color/gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etAmount" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvCurrency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans_regular"
+            android:text="@string/gel"
+            android:textSize="@dimen/text_size_large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvBalanceText" />
 
-    <View
-        android:id="@+id/bottomDivider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvChooseSavedCard" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etAmount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginEnd="@dimen/margin_small"
+            app:layout_constraintEnd_toStartOf="@+id/btnPayNow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvBalance">
 
-    <View
-        android:id="@+id/leftDivider"
-        android:layout_width="1dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/margin_large"
-        android:background="@color/gray"
-        app:layout_constraintBottom_toBottomOf="@+id/tvChooseSavedCard"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etAmount" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etAmountInput"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/open_sans_regular"
+                android:hint="@string/enter_amount"
+                android:imeOptions="actionDone"
+                android:inputType="numberDecimal" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <View
-        android:id="@+id/rightDivider"
-        android:layout_width="1dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/margin_large"
-        android:background="@color/gray"
-        app:layout_constraintBottom_toBottomOf="@+id/tvChooseSavedCard"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etAmount" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPayNow"
+            style="@style/customButtonMaterial"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_small"
+            android:text="@string/pay_now"
+            android:textAllCaps="true"
+            app:layout_constraintBottom_toBottomOf="@+id/etAmount"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/etAmount"
+            app:layout_constraintTop_toTopOf="@+id/etAmount" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvChooseSavedCard"
-        style="@style/customPageTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/padding_extra_large"
-        android:text="@string/choose_saved_card"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topDivider" />
+        <View
+            android:id="@+id/topDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/margin_large"
+            android:background="@color/gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etAmount" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvUserCards"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_default="wrap"
-        app:layout_constraintStart_toStartOf="parent"
-        android:paddingBottom="@dimen/padding_extra_large"
-        android:clipToPadding="false"
-        app:layout_constraintTop_toBottomOf="@+id/tvChooseSavedCard"
-        tools:listitem="@layout/user_card_item" />
+        <View
+            android:id="@+id/bottomDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvChooseSavedCard" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <View
+            android:id="@+id/leftDivider"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_large"
+            android:background="@color/gray"
+            app:layout_constraintBottom_toBottomOf="@+id/tvChooseSavedCard"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etAmount" />
+
+        <View
+            android:id="@+id/rightDivider"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_large"
+            android:background="@color/gray"
+            app:layout_constraintBottom_toBottomOf="@+id/tvChooseSavedCard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etAmount" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvChooseSavedCard"
+            style="@style/customPageTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_extra_large"
+            android:text="@string/choose_saved_card"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/topDivider" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvUserCards"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/padding_extra_large"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvChooseSavedCard"
+            tools:listitem="@layout/user_card_item" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

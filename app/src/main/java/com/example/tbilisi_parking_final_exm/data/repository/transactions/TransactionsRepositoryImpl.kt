@@ -1,6 +1,5 @@
 package com.example.tbilisi_parking_final_exm.data.repository.transactions
 
-//import com.example.tbilisi_parking_final_exm.domain.repository.transactions.TransactionsRepository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData

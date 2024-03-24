@@ -1,4 +1,4 @@
-package com.example.tbilisi_parking_final_exm.presentation.screen.transactions.adapter
+package com.example.tbilisi_parking_final_exm.presentation.screen.transactions.main.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -15,10 +15,10 @@ import com.example.tbilisi_parking_final_exm.databinding.FragmentStartParkingBin
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.parking.start_parking.StartParkingEvent
 import com.example.tbilisi_parking_final_exm.presentation.extension.hideKeyboard
-import com.example.tbilisi_parking_final_exm.presentation.extension.showSnackBar
-import com.example.tbilisi_parking_final_exm.presentation.extension.showAlertDialog
 import com.example.tbilisi_parking_final_exm.presentation.extension.restartApp
+import com.example.tbilisi_parking_final_exm.presentation.extension.showAlertDialog
 import com.example.tbilisi_parking_final_exm.presentation.extension.showAlertForLogout
+import com.example.tbilisi_parking_final_exm.presentation.extension.showSnackBar
 import com.example.tbilisi_parking_final_exm.presentation.state.parking.start_parking.StartParkingState
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -63,6 +63,8 @@ class StartParkingFragment :
 
             setZoneListeners()
 
+            setRefreshListener()
+
             btnNext.setOnClickListener {
                 it.hideKeyboard()
 
@@ -102,6 +104,14 @@ class StartParkingFragment :
         btnZoneC.setOnClickListener {
             viewModel.onEvent(StartParkingEvent.SetZoneState(Zone.C))
 
+        }
+    }
+
+    private fun setRefreshListener() = with(binding.startParkingSwipeRefresh) {
+        setOnRefreshListener {
+            isRefreshing = false
+
+            viewModel.onEvent(StartParkingEvent.GetBalance)
         }
     }
 

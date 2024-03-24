@@ -12,9 +12,9 @@ import com.example.tbilisi_parking_final_exm.databinding.FragmentWalletBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.user_panel.wallet.WalletEvent
 import com.example.tbilisi_parking_final_exm.presentation.extension.hideKeyboard
-import com.example.tbilisi_parking_final_exm.presentation.extension.showSnackBar
 import com.example.tbilisi_parking_final_exm.presentation.extension.restartApp
 import com.example.tbilisi_parking_final_exm.presentation.extension.showAlertForLogout
+import com.example.tbilisi_parking_final_exm.presentation.extension.showSnackBar
 import com.example.tbilisi_parking_final_exm.presentation.model.user_panel.wallet.cards.UserCard
 import com.example.tbilisi_parking_final_exm.presentation.screen.user_panel.wallet.main.adapter.UserCardsListAdapter
 import com.example.tbilisi_parking_final_exm.presentation.state.user_panel.wallet.WalletState
@@ -40,6 +40,7 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(FragmentWalletBinding
             }
 
             addTextListeners(etAmount)
+            setRefreshListener()
 
             btnPayNow.setOnClickListener {
                 it.hideKeyboard()
@@ -69,12 +70,21 @@ class WalletFragment : BaseFragment<FragmentWalletBinding>(FragmentWalletBinding
         }
     }
 
+    private fun setRefreshListener() = with(binding.walletSwipeRefresh) {
+        setOnRefreshListener {
+            isRefreshing = false
+
+            viewModel.onEvent(WalletEvent.GetBalance)
+            viewModel.onEvent(WalletEvent.GetUserCards)
+        }
+    }
+
     private fun handleState(walletState: WalletState) = with(binding) {
         progressBar.root.visibility = if (walletState.isLoading) VISIBLE else GONE
 
         btnPayNow.isEnabled = walletState.isButtonEnabled
 
-        if(walletState.sessionCompleted){
+        if (walletState.sessionCompleted) {
             requireContext().showAlertForLogout { restartApp(requireActivity()) }
         }
 

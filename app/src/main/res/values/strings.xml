@@ -101,4 +101,8 @@
     <string name="password_medium">medium</string>
     <string name="password_strong">strong</string>
     <string name="parking_started">Parking Started:</string>
+    <string name="done">Done</string>
+    <string name="update">Update</string>
+    <string name="from_date">From Date</string>
+    <string name="to_date">To Date</string>
 </resources>

@@ -11,9 +11,9 @@ import androidx.navigation.fragment.navArgs
 import com.example.tbilisi_parking_final_exm.databinding.FragmentActiveLicensesBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.parking.active_licenses.ActiveLicensesEvent
-import com.example.tbilisi_parking_final_exm.presentation.extension.showSnackBar
 import com.example.tbilisi_parking_final_exm.presentation.extension.restartApp
 import com.example.tbilisi_parking_final_exm.presentation.extension.showAlertForLogout
+import com.example.tbilisi_parking_final_exm.presentation.extension.showSnackBar
 import com.example.tbilisi_parking_final_exm.presentation.screen.parking.active_licenses.adapter.ActiveLicensesListAdapter
 import com.example.tbilisi_parking_final_exm.presentation.state.parking.active_licenses.ActiveLicensesState
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,6 +36,7 @@ class ActiveLicensesFragment :
         binding.btnBack.setOnClickListener {
             findNavController().popBackStack()
         }
+        setRefreshListener()
     }
 
     override fun bindObserves() {
@@ -53,6 +54,14 @@ class ActiveLicensesFragment :
     private fun setLayout() = with(binding) {
         tvName.text = args.name
         tvPlateNumber.text = args.plateNumber
+    }
+
+    private fun setRefreshListener() = with(binding.activeLicensesSwipeRefresh) {
+        setOnRefreshListener {
+            isRefreshing = false
+
+            viewModel.onEvent(ActiveLicensesEvent.GetActiveLicenses(args.carId))
+        }
     }
 
     private fun handleState(activeLicensesState: ActiveLicensesState) = with(activeLicensesState) {

@@ -9,9 +9,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.tbilisi_parking_final_exm.databinding.FragmentProfileBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.user_panel.profile.ProfileEvent
-import com.example.tbilisi_parking_final_exm.presentation.extension.showSnackBar
 import com.example.tbilisi_parking_final_exm.presentation.extension.restartApp
 import com.example.tbilisi_parking_final_exm.presentation.extension.showAlertForLogout
+import com.example.tbilisi_parking_final_exm.presentation.extension.showSnackBar
 import com.example.tbilisi_parking_final_exm.presentation.state.user_panel.profile.ProfileState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -20,14 +20,26 @@ import kotlinx.coroutines.launch
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
 
     private val viewModel: ProfileViewModel by viewModels()
+
     override fun bind() {
         viewModel.onEvent(ProfileEvent.FetchUserProfile)
     }
 
     override fun bindViewActionListeners() {
+        with(binding) {
+            btnBackArrow.setOnClickListener {
+                findNavController().popBackStack()
+            }
 
-        binding.btnBackArrow.setOnClickListener{
-            findNavController().popBackStack()
+            setRefreshListener()
+        }
+    }
+
+    private fun setRefreshListener() = with(binding.profileSwipeRefresh) {
+        setOnRefreshListener {
+            isRefreshing = false
+
+            viewModel.onEvent(ProfileEvent.FetchUserProfile)
         }
     }
 
@@ -43,7 +55,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
     private fun handleState(state: ProfileState) = with(state) {
 
-        if(sessionCompleted){
+        if (sessionCompleted) {
             requireContext().showAlertForLogout { restartApp(requireActivity()) }
         }
 

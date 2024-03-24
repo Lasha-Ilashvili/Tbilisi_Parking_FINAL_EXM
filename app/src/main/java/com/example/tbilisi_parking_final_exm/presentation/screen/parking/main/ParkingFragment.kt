@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tbilisi_parking_final_exm.databinding.FragmentParkingBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.parking.ParkingEvent
-import com.example.tbilisi_parking_final_exm.presentation.extension.showSnackBar
 import com.example.tbilisi_parking_final_exm.presentation.extension.restartApp
 import com.example.tbilisi_parking_final_exm.presentation.extension.showAlertForLogout
+import com.example.tbilisi_parking_final_exm.presentation.extension.showSnackBar
 import com.example.tbilisi_parking_final_exm.presentation.screen.parking.main.adapter.ParkingVehiclesListAdapter
 import com.example.tbilisi_parking_final_exm.presentation.state.parking.ParkingState
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,19 +35,26 @@ class ParkingFragment : BaseFragment<FragmentParkingBinding>(FragmentParkingBind
     }
 
     override fun bindViewActionListeners() {
-        with(binding){
+        with(binding) {
             tvAddVehicle.setOnClickListener {
                 findNavController().navigate(ParkingFragmentDirections.actionParkingFragmentToAddVehicleFragment())
             }
 
-            swipeRefresh.setOnRefreshListener{
-                viewModel.onEvent(ParkingEvent.FetchAllVehicle)
-                swipeRefresh.isRefreshing = false
-            }
+            setRefreshListener()
         }
 
         vehicleClickListener()
         vehicleDotsClickListener()
+    }
+
+    private fun setRefreshListener() = with(binding.vehicleSwipeRefresh) {
+        setOnRefreshListener {
+            isRefreshing = false
+
+            viewModel.onEvent(ParkingEvent.CheckActiveParking)
+            viewModel.onEvent(ParkingEvent.GetUserBalance)
+            viewModel.onEvent(ParkingEvent.FetchAllVehicle)
+        }
     }
 
     override fun bindObserves() {
@@ -132,7 +139,7 @@ class ParkingFragment : BaseFragment<FragmentParkingBinding>(FragmentParkingBind
 
     private fun handleState(state: ParkingState) = with(state) {
 
-        if(sessionCompleted ) {
+        if (sessionCompleted) {
             requireContext().showAlertForLogout { restartApp(requireActivity()) }
 
         }

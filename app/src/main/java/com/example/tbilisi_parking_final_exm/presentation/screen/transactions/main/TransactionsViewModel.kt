@@ -1,8 +1,9 @@
-package com.example.tbilisi_parking_final_exm.presentation.screen.transactions
+package com.example.tbilisi_parking_final_exm.presentation.screen.transactions.main
 
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import androidx.paging.map
 import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.GetUserIdUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.transactions.GetTransactionsUseCase
@@ -12,6 +13,7 @@ import com.example.tbilisi_parking_final_exm.presentation.state.transactions.Tra
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -39,7 +41,7 @@ class TransactionsViewModel @Inject constructor(
                 userId = getUserId(),
                 fromDate = fromDate,
                 toDate = toDate
-            ).collect {
+            ).cachedIn(viewModelScope).collectLatest {
                 _transactionsState.update { currentState ->
                     currentState.copy(data = it.map {
                         it.toPresentation()
