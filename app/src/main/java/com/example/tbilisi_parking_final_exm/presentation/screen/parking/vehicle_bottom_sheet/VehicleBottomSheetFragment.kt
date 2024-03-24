@@ -87,12 +87,6 @@ class VehicleBottomSheetFragment :
         }
     }
 
-//    errorMessage?.let {
-//        binding.root.showSnackBar(errorMessage)
-//        viewModel.onEvent(StartParkingEvent.ResetErrorMessage)
-//    }
-
-
     private fun handleState(state: VehicleBottomSheetState){
 
         state.errorMessage?.let {
