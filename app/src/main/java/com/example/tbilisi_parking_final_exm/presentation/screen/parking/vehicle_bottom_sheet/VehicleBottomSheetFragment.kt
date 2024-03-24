@@ -11,7 +11,9 @@ import com.example.tbilisi_parking_final_exm.databinding.FragmentVehicleBottomSh
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseBottomSheet
 import com.example.tbilisi_parking_final_exm.presentation.event.parking.vehicle_bottom_sheet.VehicleBottomSheetEvent
 import com.example.tbilisi_parking_final_exm.presentation.extension.showAlertDialog
+import com.example.tbilisi_parking_final_exm.presentation.extension.showSnackBar
 import com.example.tbilisi_parking_final_exm.presentation.screen.parking.vehicle_bottom_sheet.adapter.VehicleBottomSheetListAdapter
+import com.example.tbilisi_parking_final_exm.presentation.state.parking.vehicle_bottom_sheet.VehicleBottomSheetItems
 import com.example.tbilisi_parking_final_exm.presentation.state.parking.vehicle_bottom_sheet.VehicleBottomSheetState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -42,11 +44,19 @@ class VehicleBottomSheetFragment :
                 }
             }
         }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.vehicleBottomSheetState.collect{
+                    handleState(it)
+                }
+            }
+        }
     }
 
     private fun setBottomSheetListAdapter() {
         binding.vehicleBottomSheetRecycler.adapter = VehicleBottomSheetListAdapter().apply {
-            submitList(VehicleBottomSheetState.bottomSheetList)
+            submitList(VehicleBottomSheetItems.bottomSheetList)
             recyclerItemClickListener(this)
         }
     }
@@ -54,7 +64,7 @@ class VehicleBottomSheetFragment :
     private fun recyclerItemClickListener(vehicleBottomSheetListAdapter: VehicleBottomSheetListAdapter) = with(args) {
         vehicleBottomSheetListAdapter.setOnItemClickListener {
             when (it) {
-                VehicleBottomSheetState.EDIT.id -> {
+                VehicleBottomSheetItems.EDIT.id -> {
                     findNavController().navigate(
                         VehicleBottomSheetFragmentDirections.actionVehicleBottomSheetFragmentToEditVehicleFragment(
                             vehicleName, vehicleId, vehiclePlateNumber,
@@ -62,11 +72,11 @@ class VehicleBottomSheetFragment :
                     )
                 }
 
-                VehicleBottomSheetState.DELETE.id -> {
+                VehicleBottomSheetItems.DELETE.id -> {
                     setUpDialog()
                 }
 
-                VehicleBottomSheetState.ACTIVE_LICENSES.id -> {
+                VehicleBottomSheetItems.ACTIVE_LICENSES.id -> {
                     findNavController().navigate(
                         VehicleBottomSheetFragmentDirections.actionVehicleBottomSheetFragmentToActiveLicensesFragment(
                             name = vehicleName, carId = vehicleId, plateNumber = vehiclePlateNumber
@@ -77,13 +87,20 @@ class VehicleBottomSheetFragment :
         }
     }
 
+    private fun handleState(state: VehicleBottomSheetState){
+
+        state.errorMessage?.let {
+            binding.root.showSnackBar(it)
+            viewModel.onEvent(VehicleBottomSheetEvent.ResetErrorMessage)
+        }
+    }
+
     private fun  handleUiState(event: VehicleBottomSheetViewModel.VehicleBottomSheetUiEvent) {
         when (event) {
             is VehicleBottomSheetViewModel.VehicleBottomSheetUiEvent.NavigateToParkingFragment -> navigateToParking()
         }
     }
     private fun  navigateToParking() {
-        println("test")
         findNavController().navigate(VehicleBottomSheetFragmentDirections.actionVehicleBottomSheetFragmentToParkingFragment())
     }
 

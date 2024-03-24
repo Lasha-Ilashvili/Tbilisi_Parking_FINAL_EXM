@@ -3,15 +3,17 @@ package com.example.tbilisi_parking_final_exm.presentation.screen.parking.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tbilisi_parking_final_exm.data.common.Resource
-import com.example.tbilisi_parking_final_exm.domain.model.parking.active_parking.GetActiveParking
 import com.example.tbilisi_parking_final_exm.domain.usecase.datastore.GetUserIdUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.parking.active_parking.GetActiveParkingUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.parking.vehicle.get_vehicles.GetAllVehicleUseCase
 import com.example.tbilisi_parking_final_exm.domain.usecase.user_panel.wallet.balance.GetBalanceUseCase
 import com.example.tbilisi_parking_final_exm.presentation.event.parking.ParkingEvent
+import com.example.tbilisi_parking_final_exm.presentation.mapper.parking.active_parking.toPresenter
 import com.example.tbilisi_parking_final_exm.presentation.mapper.parking.vehicle.toPresenter
 import com.example.tbilisi_parking_final_exm.presentation.mapper.user_panel.wallet.cards.toPresentation
+import com.example.tbilisi_parking_final_exm.presentation.model.parking.active_parking.ActiveParking
 import com.example.tbilisi_parking_final_exm.presentation.state.parking.ParkingState
+import com.example.tbilisi_parking_final_exm.presentation.state.parking.start_parking.Zone
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -56,7 +58,9 @@ class ParkingViewModel @Inject constructor(
                     }
 
                     is Resource.Success -> {
-                        if (it.data.isNotEmpty()) handleData(it.data)
+                        if (it.data.isNotEmpty()) handleData(it.data.map {
+                            it.toPresenter()
+                        })
                     }
 
                     is Resource.SessionCompleted -> _parkingState.update { currentState ->
@@ -69,7 +73,7 @@ class ParkingViewModel @Inject constructor(
         }
     }
 
-    private suspend fun handleData(data: List<GetActiveParking>) {
+    private suspend fun handleData(data: List<ActiveParking>) {
         if (data[0].status == "ACTIVE") {
             val activeParking = data[0]
             _parkingUiEvent.emit(
@@ -77,7 +81,7 @@ class ParkingViewModel @Inject constructor(
                     stationExternalId = activeParking.stationExternalId,
                     carId = activeParking.carId,
                     startDate = activeParking.startDate,
-                    zone = activeParking.stationExternalId
+                    zone = activeParking.zone
                 )
             )
         }
@@ -154,7 +158,7 @@ class ParkingViewModel @Inject constructor(
             val stationExternalId: String,
             val carId: Int,
             val startDate: String,
-            val zone: String
+            val zone:Zone
         ) : ParkingUiEvent
     }
 

@@ -16,9 +16,9 @@ import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.user_panel.wallet.balance.BalanceEvent
 import com.example.tbilisi_parking_final_exm.presentation.extension.applyFormatting
 import com.example.tbilisi_parking_final_exm.presentation.extension.hideKeyboard
-import com.example.tbilisi_parking_final_exm.presentation.extension.showSnackBar
 import com.example.tbilisi_parking_final_exm.presentation.extension.restartApp
 import com.example.tbilisi_parking_final_exm.presentation.extension.showAlertForLogout
+import com.example.tbilisi_parking_final_exm.presentation.extension.showSnackBar
 import com.example.tbilisi_parking_final_exm.presentation.state.user_panel.wallet.balance.BalanceState
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -165,6 +165,6 @@ class BalanceFragment : BaseFragment<FragmentBalanceBinding>(FragmentBalanceBind
     }
 
     private fun handleNavigationEvents(event: BalanceViewModel.BalanceUiEvent) {
-        findNavController().popBackStack()
+        findNavController().navigate(BalanceFragmentDirections.actionBalanceFragmentToParkingFragment())
     }
 }

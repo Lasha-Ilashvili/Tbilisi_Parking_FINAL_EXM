@@ -13,6 +13,7 @@ import com.example.tbilisi_parking_final_exm.presentation.extension.formatDate
 import com.example.tbilisi_parking_final_exm.presentation.extension.restartApp
 import com.example.tbilisi_parking_final_exm.presentation.extension.showAlertForLogout
 import com.example.tbilisi_parking_final_exm.presentation.state.parking.start_parking.ParkingIsStartedState
+import com.example.tbilisi_parking_final_exm.presentation.state.parking.start_parking.Zone
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -27,6 +28,7 @@ class ParkingIsStartedFragment : BaseFragment<FragmentParkingIsStartedBinding>(F
         viewModel.onEvent(ParkingIsStartedEvent.GetUserBalance)
 
         binding.tvActiveParkingDate.text = formatDate(args.startDate)
+        setZoneButton(args.zone)
     }
 
     override fun bindViewActionListeners() {
@@ -58,6 +60,17 @@ class ParkingIsStartedFragment : BaseFragment<FragmentParkingIsStartedBinding>(F
                 }
             }
         }
+    }
+
+    private fun setZoneButton(zone: Zone) {
+        println("zone"+ zone.color)
+         binding.btnZone.apply {
+             setTextColor(zone.color)
+             setIconResource(zone.icon)
+             setIconTintResource(zone.color)
+             setStrokeColorResource(zone.color)
+             setTextColor(zone.color)
+         }
     }
 
 

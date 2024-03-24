@@ -182,6 +182,11 @@
             android:defaultValue="null"
             app:argType="string"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_balanceFragment_to_parkingFragment"
+            app:destination="@id/parkingFragment"
+            app:popUpTo="@id/parkingFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/parkingIsStartedFragment"
@@ -204,7 +209,7 @@
             app:argType="string" />
         <argument
             android:name="zone"
-            app:argType="string" />
+            app:argType="com.example.tbilisi_parking_final_exm.presentation.state.parking.start_parking.Zone" />
     </fragment>
 
 

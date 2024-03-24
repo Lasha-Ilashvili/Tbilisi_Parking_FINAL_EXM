@@ -13,6 +13,7 @@ import com.example.tbilisi_parking_final_exm.presentation.mapper.parking.start_p
 import com.example.tbilisi_parking_final_exm.presentation.mapper.user_panel.wallet.cards.toPresentation
 import com.example.tbilisi_parking_final_exm.presentation.model.parking.start_parking.StartParking
 import com.example.tbilisi_parking_final_exm.presentation.state.parking.start_parking.StartParkingState
+import com.example.tbilisi_parking_final_exm.presentation.state.parking.start_parking.Zone
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -108,7 +109,7 @@ class StartParkingViewModel @Inject constructor(
         }
     }
 
-    private fun setZoneState(zone: StartParkingFragment.Zone) {
+    private fun setZoneState(zone: Zone) {
         _startParkingState.update { currentState ->
             currentState.copy(zone = zone)
         }

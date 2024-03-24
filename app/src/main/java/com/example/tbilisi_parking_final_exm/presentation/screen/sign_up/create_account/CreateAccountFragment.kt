@@ -104,6 +104,7 @@ class CreateAccountFragment :
                     etPassword.visibility = GONE
                     etRepeatPassword.visibility = GONE
                     btnNext.visibility = GONE
+                    tvExample.visibility = GONE
 
                 } else {
                     progressBar.root.visibility = GONE
@@ -111,6 +112,7 @@ class CreateAccountFragment :
                     etPassword.visibility = VISIBLE
                     etRepeatPassword.visibility = VISIBLE
                     btnNext.visibility = VISIBLE
+                    tvExample.visibility = VISIBLE
                 }
             }
 

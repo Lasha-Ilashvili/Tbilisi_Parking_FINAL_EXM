@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:padding="@dimen/padding_large"
     tools:context=".presentation.screen.parking.add_vehicle.AddVehicleFragment">
 
     <include
@@ -74,7 +74,7 @@
         android:id="@+id/tvExample"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="@dimen/margin_medium"
         android:fontFamily="@font/open_sans_regular"
         android:text="@string/e_g_aa111aa"
         android:textColor="@color/gray"
@@ -86,7 +86,7 @@
         style="@style/customButtonMaterial"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/margin_medium_plus"
         android:text="@string/add_vehicle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
