@@ -70,11 +70,6 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.51")
     kapt("com.google.dagger:hilt-android-compiler:2.51")
 
-    // Room
-    implementation("androidx.room:room-runtime:2.6.1")
-    ksp("androidx.room:room-compiler:2.6.1")
-    implementation("androidx.room:room-ktx:2.6.1")
-
     // Api
     implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -88,12 +83,6 @@ dependencies {
     implementation(platform("com.squareup.okhttp3:okhttp-bom:4.12.0"))
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
-
-    // Splash
-    implementation("androidx.core:core-splashscreen:1.0.1")
-
-    // Glide
-    implementation("com.github.bumptech.glide:glide:4.16.0")
 
     // lottie animation
     implementation ("com.airbnb.android:lottie:3.4.0")
@@ -116,8 +105,4 @@ dependencies {
 
     // refresh on swipe
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
-
-}
-kapt {
-    correctErrorTypes = false
 }
