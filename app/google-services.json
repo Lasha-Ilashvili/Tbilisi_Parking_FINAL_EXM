@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "571077607247",
-    "project_id": "psyched-edge-416418",
-    "storage_bucket": "psyched-edge-416418.appspot.com"
+    "project_number": "354212290026",
+    "project_id": "parking-a1fe9",
+    "storage_bucket": "parking-a1fe9.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:571077607247:android:d3d4d7cf7c022935080f3a",
+        "mobilesdk_app_id": "1:354212290026:android:5c5f56c36f42560c15a693",
         "android_client_info": {
           "package_name": "com.example.tbilisi_parking_final_exm"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBXOCci_tPyfx9zguZJLFkGWfuuw6veFKI"
+          "current_key": "${FIREBASE_MESSAGING_API_KEY}"
         }
       ],
       "services": {

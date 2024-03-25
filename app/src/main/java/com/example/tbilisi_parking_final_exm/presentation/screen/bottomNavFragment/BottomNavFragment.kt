@@ -66,9 +66,9 @@ class BottomNavFragment :
                 return@OnCompleteListener
             }
 
-//            val token = task.result
-//
-//            println(token)
+            val token = task.result
+
+            println(token)
         })
     }
 }
