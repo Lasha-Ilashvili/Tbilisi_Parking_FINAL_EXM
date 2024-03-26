@@ -3,10 +3,12 @@ package com.example.tbilisi_parking_final_exm.di
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import com.example.tbilisi_parking_final_exm.data.common.HandleResponse
+import com.example.tbilisi_parking_final_exm.data.data_source.map.LatLngDataSource
 import com.example.tbilisi_parking_final_exm.data.repository.datastore.DataStoreRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.license_cards.all_license.LicensesRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.license_cards.buy_license.BuyLicenseRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.log_in.LogInRepositoryImpl
+import com.example.tbilisi_parking_final_exm.data.repository.map.MarkerLocationsRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.parking.active_licenses.ActiveLicensesRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.parking.active_parking.GetActiveParkingRepositoryImpl
 import com.example.tbilisi_parking_final_exm.data.repository.parking.add_vehicle.AddVehicleRepositoryImpl
@@ -26,6 +28,7 @@ import com.example.tbilisi_parking_final_exm.data.repository.user_panel.wallet.c
 import com.example.tbilisi_parking_final_exm.data.service.license_cards.all_licenses.LicensesService
 import com.example.tbilisi_parking_final_exm.data.service.license_cards.buy_license.BuyLicenseService
 import com.example.tbilisi_parking_final_exm.data.service.log_in.LogInService
+import com.example.tbilisi_parking_final_exm.data.service.map.LatLngService
 import com.example.tbilisi_parking_final_exm.data.service.parking.active_licenses.ActiveLicensesService
 import com.example.tbilisi_parking_final_exm.data.service.parking.active_parking.GetActiveParkingService
 import com.example.tbilisi_parking_final_exm.data.service.parking.add_vehicle.AddVehicleService
@@ -47,6 +50,7 @@ import com.example.tbilisi_parking_final_exm.domain.repository.datastore.DataSto
 import com.example.tbilisi_parking_final_exm.domain.repository.license_cards.all_licenses.LicensesRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.license_cards.buy_license.BuyLicenseRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.log_in.LogInRepository
+import com.example.tbilisi_parking_final_exm.domain.repository.map.MarkerLocationsRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.parking.active_licenses.ActiveLicensesRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.parking.active_parking.GetActiveParkingRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.parking.add_vehicle.AddVehicleRepository
@@ -63,6 +67,7 @@ import com.example.tbilisi_parking_final_exm.domain.repository.user_panel.wallet
 import com.example.tbilisi_parking_final_exm.domain.repository.user_panel.wallet.cards.DeleteCardRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.user_panel.wallet.cards.GetBalanceRepository
 import com.example.tbilisi_parking_final_exm.domain.repository.user_panel.wallet.cards.GetUserCardsRepository
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -309,6 +314,30 @@ object RepositoryModule {
         return TransactionsRepositoryImpl(
             handleResponse = handleResponse,
             transactionsService = transactionsService
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideLatLngDataSource(
+        latLngService: LatLngService,
+        handleResponse: HandleResponse
+    ): LatLngDataSource {
+        return LatLngDataSource(
+            latLngService = latLngService,
+            handleResponse = handleResponse
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideMarkerLocationsRepository(
+        moshi: Moshi,
+        latLngDataSource: LatLngDataSource
+    ): MarkerLocationsRepository {
+        return MarkerLocationsRepositoryImpl(
+            moshi = moshi,
+            latLngDataSource = latLngDataSource
         )
     }
 }

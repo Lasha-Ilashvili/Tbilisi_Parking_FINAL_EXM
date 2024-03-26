@@ -6,6 +6,7 @@ import com.example.tbilisi_parking_final_exm.data.common.HandleResponse
 import com.example.tbilisi_parking_final_exm.data.service.license_cards.all_licenses.LicensesService
 import com.example.tbilisi_parking_final_exm.data.service.license_cards.buy_license.BuyLicenseService
 import com.example.tbilisi_parking_final_exm.data.service.log_in.LogInService
+import com.example.tbilisi_parking_final_exm.data.service.map.LatLngService
 import com.example.tbilisi_parking_final_exm.data.service.parking.active_licenses.ActiveLicensesService
 import com.example.tbilisi_parking_final_exm.data.service.parking.active_parking.GetActiveParkingService
 import com.example.tbilisi_parking_final_exm.data.service.parking.add_vehicle.AddVehicleService
@@ -186,6 +187,20 @@ object AppModule {
             .build()
     }
 
+    @Provides
+    @Singleton
+    @Named("RetrofitForMap")
+    fun provideRetrofitClientForMap(
+        okHttpClient: OkHttpClient,
+        moshiConverterFactory: MoshiConverterFactory
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(BuildConfig.BASE_URL_MAP)
+            .client(okHttpClient)
+            .addConverterFactory(moshiConverterFactory)
+            .build()
+    }
+
     @Singleton
     @Provides
     fun provideLogInService(@Named("retrofitWithBasicAuthOkHttpClient") retrofit: Retrofit): LogInService {
@@ -319,5 +334,11 @@ object AppModule {
     @Provides
     fun provideTransactionsService(retrofit: Retrofit): TransactionsService {
         return retrofit.create(TransactionsService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideLatLngService(@Named("RetrofitForMap") retrofit: Retrofit): LatLngService {
+        return retrofit.create(LatLngService::class.java)
     }
 }

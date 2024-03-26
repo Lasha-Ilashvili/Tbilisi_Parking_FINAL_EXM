@@ -11,7 +11,6 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -21,8 +20,11 @@ import com.example.tbilisi_parking_final_exm.R
 import com.example.tbilisi_parking_final_exm.databinding.FragmentMapBinding
 import com.example.tbilisi_parking_final_exm.presentation.base.BaseFragment
 import com.example.tbilisi_parking_final_exm.presentation.event.map.MapEvent
+import com.example.tbilisi_parking_final_exm.presentation.extension.jsonToString
+import com.example.tbilisi_parking_final_exm.presentation.extension.showAlertDialog
 import com.example.tbilisi_parking_final_exm.presentation.extension.showSnackBar
 import com.example.tbilisi_parking_final_exm.presentation.model.map.MarkerLocation
+import com.example.tbilisi_parking_final_exm.presentation.screen.map.adapter.MarkerLocationsRenderer
 import com.example.tbilisi_parking_final_exm.presentation.state.map.MapState
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -59,7 +61,6 @@ class MapFragment : BaseFragment<FragmentMapBinding>(FragmentMapBinding::inflate
         binding.btnCurrentLocation.setOnClickListener {
             viewModel.onEvent(MapEvent.UpdateUserLocation(shouldShowUserLocation = true))
             checkAndRequestPermissions()
-
         }
     }
 
@@ -85,6 +86,8 @@ class MapFragment : BaseFragment<FragmentMapBinding>(FragmentMapBinding::inflate
 
                 setTheme(this)
 
+                viewModel.onEvent(MapEvent.SetMarkers(R.raw.addresses.jsonToString(requireContext())))
+
                 setOnMapClickListener { _ ->
                     userLocationMarker?.remove()
                     viewModel.onEvent(MapEvent.UpdateUserLocation(shouldShowUserLocation = false))
@@ -101,10 +104,37 @@ class MapFragment : BaseFragment<FragmentMapBinding>(FragmentMapBinding::inflate
                     R.raw.map_style_dark
                 )
             )
+
+            binding.btnCurrentLocation.background = ContextCompat.getDrawable(
+                requireContext(), R.drawable.circle_background
+            )?.apply {
+                setTint(ContextCompat.getColor(requireContext(), R.color.black))
+            }
         }
     }
 
+    private fun addClusteredMarkers(markerLocations: List<MarkerLocation>) {
+        map?.let { googleMap ->
 
+            if (clusterManager == null) {
+                initializeClusterManager(googleMap)
+            }
+
+            clusterManager?.apply {
+                addItems(markerLocations)
+                cluster()
+            }
+        }
+    }
+
+    private fun initializeClusterManager(googleMap: GoogleMap) {
+        clusterManager = ClusterManager<MarkerLocation>(requireContext(), googleMap).apply {
+            renderer = MarkerLocationsRenderer(requireContext(), googleMap, this)
+            googleMap.setOnCameraIdleListener {
+                onCameraIdle()
+            }
+        }
+    }
 
     private fun handleState(mapState: MapState) = with(mapState) {
         binding.loadingProgressBar.visibility = if (isLoading) VISIBLE else GONE
@@ -112,6 +142,10 @@ class MapFragment : BaseFragment<FragmentMapBinding>(FragmentMapBinding::inflate
         errorMessage?.let {
             binding.root.showSnackBar(errorMessage)
             viewModel.onEvent(MapEvent.ResetErrorMessage)
+        }
+
+        markerLocation?.let { markerLocations ->
+            addClusteredMarkers(markerLocations)
         }
 
         userLatLng?.let { userLatLng ->
@@ -157,23 +191,16 @@ class MapFragment : BaseFragment<FragmentMapBinding>(FragmentMapBinding::inflate
     }
 
     private fun showEnableLocationDialog() {
-        val dialogBuilder = AlertDialog.Builder(requireContext())
-        setUpDialog(dialogBuilder)
-        dialogBuilder.create().show()
-    }
-
-    private fun setUpDialog(dialogBuilder: AlertDialog.Builder) = with(dialogBuilder) {
-        setTitle(getString(R.string.location_services_disabled))
-        setMessage(getString(R.string.asking_for_location))
-
-        setPositiveButton(getString(R.string.enable)) { _, _ ->
-            val locationSettingsIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-            startActivity(locationSettingsIntent)
-        }
-
-        setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
-            dialog.dismiss()
-        }
+        requireContext().showAlertDialog(
+            title = getString(R.string.location_services_disabled),
+            message = getString(R.string.asking_for_location),
+            positiveButtonText = getString(R.string.enable),
+            negativeButtonText = getString(R.string.cancel),
+            positiveButtonClickAction = {
+                val locationSettingsIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                startActivity(locationSettingsIntent)
+            }
+        )
     }
 
     private fun setUserLocation(location: Location) {

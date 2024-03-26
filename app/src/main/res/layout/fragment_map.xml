@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="@dimen/padding_large"
     tools:context=".presentation.screen.map.MapFragment">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvPageTitle"
-        style="@style/customBottomNavPageTitle"
+        style="@style/customPageTitle"
+        android:paddingHorizontal="@dimen/padding_large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/map"
@@ -47,6 +49,7 @@
         android:layout_marginBottom="100dp"
         android:background="@drawable/circle_background"
         android:elevation="@dimen/margin_large"
+        android:tint="?android:attr/textColorPrimary"
         android:padding="@dimen/padding_standard"
         android:src="@drawable/ic_current_location"
         app:layout_constraintBottom_toBottomOf="parent"
