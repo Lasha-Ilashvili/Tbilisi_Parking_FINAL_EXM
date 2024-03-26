@@ -31,6 +31,22 @@ This is an application that makes it easier to buy parking services
 </div>
 
 <div align="center">
+ <p>Parking markings </p>
+</div>
+
+<div align="center">
+ <p> clusterized (preview 1) -> clusterized (preview 2) -> individual preview </p>
+</div>
+
+<div align="center">
+  <img src="https://github.com/Lasha-Ilashvili/Tbilisi_Parking_FINAL_EXM/blob/master/images/map_1.jpg" width="200" height="400">
+  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+  <img src="https://github.com/Lasha-Ilashvili/Tbilisi_Parking_FINAL_EXM/blob/master/images/map_2.jpg" width="200" height="400">
+ <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+  <img src="https://github.com/Lasha-Ilashvili/Tbilisi_Parking_FINAL_EXM/blob/master/images/map_3.jpg" width="200" height="400">
+</div>
+
+<div align="center">
  <p>Add/Remove/Edit Car -> Choose Lot Number -> Parking Is Activated</p>
 </div>
 
